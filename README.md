@@ -6,7 +6,7 @@
 
 
 
-- [springboot学习笔记]([https://github.com/a-Lostelk/notes/blob/master/SpringBoot进修之路.md](https://github.com/a-Lostelk/notes/blob/master/SpringBoot%E8%BF%9B%E4%BF%AE%E4%B9%8B%E8%B7%AF.md))
+- [springboot学习笔记](https://github.com/a-Lostelk/MyNotes/blob/master/SpringBoot%E8%BF%9B%E4%BF%AE%E4%B9%8B%E8%B7%AF.md)
 
 
 - [linux学习笔记](https://github.com/a-Lostelk/notes/blob/master/Linux%E5%AD%A6%E4%B9%A0.md)
