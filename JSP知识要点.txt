@@ -1,0 +1,154 @@
+						JSP笔记文档
+JSP全称java server pages,服务器端页面的技术
+
+JSP的内置对象
+	pageContext对象代表了该JSP页面的运行环境
+	① 这个对象封装了对其它八大隐式对象的引用
+	② pageContext自身还是一个域对象，可以用来保存数据，
+	  同时可以通过pageContext这个域对象操作另外三个域(Request域，Session域，ServletContext域)
+	③ pageContext封装了WEB开发中经常涉及到的一些常用操作，例如包含和跳转到其他资源，检索其他域对象中保存的值等等
+
+sendRedirect() 和forward()的区别
+	HttpServletResponse.sendRedirect与getRequestDispatcher.forward方法都可以实现获取相应URL资源
+	sendRedirect实现请求重定向，forward实现的是请求转发
+	URL地址
+		forward()是服务器内部重定向实现跳转到另一个web资源,sendRedirect可以啊跳转到任何URL
+		forward重定向后,服务器url地址不会改变,sendRedirect浏览器地址变成目标资源地址
+	服务器响应次数
+		forward重定向的过程，是浏览器先向目的Servlet发送一次Request请求，然后在服务器端由Servlet
+		再将请求发送到目的url，再由服务器端Servlet返回Response到浏览器端。浏览器和服务器一次请求响应
+	无论是forward方法还是sendRedirect方法调用前面都不能有PrintWriter输出到客户端。
+
+getAttribute和getParameter的区别
+	getAttribute()方法
+	是一个函数。它只有一个参数。那个参数就是我们使用getElementById()或者使用getElementByTagName()方法取
+	出来的节点元素的属性名称,取得属性的名称之后，我们就可以用getAttribute()方法将它的属性值拿出来了
+	必须先setAttribute设置属性
+	getParameter()方法
+	getParameter的中文意思就是获取参数，那么这个方法的作用就是用来获取参数的，它得到的是String类型
+	区别
+	getAttribute是返回对象,getParameter返回字符串String
+	request.getAttribute()方法返回request范围内存在的对象，而request.getParameter()方法是获取http提交过来的数据
+	与getAttribute()方法对应的有setAttribute()方法,但是etParameter()相对的setParameter().
+	getRequestDispatcher是服务器内部跳转，地址栏信息不变，只能跳转到web应用内的网页
+
+过滤器篇
+	什么是过滤器,可以截取客户端和服务器的响应信息,对这些信息进行过滤处理
+	是一个可以传送请求和修改响应的对象
+过滤器的原理
+	用户在请求Web资源时，用户的请求会先被过滤器拦截，过滤器对用户的请求进行过滤，过滤之后过滤器再将用户的请求发
+	送到Web资源，Web资源在将响应返回给用户时，响应也会先被过滤器拦截，对响应进行过滤之后由过滤器将响应发送给用户。
+生命周期
+过滤器的生命周期分为四个阶段
+	实例化是指在Web工程的web.xml文件里声明一个过滤器，在声明了过滤器之后，Web容器会创建一个过滤器的实例
+	初始化是指在创建了过滤器实例之后，服务器会执行过滤器中的init()方法，这是过滤器的初始化方法，主要使用的是doFilter方法
+	最后当服务器停止时，会将过滤器销毁，销毁过滤器前主要调用过滤器的destory()方法，释放资源。
+工作流程
+	当用户请求服务器资源的时候,请求会先发送到过滤器中,过滤器执行doFilter()方法进行过滤.然后调用FilterChain.doFilter()
+	将请求传给资源,，资源响应后对响应进行过滤，最后才将过滤后的响应显示给客户端
+过滤器链
+	一个Web项目可能存在多个过滤器，而对于同一个Web资源，也可能有多个过滤器与之相关联
+
+ServletContext对象--三大域对象
+	request、session、application（ServletContext）
+	ServletContext是一个全局的储存信息的空间，服务器开始就存在，服务器关闭才释放,实际上就是监听 Web 应用的生命周期
+	request，一个用户可有多个
+	session，一个用户一个
+	而servletContext，所有用户共用一个。所以，为了节省空间，提高效率，ServletContext中，要放必须的、重要的、所有用户
+	需要共享的线程又是安全的一些信息
+session
+	服务器可以为每个用户浏览器创建一个会话对象（session对象）
+	在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，
+	其它程序可以从用户的session中取出该用户的数据，为用户服务
+cookie和session的区别
+	cookie机制采用的是在客户端保持状态的方案，而session机制采用的是在服务器端保持状态的方案
+	cookie的主要内容:名字，值，过期时间，路径和域
+		路径与域一起构成cookie的作用范围
+		若不设置过期时间，则表示这个cookie的生命期为浏览器会话期间，关闭浏览器窗口，cookie就消失。这种生命期为浏览器
+		会话期的cookie被称为会话cookie
+		若设置了过期时间，浏览器就会把cookie保存到硬盘上
+	session机制
+		session机制是一种服务器端的机制，服务器使用一种类似于散列表的结构（也可能就是使用散列表）来保存信息
+		服务器根据session　id来检索客户端是否为用户创建了session对象，这个id不会重复且无规律	
+
+
+监听器(listener)
+	是一种实现特定接口的Java程序
+	监听器是Servlet规范中定义的一种特殊类，用于监听ServletContext、HttpSession和ServletRequest等域对象的创建和销毁事件，
+	它还可以监听域对象的属性发生修改的事件，可以在事件发生前或者发生后做一些必要的处理
+监听器的一些作用
+	监听域对象自身的创建和销毁,域对象属性的增加和删除,和绑定在HttpSession域中的某个对象的状态
+被监听对象
+	事件处理模型涉及到三个组件,事件源,事件对象,事件监听器
+监听ServletContext、HttpSession和ServletRequest
+	继承ServletContextListener
+	监听域对象自身的创建和销毁的事件监听器。
+	监听域对象中的属性的增加和删除的事件监听器。
+	监听绑定到HttpSession域中的某个对象的状态的事件监听器
+
+
+executeQuery和execute区别
+	前者只执行查询操作,execute方法才可以执行insert，update，delete操作
+CallableStatement对象
+	提供了一种以标准形式调用已存储过程的方法,已存储过程存在数据库中
+	Connection.prepareCall方法
+	CallableStatement对象,该对象讲生成一个给类型和并发性的ResultSet对象集合
+EL表达式
+	简化JSP页面的编写工作量，通用语法格式：＄｛｝
+EL内部隐含对象
+	一共定义了11个内建隐含对象
+	pageContext：页面访问对象，可以获取到request，response，session等属性和方法
+
+JSTL标签库
+	由5个标准标签库组成
+	核心标签库：提供了所有的JSP页面会用到的基本功能的标签集合，例如条件循环处理
+	格式标签：提供了一个处理国际化问题的标签合集，格式化数字日期百分比货币等格式的显示
+	XML标签库，处理和生成XML的标签集合
+	SQL标签库：提供了与数据库和数据表的标签集合
+	和函数标签库：支持用户自定义的函数
+标签
+	<c:out>标签：用来显示一个表达式的结果，与<%= %>作用相似，它们的区别就是<c:out>标签可以直接通过"."操作符来访问属性。
+	<c:set> 标签：保存数据，设置变量值和变量属性
+	<c:remove> 标签：用于移除一个变量，可以指定这个变量的作用域，若未指定，则默认为变量第一次出现的作用域
+	<c:catch> 标签：用来处理产生错误的异常状况，并且将错误信息储存起来
+	<c:if> 标签L:判断表达式的值，如果表达式的值为 true 则执行其主体内容，与我们在一般程序中用的if一样
+	<c:choose>, <c:when>, <c:otherwise> 标签
+		<c:choose>标签与Java switch语句的功能一样，用于在众多选项中做出选择。
+		<c:when>：<c:choose>的子标签，用来判断条件是否成立
+		<c:otherwise>接在<c:when>标签后，当<c:when>标签判断为false时被执行
+	<c:import>：检索一个绝对或相对 URL，然后将其内容暴露给页面
+
+在WEB项目的jsp页面中引入js、css等文件的路径时必然用到
+	<link href="${pageContext.request.contextPath}/css/common.css" rel="stylesheet" type="text/css"/>
+	request.getContextPath()拿到的是你的web项目的根路径
+
+MVC模型基础
+	MVC设计和架构：模型(model),视图(View),控制器(control)
+	控制器servlet仍是占据主体地位,负责接收u来自客户端浏览器的请求,根据分发机制调用相应的Javabean和EJB对象
+struts框架基础
+	采用的是servlet和JSP技术,struts基本上遵循了传统的MVC模型,其控制器和模型的实现方式有所区别
+控制器ActionServlet
+	接受来自客户端浏览器的请求,通过URI来确定需要调用的业务逻辑,并请求转发给别的业务逻辑处理类
+业务逻辑处理Action
+	主要执行的相关事务,需要相关的表单对象
+表单对象ActionForm
+	业务逻辑和页面视图进行交互,必须通过表单对象
+模型对象JavaBean
+	对业务对象进行封装,这些业务对象通常和数据库相连接,struts框架首先将JavaBean对象和表单对象Action对象对应,在业务逻辑中
+	通过JavaBean来实现对数据库等后端数据系统的读写操作
+配置文件 struts-config.xml
+	ActionServlet根据配置文件中的URL来确定创建的业务处理逻辑类
+
+
+servlet相关知识	
+Statement 和 PreparedStatement之间的关系和区别
+	关系：PreparedStatement继承自Statement,都是接口
+	区别：PreparedStatement可以使用占位符，是预编译的，批处理比Statement效率高,放置SQL注入安全性更高
+PreparedStatement：表示预编译的 SQL 语句的对象。
+	SQL 语句被预编译并存储在对象中。然后可以使用此对象多次高效地执行该语句。
+Statement:用于执行静态 SQL 语句并返回它所生成结果的对象。
+	在默认情况下，同一时间每个 Statement 对象只能打开一个 ResultSet 对象。因此，如果读取一个 ResultSet 对象
+	与另一个交叉，则这两个对象必须是由不同的 Statement 对象生成的,执行批次处理的时候,创建过多的statement不合理
+servlet的生命周期
+	客户端第一次请求创建servlet实例，web日期调用servlet的init()方法,对servlet进行初始化,通过doGet()和doPost()方法
+	响应客户端请求,使用destory()方法销毁servlet

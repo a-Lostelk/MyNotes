@@ -1,0 +1,45 @@
+					Angela JS 修炼之路
+核心特征
+MVC
+	模型视图控制器模块化,不同的视图能够被复用,维护方便,
+	model:数据,其实就是angular变量($scope.xx),操作变量
+	view:视图,数据的呈现,html + Directive(指令)
+	controller:操作数据,就是function,就是增删改查
+
+	
+模块化
+	一切都是从模块开始的,有五大模块----路由(config),过滤(filter),指令(diretive),服务(factory),控制器(controller)
+	高内聚低耦合法则  (单独的业务在不同的模块中,模块之间的依赖性不高没有必然的联系,不使用的时候)
+	官方自定义模块: ng , ngRoute(路由) , agAnimate(动画)
+	自定义模块:angular.module("模块名",[])
+
+
+自动化双向数据绑定
+	通过对数据的监视，发现变化便根据已经写好的规则进行修改页面，便实现了数据绑定。可以看出，数据绑定是
+	M(model，数据）通过VM（model-view，数据与页面之间的变换规则）向V（view）的一个修改。
+	jQuery是操作DOM,而aj是操作变量
+	声明式编程是建立在构建用户界面和编写软件,指令式编程是适合表示业务逻辑,双向的数据绑定允许模型和视图之间的
+	自动同步
+	由控制器改变了页面中的变量,与之对应页面中的页面也会发生改变,在页面中进行操作,model模型是的变量也会随之发生
+	改变
+
+依赖注入
+	与Spring的依赖注入一样,对象的创建是由框架完成
+
+var app = angluar.module("myApp",[]); ""方法名,[]是方法
+
+Angular JS 常用指令
+	ng-init 初始化指令 可以为变量绑定参数
+	ng-model绑定变量通过El表达式显示变量 当model发生改变的时候显示的变量也会随之发生改变
+
+	app.controller("myController",function($scope){
+		//控制器的内容
+		$scope.add=function(){
+			return parseInt( $scope.x) + parseInt($scope.y) ;
+		}		
+	});
+	//通过controller方法模块来创建控制器
+	//$scope控制层和视图层之间交互数据的连接,类似于后端编程的public可以对外访问 
+	// xy变量已经绑定在视图层 ,要进行相关的业务逻辑,要先用$scope将变量值从视图层取出来再进行逻辑处理
+
+

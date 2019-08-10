@@ -1,0 +1,95 @@
+					
+					Redis修炼之路
+为什么使用redis
+	在传统的javaweb项目中是采取数据库存储数据的方式,有一些来自性能方面的弊端,数据库持久化的操作主要是面向磁盘,磁盘的读写操作
+	较慢,假如系统在执行成千上万次的读写操作的时候,数据库是消受不起的
+	Redis本质上是一种NOSQL工具,是一种基于内存的数据库,提供一定的持久化功能.支持每秒几十万次的读写操作*
+
+Redis性能优越的原因
+	基于ANSIC C语言编写的,性能接近汇编机器语言,是基于内存的读写,它的数据结构只有六种数据结构,相对传统数据库较为简单
+
+应用场景
+	一个是缓存常用的数据,一个是需要高速读写的场合
+
+缓存
+	1)在数据库的读写操作中,实际上是读操作的次数远超写操作
+	2)使用内存存储数据的开销比较大,内存条的价值远比硬盘高,内部的容量也比较小,因此的数据必须是一些常用的数据,比如:用户登录
+	的信息,客户基础存储信息
+	3)第一次读取判断是否读取成功(读取失败会在数据库中读取并写入缓存中Redis中),第二次读取该数据的时候,就不用了读取数据库的
+	流程了,读取数据库磁盘的速度是很低的,这要速度就会大大加快
+	4)Redis的大部分行为是读操作,使用Redis应对读操作,降低对数据库的依赖,速度就会大大提高
+
+	redis-cli.exe -h 127.0.0.1 -p 6379	这事redis默认的端口和IP号
+
+java程序使用Redis
+	下载相关jar包:jedis.jar
+	Jedis jedis = new Jedis("localhost", 6379); //连接Redis
+        int i = 0;
+        try {
+            long start = System.currentTimeMillis();    //开始毫秒数
+            while (true) {
+                long end = System.currentTimeMillis();
+                if (end - start >= 1000) {      //如果操作大于等于一秒的时候结束操作
+                    break;
+                }
+                i++;
+                jedis.set("test" + i, i + "");
+            }
+        }finally {
+            jedis.close();
+        }
+        System.out.println("每秒的操作----------"+i);
+    }
+
+	基础连接配置,更多的时候我们是使用连接池完成操作
+	Redis只能基于字符串型的操作,在java中的使用是以类对象的为主,使用需要Redis存储的字符串和java对象相互转换
+	Spring对其进行了封装
+
+redis是基于内存的数据库
+	并且提供一定的持久化功能,是一种键值对的数据库,支持6种数据类型
+	字符串(String):字符串,整数和浮点数,对字符串进行操作,如果是整数或是浮点型,可以实现自增或计算
+	列表(list):是一个链表,每一个节点都包括一个字符串,支持从链表的两端都插入数据,读取一个或多个节点,根据条件查找和删除节点
+	集合(set):无序收集器,每一个元素都是一个唯一的不相同的字符串,增读删操作,检测元素是否在集合中,随机读取元素等
+	哈希结构(hash):键值对的无序列表,增删改查操作,获取全部的键值对
+	有序集合(zset):是一个有序的集合,包含很多中基本数据,是按分值的大小来决定的
+	基数(HyperLoglog):计算重复度的值,确定存储的数量,提供基数的计算,不提供返回的功能
+
+	JedisPoolConfig 　　　　　　　　  jedis连接池配置对象
+	JedisConnectionFactory   　　　　  jedis连接工厂，生成连接对象
+	RedisTemplate　　　　　　　　　 RedisTemplate 对 RedisConnection 进行了封装。提供连接管理，序列化等功能，它对 Redis 的交互					
+					进行了更高层次的抽象，极大的方便和简化了 Redis 的操作
+	RedisCacheManager　　　　　　  做为 redis 统一的调度和管理者
+	RedisCacheConfig　　　　　　　  RedisCacheConfig extends org.springframework.cache.annotation.CachingConfigurerSupport，
+				自定义redis的key生成规则，如果不在注解参数中注明key=“”的话，就采用这个类中的key生成规则生成key
+	
+	RedisTemplate Redis 操作
+		stringRedisTemplate.opsForValue().set("test", "100",60*10,TimeUnit.SECONDS);	//向redis里存入数据和设置缓存时间  
+		stringRedisTemplate.boundValueOps("test").increment(-1);	//val做-1操作  
+		stringRedisTemplate.opsForValue().get("test")	//根据key获取缓存中的val  
+		stringRedisTemplate.boundValueOps("test").	increment(1);	//val +1  
+		stringRedisTemplate.getExpire("test")	//根据key获取过期时间  
+		stringRedisTemplate.getExpire("test",TimeUnit.SECONDS)	//根据key获取过期时间并换算成指定单位  
+		stringRedisTemplate.delete("test");	//根据key删除缓存  
+		stringRedisTemplate.hasKey("546545");	//检查key是否存在，返回boolean值  
+		stringRedisTemplate.opsForSet().add("red_123", "1","2","3");	//向指定key中存放set集合  
+		stringRedisTemplate.expire("red_123",1000 , TimeUnit.MILLISECONDS);	//设置过期时间  
+		stringRedisTemplate.opsForSet().isMember("red_123", "1")	//根据key查看集合中是否存在指定数据  
+		stringRedisTemplate.opsForSet().members("red_123");	//根据key获取set集合  
+
+Redis数据结构
+	hash
+	哈希表结构如同java的map,一个对象里面有许多键值对,适合存储java对象,hash是一个字符串类型的filed和value的映射表  
+	 hmset role_1 id 001 roleName role_name note note111
+	       表名   id     字段名1            字段名2
+
+	 链表(linked-list)
+		有序列表,双向链表,可以从从左到右或是从右到左遍历链表中的数据,使用链表也会带俩性能上的缺失,每一个节点代表的是一个字符串
+		在大量的数据中找一个节点的性能消耗是巨大的,链表结构的优势在于插入和删除遍历
+		链表命令"I"代表左操作,"r"代表的是右操作,在使用redis链表的时候,为了防止并发安全和一致性的问题,需要给链表的命令加上
+		锁机制,保证链表的命令安全性
+	集合(set)
+		redis中的集合不是一个线性结构,而是哈希表结构,会在内部根据hash分子来查找和存储数据,
+		对于集合来说,插入的每一个元素都是无序的
+		当插入相同的数据的时候会失败,集合是无序的
+		集合中的每一个元素的都是String类型的数据结构5
+		
