@@ -14,7 +14,7 @@ typora-root-url: Linux
 
 CentOS参照红旗Linux的完全免费版，是国内最流行最广泛的Linux发型
 
-Linux是天生优秀的网络操作系统
+### Linux是天生优秀的网络操作系统
 
 
 
@@ -188,6 +188,18 @@ Linux的文件系统是采用层级的树状目录结构，根目录最上层的
 <https://blog.csdn.net/Heimerdinger_Feng/article/details/71171231>
 
 dbcpip地址会随机改变，cd到/etc/sysconfig/network-scripts，修改默认的etho网卡地址，首先将BOOTPROTO改为static静态方式，分配IPADDR地址（不能和本机冲突，和本机的ip地址前三位一致，保持在同一局域网内，最后一位在1~255之间），添加GATEWAY网关地址（和本机默认网关地址一直），ONBOOT="yes"使服务开机启动
+
+
+
+### 使用Xftp5上传和下载
+
+##### 进行远程连接
+
+![](/QQ截图20190811214752.png)
+
+##### 解决乱码问题
+
+![](/QQ截图20190811215222.png)
 
 
 
@@ -407,11 +419,19 @@ cat github.java  | grep -ni github查找关键字为github的并显示他们的�
 
 #### rwx权限
 
-作用到文件：r 表示可读（read），可以读取，查看	w可写（write）：可以修改，但是不代表可以删除文件，删除文件的前提是必须对该文件有写的权限，才能删除文件	x代表可执行（excute）：可以被执行
+作用到文件：r 表示可读（**read**），可以读取，查看	w可写（**write**）：可以修改，但是不代表可以删除文件，删除文件的前提是必须对该文件有写的权限，才能删除文件	x代表可执行（**excute**）：可以被执行
 
 作用到目录：r 表示可读（read）可以ls查看内容	w可写（write）创建删除和重命名文件	x代表可执行（excute）可以进入该目录
 
-rwx也可以用数字来表示：4 r	2 w	1x
+rwx也可以用数字来表示：即 r=4，w=2，x=1 	规定 数字 4 、2 和 1表示读、写、执行权限
+
+如：
+
+rwx = 4 + 2 + 1 = 7
+
+rw = 4 + 2 = 6
+
+rx = 4 +1 = 5
 
 每个文件夹下都有两个隐藏目录  . 和 .. ，.代表的是当前目录，..代表是上一级目录（ls -la 查看包括隐藏文件）
 
@@ -571,7 +591,9 @@ Linux采用一种叫”载入的技术“，
 
 ***vi /etc/sysconfig/network-scripts/ifcfg-eth0***编辑网卡配置文件
 
-> **桥接模式**，就是将主机网卡与虚拟机虚拟的网卡利用虚拟网桥进行通信。在桥接的作用下，类似于把物理主机虚拟为一个交换机，所有桥接设置的虚拟机连接到这个交换机的一个接口上，物理主机也同样插在这个交换机当中，所以所有桥接下的网卡与网卡都是交换模式的，相互可以访问而不干扰
+> **桥接模式**，
+>
+> 就是将主机网卡与虚拟机虚拟的网卡利用虚拟网桥进行通信。在桥接的作用下，类似于把物理主机虚拟为一个交换机，所有桥接设置的虚拟机连接到这个交换机的一个接口上，物理主机也同样插在这个交换机当中，所以所有桥接下的网卡与网卡都是交换模式的，相互可以访问而不干扰
 >
 > 在桥接模式下，虚拟机ip地址需要与主机在同一个网段，如果需要联网，则网关与DNS需要与主机网卡一致
 
@@ -602,12 +624,732 @@ Linux采用一种叫”载入的技术“，
 
 ##### 执行
 
-ps指令，查看系统中执行的进程	-a显示当前终端所有的远处信息	-u用户的格式显示进程信息	显示后台进程运行的参数
+ps指令，查看系统中执行的进程	
+
+-a显示当前终端所有的远程信息	
+
+-u用户的格式显示进程信息	
+
+-x显示后台进程运行的参数
 
 PID进程识别号	TTY终端机号，	TIME进程所消耗的CPU时间	CMD正在执行的命令或进程名   
 
-<<<<<<< HEAD
 ![](/搜狗截图20190801114935.png)
 =======
- 
->>>>>>> add more note to github
+
+
+
+ps -aux查看后台进程和详细情况
+
+![](/QQ拼音截图20190810220047.png)
+
+ps -aux | grep xxx	指定进程名的详细信息
+
+##### ps详解
+
+1)指令:ps- aux I grep xxx
+System V展示风格
+USER:用户名称
+PID:进程号
+%CPuU:进程占用pPU的百分比
+%MEM:进程占用物理内存的百分比
+VSZ:进程占用的虚拟内存大小(单位:kB)
+8s:进程占用的物理内存大小(单位:KB)
+TTY:终端名称缩写
+STAT:进程状态,其中5睡眠,y表示该进程是会话的先导进程,N表示进程拥有比通优先更低的优先级,R正在运行,D短期等待,2僵死进程,千被跟踪或者被停止等等
+STARTED:进程的启动时间
+TIME： CPU时间,即进程使用Cpu的总时间
+COMMAND：启动进程所用的命令和数,如果过长会被截断显示
+
+***ps -ef | more***查看父进程
+
+
+
+### 终止进程kill和killall
+
+##### kill 
+
+kill [选项号]进程号 		-9强制杀死一个进程，kill不带参数的时候某些时候无法杀死一些进程，例子：可以踢出一个正在登录的用户
+
+##### killall	
+
+killall	进程名，终止多个进程，通过进程名杀死与之相关的所有子进程，当一个夫进程启动了很多子进程的时候，使用该killall终止多个
+
+/bin/bash 表示是一个终端
+
+![](/QQ拼音截图20190811000201.png)
+
+
+
+pstree -p查看进程树 	-u显示进程的所属用户
+
+
+
+### 服务管理（service）
+
+本质是进程，但是是运行在后台的，如MySQL、SSHD防火墙等，通常会监听某个端口 等待其他程序的请求，我们称之为守护进程，在Linux中非常重要
+
+##### **service管理指令**
+
+service服务名 start|stop|restart|reload|status	(在7.0后的版本使用systemctl 代替service指令)
+
+##### **查看当前防火墙重启关闭等操作**
+
+***service iptables status***查看防火墙状态，根据start stop等操作可以对防火墙进行修改
+
+在主机中可以使用telnet检查Linux中的某个端口是否在监听，并且可以访问	***telnet 192.168.1.111 22*** 查看虚拟机的端口是否启动中
+
+##### **查看服务名**
+
+***ll /etc/init.d/***查看服务名
+
+Linux7中运行级别：**常用的级别是3和5**
+
+***0***：系统停机状态，默认运行级别不能设置为0，否则不能正常开机
+
+***1***：单用户工作状态，root权限登录操作，多用于系统维护，此时无法远程登录
+
+***2***：多用户状态不支持网络
+
+***3***：完全的多用户状态，登录进入控制台命令模式，
+
+***4***：系统未使用，保留
+
+***5***：图形GUI模式
+
+***6***：系统正常关闭并重启，不能设置为默认级别，否则不能政策启动
+
+***vi /etc/inittab***
+
+![](/QQ拼音截图20190811094605.png)
+
+##### ***Linux的开机流程***
+
+![](/QQ拼音截图20190811094349.png)
+
+***chkconfig***可以给每个服务的各个运行级别设置自启动/关闭
+
+显示当前系统的所有服务的各个运行级别的运行状态
+
+![](/QQ拼音截图20190811095828.png)
+
+***chkconfig --list | grep sshd***	***chkconfig  sshd --list***通过过滤查找指定的服务状态
+
+**chkconfig --level 5 sshd off***设置服务指定级别的自启动
+
+
+
+### 进程监控
+
+动态监控进程
+
+top和ps命令很相似，他们都用来显示正在执行的进程，top的不同之处在于可以更新正在显示的进程（类似windows中的任务管理器）
+
+-d 秒数	指定每隔几秒更新，默认是三秒
+
+-i 		不显示任何闲置或是僵死进程
+
+-p		指定进程ID来监控某个进程的状态
+
+##### **交互操作**
+
+P以CPU的使用率排序，默认排序 ；M内存的使用率排序；N按照PID排序； q退出，k tokill杀死某个进程
+
+![](/QQ拼音截图20190811105215.png)
+
+##### **查看系统网络状况**
+
+-an	按一定的顺序排列输出
+
+-p	显示哪个进程在调用
+
+netstat -anp | more 查看所有的网络服务
+
+
+
+### rpm包和yum包
+
+##### RPM
+
+***RPM***是一种互联网下载并打包的安装工具，包含在某些Linux的发行版中，拓展名是.RPM，全称（***RedHat Package Manager***）RedHat软件包管理工具，类似windows中的exe文件，是公认的行业标准，最早是应用于Redhat系统
+
+###### **简单查询指令**:
+
+***rpm -qa|grep xxx***	查询已安装的列表（q查询，a所有）
+
+![](/QQ拼音截图20190811141853.png)
+
+##### 其他指令
+
+![](/QQ拼音截图20190811142103.png)
+
+***rpm -qi firefox***软件包信息
+
+***rpm -ql firefox***安装位置
+
+***rpm -qf /etc/passwd***文件所属软件包
+
+##### rpm卸载
+
+***rpm -e xxx***删除软件包 
+
+***rpm -e --nodeps xxx***强制删除（当有软件文件依赖于这个软件包的时候上述指令无法删除，但是不推荐这么做，因为依赖于该软件的程序可能无法运行）
+
+##### rpm安装
+
+参数说明：	i（install安装）v（verbose提示） h（hash进度条）
+
+需要先找到需要安装的软件包，linux 的镜像文件在/media媒体文件夹下，其中的Package包下有所有系统的RPM软件包，用户自定义安装的软件一般在/opt目录下
+
+![](/QQ拼音截图20190811150810.png)
+
+
+
+##### yum
+
+yum是一个Shell前端软件安装器，基于RPM包管理，能够从指定的服务器上下载RPM包，自动处理依赖关系，并且可以一次安装所有的依赖包，yum服务器存有大量的RPM包，公网连接 
+
+yum list | grep xxx软件列表
+
+yum install xxx指定软件，例如：yum install firefox 安装火狐浏览器
+
+
+
+
+
+### 搭建Java EE开发环境
+
+![](/QQ截图20190811210546.png)
+
+##### 安装jdk
+
+解压到opt目录下（一般用户安装软件是放在opt目录下的）
+
+配置环境变量：vim etc/profile	profile中就是环境变量的配置文件，相当于windows中的环境变量（vim操作小技巧，在非编辑模式中输入G就能快速到文件的末尾）
+
+![](/QQ截图20190811225320.png)
+
+需要注销用户，环境变量才能生效 ***logout***
+
+这时候，jdk安装成功并可以使用了
+
+
+
+##### 安装Tomcat
+
+tar -zxvf解压，cd到目标的bin目录执行 ./startup.sh 开启Tomcat服务9999
+
+外部需要访问Linux中的Tomcat，需要将防火墙 放行Tomcat的端口，
+
+vi /etc/sysconfig/iptables 编辑放行8080端口供外网访问，编辑完成后需要service iptables restart重启防火墙，这时候防火墙状态中就会多一个供外部使用的8080端口
+
+![](/QQ截图20190812091554.png)
+
+##### 安装eclipse
+
+执行tar -zxvf解压，直接进入到eclipse目录，./eclipse就能启动eclipse了
+
+eclipse运行文件时会提示端口已被占用， 需要在bin目录下停止Tomcat服务器，由eclipse启动服务器开启Tomcat服务器并使用其端口，这时候，外网就可以访问Linux运行的java程序
+
+![](/QQ截图20190812095316.png)
+
+##### MySQL安装
+
+首先要删除原有的MySQL版本，若MySQL和某些文件有依赖关系，***rpm -e --nodeps mysql-libs***强制删除MySQL及其依赖文件，
+
+***yum -y install make gcc-c++ cmake bison-devel ncurses-devel***
+
+源码编译指令
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/mysql
+-DMYSQL_DATADIR=/usr/local/mysql/data -DSYSCONFDIR=/etc
+-DWITH_MYISAM_STORAGE_ENGINE=1 -DWITH_INNOBASE_STORAGE_ENGINE=1
+-DWITH_MEMORY_STORAGE_ENGINE=1 -DWITH_READLINE=1
+-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock -DMYSQL_TCP_PORT=3306
+-DENABLED_LOCAL_INFILE=1 -DWITH_PARTITION_STORAGE_ENHINE=1
+-DEXTRA_CHARSETS=all -DDEFAULT_CHARSET=utf8
+-DDEFAULT_COLLATION=utf8_general_cl
+
+MySQL在Linux中有专门的用户组，如果没有的话需要创建
+
+***groupadd mysql	useradd -g mysql mysql***
+
+创建MySQL用户组后改变mysql用户组的所有者root为  /usr/local/mysql	***chown mysql:mysql /usr/local/mysql/***
+
+***scripts/mysql_install_db --basedir=/usr/local/mysql --datadir=/usr/local/mysql/data --user=mysql***初始化mysql的脚本
+
+###### 启动mysql注意事项
+
+![](/QQ截图20190812121654.png)
+
+
+
+######  
+
+需要进入到 /usr/local/mysql/bin目录下，该目录存放mysql等启动器
+
+![](/QQ截图20190812122553.png)
+
+这时候就可以进入到mysql数据库中了
+
+![](/QQ截图20190812123121.png)
+
+###### 修改数据库密码
+
+默认的密码是空，需要设置密码
+
+set password = password('root')
+
+quit退出后就需要输入密码了
+
+
+
+##### 配置环境变量
+
+这样可以不再当前环境就能使用数据库登录命令
+
+![](/QQ截图20190812152834.png)
+
+
+
+### Shell编程
+
+在Linux运维工程师系统管理，Javaee程序员需要编写Shell脚本，或者服务器的维护，大数据程序员对服务集群管理
+
+Shell是一个命令行解释器，为用户提供了一个向Linux内核发送请求一遍运行程序的界面系统级程序	，可以用Shell启动，挂起，停止甚至编写一些程序
+
+![](/QQ截图20190812154431.png)
+
+
+
+##### shell脚本的执行方式
+
+脚本以#!/bin/bash 开头
+
+![](/QQ截图20190812155328.png)
+
+##### 执行方式
+
+编写完Shell脚本还不能立马执行，有两种执行方式
+
+1. 输入脚本的绝对路径和相对路径，首先分配文件权限，增加可执行权限 x
+
+   相对路径要进入到对应的文件目录./myShell.sh，绝对路径是/root/shell/myShell.sh运行
+
+   ![](/QQ截图20190812162904.png)
+
+2. 明确指定用Shell执行（不推荐）
+
+   sh ./myShell.sh
+
+   
+
+##### Shell的变量
+
+![](/QQ截图20190812170422.png)
+
+##### 实例
+
+**系统变量**
+
+path=/opt/jdk1.7.0_79/bin:/usr/lib64/qt3.3/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+user=root
+
+![](/QQ截图20190812171101.png)
+
+**自定义变量**
+
+![](/QQ截图20190812175242.png)
+
+**静态变量（不能撤销）**
+
+readonly a=100
+
+**全局环境变量**
+
+
+
+##### 定义变量的规则
+
+![](/QQ截图20190812175644.png)
+
+使用``号将命令赋值
+
+![](/QQ截图20190812181006.png)
+
+
+
+##### 环境变量
+
+基本语法：
+
+export 变量名=变量值	（将shell变量设置为环境变量）
+
+source /etc/profile	（修改后的环境变量立即生效）
+
+echo $变量名	（查询环境变量）
+
+定义的环境变量可以被其他shell脚本使用
+
+![](/1565700794821.png)
+
+##### 位置参数变量
+
+![](/QQ拼音截图20190813214130.png)
+
+例子
+
+![](/QQ拼音截图20190813215344.png)
+
+
+
+##### 预定义变量
+
+![](/QQ拼音截图20190813222817.png)
+
+小案例
+
+![](/QQ拼音截图20190813223626.png)
+
+##### 运算符
+
+![](/QQ拼音截图20190813224125.png)
+
+***vim yunsuanfu.sh 100 200***执行结果
+
+![](/QQ拼音截图20190813232659.png)
+
+##### 判断语句
+
+shell是控制Linux系统内核的，必然会对文件系统产生一定的作用
+
+小技巧：**-lt = less than 	-le = less equal 	-eq = eqlual	-gt = greater than 	-ge = greater than 	-ne = not equal**
+
+![](/QQ拼音截图20190814202319.png)
+
+案例
+
+```shell
+#!/bin/bash
+
+#判断字符串是否相等,如果成立，执行then后面的结果，不成立返回false	
+ if [ "ok" = "ok" ]
+then
+        echo "equal"
+fi
+
+#判断数字是否相等
+if [ 23 -gt 21 ]
+then
+        echo "大于" 
+fi
+
+#判断文件是否存在 -e           
+if [ -e /root/shell/hello.txt ]
+then
+        echo "文件存在"
+fi
+```
+
+
+
+##### if流程控制
+
+基本语法：
+
+```shell
+if [ 条件判断 ]； then
+	程序
+fi
+或者if [ 条件判断 ]
+	then 
+			程序
+elif [ 条件判断 ]
+then
+	程序
+fi（所有的shelll脚本都不能忘了fi结尾）
+```
+
+案例：
+
+```shell
+ 1	#!/bin/bash
+ 2	
+ 3	#案例，参数大于60输入及格了，没有大于60，输入不及格
+ 4	
+ 5	
+ 6	if [ $1 -ge 60 ] 
+ 7	then
+ 8		echo "及格了" 
+ 9	
+10	elif [ $1 -lt 60 ] 
+11	then
+12		echo "不及格"
+13	fi 
+
+```
+
+##### case控制语句
+
+```shell
+case $变量名 in
+"值1"）
+	变量值等于值1，执行程序
+
+"值2"）
+	变量值等于值2，执行程序
+“*”）
+esac
+```
+
+**案例：**
+
+```shell
+1	#!/bin/bash
+2	
+3	#是1输出周一，是2输出周二，时是其他输出other
+4	
+5	
+6	case $1 in 
+7	"1")
+8		echo "星期一"
+9	;;
+10	"2")
+11		echo "星期二"
+12	;;
+13	*)
+14		echo "other"
+15	;;
+16	esac
+```
+
+
+
+##### for循环
+
+**基本语法**
+
+```shell
+for 变量in 值1 值2 值3
+do
+	程序
+done
+```
+
+**案例**
+
+![](/QQ截图20190819211814.png)
+
+**基本语法2**
+
+```shell
+1	#!/bin/bash
+2	
+3	#从1加到100的输出
+4	 
+5	for((i=1;i<=100;i++))
+6	do
+7		SUM=$[$SUM+$Si]
+8	done
+9	echo $SUM
+
+```
+
+##### while循环
+
+```shell
+while [条件判断]
+do
+	程序
+done
+```
+
+```shell
+#/bin/bash
+#计算从1加到n的值
+SUM=0
+i=0
+while [ $i -le $1 ] 	#$1代表控制台输入的数字（n）
+do
+        SUM=$[$SUM+$i]	#SUM自增
+        i=$[$i+1]		#相当于i++
+done        
+echo "$SUM" 
+           
+```
+
+
+
+![](/QQ截图20190819221952.png)
+
+
+
+##### read读取控制台输入
+
+read
+
+：vim使用小技巧，yy复制一整行，p粘贴（需要在浏览模式下）
+
+案例
+
+```shell
+#/bin/bash
+#读取控制台输入的一个num值，在10秒内输入
+read -p "请输入一个num值:" NUM
+echo "您输入的值是:" $NUM
+
+#读取控制台输入的一个num值，在5秒内输入
+read -t 5 -p "请输入一个num值:" NUM2
+echo "您输入的值是:" $NUM2               
+
+结果：
+[root@hadoop1 shell]# ./testRead.sh 
+请输入一个num值:12
+您输入的值是: 12
+请输入一个num值:您输入的值是:		#5秒过后会自动跳出程序执行
+```
+
+
+
+##### 函数
+
+分为系统函数和自定义函数
+
+basename基本基本语法
+
+功能:返回完整路径最后/的部分，常用于获取文件名
+***basename [pathname] [suffix]***
+***basename [string] [suffix]***
+(功能描述: basename命令会删掉所有的前缀包括最后一个(“P' )
+字符，然后将字符串显示出来。
+选项:
+suffix为后缀,如果suffx被指定了，basename会将pathname或string中的suffix去掉。
+
+案例
+
+```shell
+[root@hadoop1 shell]# clear
+[root@hadoop1 shell]# basename /root/shell/a.txt	#获取文件名带后缀的
+a.txt
+[root@hadoop1 shell]# basename /root/shell/a.txt .txt	#获取文件名不带后缀的
+a
+```
+
+dirname基本语法
+功能:返回完整路径最后/的前面的部分，常用于返回路径部分
+**dirname**文件绝对路径
+(功能描述:从给定的包含绝对路径的文件名中去除文件名(非目录的部分) ,
+然后返回剩下的路径(目录的部分) )
+
+案例
+
+```shell
+[root@hadoop1 shell]# dirname /root/shell/a.txt
+/root/shell
+```
+
+##### 自定义函数
+
+基本语法
+[ function ] funname[()]
+{
+		Action;
+		[return int;]
+
+}	调用直接写函数名: funname
+
+案例
+
+```shell
+#/bin/bash
+
+#计算两个参数的和（read），getSum
+function getSum(){
+        SUM=$[$n1+$n2]
+        echo "和是多少：$SUM"
+}
+read -p "请输入第一个数：" n1
+read -p "请输入第二个数：" n2
+
+#调用函数
+getSum $n1 $n2		#将形参传入函数内部执行                      
+```
+
+##### 综合案例
+
+```shell
+#/bin/bash
+#完成数据库的定时备份
+
+#备份路径
+BACKUP=/data/backup/db
+
+#当前的时间作为文件名(格式化日期)
+DATETIME=$(date +%Y_%m_%d_%H%M%S)
+
+echo "===开始备份===="
+echo "===备份的路径是 $BACKUP/$DATATIME.tar.gz"
+
+#主机
+HOST=localhost
+#用户名
+DB_USER=root
+#密码
+DB_PWD=root
+#备份数据库的名称
+DATABASE=test
+#创建备份的路径，如果备份的文件夹存在就直接使用，否则就创建一个
+[ ! -d "$BACKUP/$DATETIME.tar.gz" ] && mkdir -p "$BACKUP/$DATETIME"
+
+#执行备份数据库的指令（备份到/data/backup/文件夹下）
+mysqldump -u${DB_USER} -p${DB_PWD} --host=$HOST $DATABASE | gzip > $BACKUP/$DATETIME/$DATETIME.sql.gz
+
+#打包备份文件
+cd $BACKUP
+tar -zvcf $DATETIME.tar.gz $DATETIME
+
+#删除临时文件(已经拿到了解压后的文件就不需要压缩包了)
+rm -rf $BACKUP/$DATETIME
+
+#删除10天前的备份为见（find and rm）
+find $BACKUP -mtime +10 -name "*.tar.gz" -exec rm -rf {} \;
+echo "====备份文件成功===="
+
+```
+
+
+
+### Shell小脚本
+
+##### 模拟Linux登录
+
+```shell
+#!/bin/bash
+#模拟登录
+echo -n "please input your username:  "
+read username
+echo -n "please input your password:  " 
+read password
+if [ $username == "root" -a $password == "root" ]
+then
+        echo "login suceesfuly" 
+else
+        if [ $username != "root" ]
+        then
+                echo "unknown username"
+        else [ $password != "root" ]
+                echo "wrong password" 
+        fi
+        echo "login error"
+fi
+exit 0
+
+#结果
+==>
+[root@hadoop1 classic_ShellScript]# ./testlogin.sh 
+please input your username:  root
+please input your password:  q
+wrong password
+login error
+```
+
