@@ -1670,7 +1670,7 @@ yum clean, yum clean all (= yum clean packages; yum clean oldheaders) :清除缓
 
 ***docker的详细命令*** ：[Docker常用命令](https://segmentfault.com/a/1190000012063374)
 
-![](/搜狗截图20190716143709.png)
+![]()
 
 **容器操作**
 

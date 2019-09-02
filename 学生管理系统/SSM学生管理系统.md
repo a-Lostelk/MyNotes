@@ -12,7 +12,7 @@ SpringMVC：控制器（业务逻辑层）（视图分发器）由前端分发�
 
 mybatis：JDBC的封装（数据库框架）
 
-### 流程图
+流程图
 
 ![](/QQ截图20190812221749.png)
 
@@ -335,3 +335,190 @@ public Map<String,String> edit(
 ##### POST请求
 
 根据HTTP规范，POST表示可能修改变服务器上的资源的请求，
+
+
+
+### 班级管理模块
+
+但实际开发中经常用到 **select \* from table where name  like concat('%',#{name},'%')**来做模糊查询
+
+和控制器传递过来的参数匹配
+
+```java
+queryMap.put("username", "%" + username + "%");
+queryMap.put("offset", pageDTO.getOffset());
+queryMap.put("pageSize", pageDTO.getRows());
+```
+
+``` xml
+<!-- 模糊查询和显示数据-->
+<select id="findList" resultType="com.sunny.entity.Clazz" parameterType="java.util.Map">
+    SELECT * FROM clazz WHERE 1 = 1
+    <if test="name != null and name != ''">
+        and name LIKE concat(concat('%',#{name}),'%')
+    </if>
+    <if test="gradeId != null and gradeId != ''">
+        and gradeId = #{gradeId}
+    </if>
+    limit #{offset},#{pageSize}
+</select>
+```
+
+##### 显示年级名
+
+默认显示的是Id，便于查看修改为名称，后台控制器将所有的grade年级信息查询，通过modelAndView将结果转换为JSON数组对象传递到页面，页面的gradeName接受JSON数据，通过formatter单元格式化函数将id替换成年级名 
+
+```javascript
+
+/**
+ * 班级列表页
+ * @param modelAndView
+ * @return
+ */
+@RequestMapping(value = "/list", method = RequestMethod.GET)
+public ModelAndView list(ModelAndView modelAndView){
+    modelAndView.setViewName("clazz/clazz_list");
+    List<Grade> all = gradeService.findAll();
+    modelAndView.addObject("gradeList", all);
+    
+    //将java对象转换为JSON对象
+    modelAndView.addObject("gradeJSON", JSONArray.fromObject(all));
+    return modelAndView;
+}
+
+//定义变量接受
+var gradeName=${gradeJSON};
+
+//单元格式化函数
+{field: 'gradeId', title: '所属年级', width: 150,
+    formatter: function (value) {
+        for (i = 0; i < gradeName.length; i++) {
+            if (gradeName[i].id == value) {
+                return gradeName[i].name;
+            }
+        }
+        return value;
+    }},
+```
+
+
+
+###   关于数据的排序问题
+
+java代码：将list根据某个字段排序(中文字段)
+
+```java
+List<Grade> all = gradeService.findAll();
+Collections.sort(all, new Comparator<Grade>() {
+    @Override
+    public int compare(Grade o1, Grade o2) {	
+        //collator，将Grade1字段的排序完成Grade2
+        Collator collator = Collator.getInstance(Locale.CHINA);
+        return collator.compare(o1.getName(), o2.getName());
+    }
+});
+------------------------------------------------------------
+//Lambad表达式写法（推荐）
+List<Grade> all = gradeService.findAll();
+Collections.sort(all, (Comparator<Grade>) (o1, o2) -> {
+    Collator collator = Collator.getInstance(Locale.CHINA);
+    return collator.compare(o1.getName(), o2.getName());
+});
+```
+
+JavaScript代码：将JSONArray数组排序
+
+```javascript
+let data = [
+        {chinese: '蔡司', english: 'Chase'},{chinese: '艾伦', english: 'Allen'},    
+        {chinese: '左拉', english: 'Zola'}, {chinese: '贝克', english: 'Baker'},    
+        {chinese: '伯格', english: 'Berg'}, {chinese: '菲奇', english: 'Fitch'},    
+        {chinese: '迪安', english: 'Dean'}, {chinese: '厄尔', english: 'Earle'},        
+        {chinese: '亨利', english: 'Henry'},
+    ]
+
+    //根据汉字首字母排序
+    //使用箭头函数
+    //【注】localeCompare() 是js内置方法
+    // data.sort((a, b)=> b.chinese.localeCompare(a.chinese, 'zh')); //z~a 排序
+    // data.sort((a, b)=> a.chinese.localeCompare(b.chinese, 'zh')); //a~z 排序    
+    // console.log(data);
+
+    //根据英文排序 比较 首字母ASCLL码
+    //// console.log(data[0].english.charCodeAt(0));
+    // data.sort((a, b) => b.english.charCodeAt(0) - a.english.charCodeAt(0)); //z~a 排序
+   |-----------------------------------------------------------------------------------|
+   | data.sort((a, b) => a.english.charCodeAt(0) - b.english.charCodeAt(0));//a~z排序  |
+   |-----------------------------------------------------------------------------------|
+    console.log(data);
+```
+
+
+
+### 学生管理
+
+##### 图片上传
+
+要结合Spring MVC 的文件上传解析器
+
+```xml
+<!-- 文件上传 -->
+<bean id="multipartResolver"
+      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    <!-- 上传文件大小限制 -->
+    <property name="maxUploadSize">
+        <value>10485760</value>
+    </property>
+    <!-- 请求的编码格式, 和 jsp 页面一致 -->
+    <property name="defaultEncoding">
+        <value>UTF-8</value>
+    </property>
+</bean>
+```
+
+图片表单
+
+```html
+<form id="photoFrom" method="post" action="uploadPhoto" enctype="multipart/form-data" target="photo_target">
+    <div style="float: right; margin: 20px 20px 0 0;margin-right: 50px; width: 200px; border: 1px solid #EBF3FF" id="photo">
+         <!--显示预览图片和图片上传路径-->
+        <img alt="照片" id="photo-preview" style="max-width: 200px; max-height: 400px;" title="预览照片" src="/h-ui/images/default_student_portrait.png" />
+        <!--选择图片-->
+        <input id="upload-photo" class="easyui-filebox" name="photo" data-options="prompt:'选择照片'" style="width:200px;">
+        <div style="text-align: center">
+            <a id="upload-btn" href="javascript:;" class="easyui-linkbutton"
+               data-options="iconCls:'icon-folder-up',plain:true">上传头像</a>
+        </div>
+    </div>
+</form>
+```
+
+
+
+### 图片回显功能
+
+由于图片是通过Iframe预处理传输，回显的数据会在iframe域中，
+
+```JavaScript
+var data = $(window.frames["photo_target"].document).find("body pre").text();
+```
+
+```java
+String originalFilename = photo.getOriginalFilename();
+//上传图片,error_result:存储头像上传失败的错误信息
+Map<String, Object> error_result = com.sunny.util.UploadFile.uploadPhoto(photo, dirPath);
+if (error_result != null) {
+    return error_result;
+}
+String newPhotoName = System.currentTimeMillis() + "_" + originalFilename;
+//将上传的文件保存到目标目录下
+try {
+    //新建一个文件夹
+    photo.transferTo(new File(dirPath + newPhotoName));
+    String substring = dirPath.substring(dirPath.length() - 16);
+    upload_result.put("type", "success");
+    upload_result.put("msg", "上传成功");
+    //将存储头像的项目路径返回给页面
+    upload_result.put("uploadPath", uploadPath +  newPhotoName);
+```
+
