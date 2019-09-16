@@ -520,5 +520,23 @@ try {
     upload_result.put("msg", "上传成功");
     //将存储头像的项目路径返回给页面
     upload_result.put("uploadPath", uploadPath +  newPhotoName);
+    
 ```
 
+```JavaScript
+function upload() {
+//获取到返回到iframs中的返回信息
+   var data = $(window.frames["photo_target"].document).find("body pre").text();
+   data = JSON.parse(data);
+   console.log(data);
+   if (data.type == "success") {
+       $.messager.alert("消息提醒", "图片上传成功", "info");
+       $("#photo-preview").attr("src", data.uploadPath);
+       $("#add_photo").val(data.uploadPath); //将图片路径添加到表单隐藏域中
+
+       $("#edit_photo-preview").attr("src", data.uploadPath);
+       $("#edit_photo").val(data.uploadPath);
+   } else {
+       $.messager.alert("消息提醒", data.msg, "warning");
+   }
+```
