@@ -2,7 +2,7 @@
 typora-root-url: images
 ---
 
-# 								java面试题准备
+# 								java面试准备
 
 ### 动态语言和静态语言
 
@@ -25,7 +25,7 @@ typora-root-url: images
 
 (条件表达式)？表达式1：表达式2；
 
-**a) 判断条件表达式，结果为一个布尔值。**
+#### **a) 判断条件表达式，结果为一个布尔值。**
 
 **b) true，运算结果为表达式1**
 
@@ -33,15 +33,31 @@ typora-root-url: images
 
 
 
+### Object类
+
+是所有类的基本类，`java.lang`包下
+
+1. `getClass`方法获取运行时类
+2. `hashCode()`生成唯一的hash值，经常被用来HashMapla来保证键的唯一性，或者确认元素的存放位置
+3. `equals()`：当equals()方法被重写时，通常需要重写 hashCode 方法，以维护在hashCode 方法最开始的声明，即相等对象必须具有相等的哈希码。
+4. `notify()`和`notifyAll()`和`wait()`线程的一些唤醒和等待操作继承于此
+5. `finalize()`实现了JVM会释放一些资源，一个对象的`finalize()`只会被调用一次，但不一定会被GC立马回收
+6. `Clone()`复制对象，分配一个和源对象一样大小的空间，然后在这个空间创建一个对象，
+7. `toString()`方法返回对象表示的字符串，是对这个类的重写
+
+
+
 ### String
 
 ##### String设计成不可变
 
-字符串常量池的需要，Java堆内存中一个特殊的存储区域, 当创建一个String对象时,假如此字符串值已经存在于常量池中,则不会创建一个新的对象,而是引用已经存在的对象
+**字符串常量池**的需要，Java堆内存中一个特殊的存储区域, 当创建一个String对象时,假如此字符串值已经存在于常量池中,则不会创建一个新的对象,而是引用已经存在的对象
 
-String对象缓存HashCode，Java中String对象的哈希码被频繁地使用, 比如在hashMap 等容器中，字符串不变性保证了hash码的唯一性,因此可以放心地进行缓存
+String对象缓存`HashCode`，Java中String对象的哈希码被频繁地使用, 比如在hashMap 等容器中，字符串不变性保证了hash码的**唯一性,**因此可以放心地进行缓存
 
-安全性，String被许多的Java类(库)用来当做参数,例如 网络连接地址URL,文件路径path,还有反射机制所需要的String参数等，这些都是不能轻易被改变的
+**安全性**，String被许多的Java类(库)用来当做参数,例如 网络连接地址URL,文件路径path,还有反射机制所需要的String参数等，这些都是不能轻易被改变的
+
+
 
 ### StringBuffer和StringBuilder
 
@@ -51,18 +67,20 @@ String是不可变的字符序列，StringBuffer和StringBuilder是可变的字�
   - StringBuffer：效率低，线程安全（所有的同步方法都是被synchronized修饰的），没有final修饰，底层创建了一个长度为16的数组
 - StringBudler：效率高，线程不安全，没有final修饰
 
-*作为参数传递的时候，方法内部 String不会改变值，StringBuffer和 StringBuilder会改变值*，不存在多线程和线程安全问题，一般建议使用StringBuilder
+作为参数传递的时候，方法内部 String不会改变值，**StringBuffer**和 **StringBuilder**会改变值，不存在多线程和线程安全问题，一般建议使用StringBuilder
 
 可变：底层的char[]数组中含有abc，添加def，不会改变原有的数组，而是在原有的数组上进行增加改变
 
+
+
 ##### **String为什么不可变**
 
-虽然String、StringBuffer和StringBuilder都是final类，它们生成的对象都是不可变的，而且它们内部也都是靠char数组实现的，String类中定义的char数组是final的，而StringBuffer和StringBuilder都是继承自AbstractStringBuilder类，它们的内部实现都是靠这个父类完成的，可以用append追加
+虽然`String、StringBuffer和StringBuilder`都是final类，它们生成的对象都是不可变的（StringBuffer和StringBuilder可以追加内容），而且它们内部也都是靠char数组实现的，String类中定义的char数组是final的，而StringBuffer和StringBuilder都是继承自`AbstractStringBuilder`类，它们的内部实现都是靠这个父类完成的，可以用**append**追加
 
-都是底层使用char[] 数组存储
+都是底层使用`char[]`数组存储
 
 ```java
-//结果是0，返回的有多少值的长度，而不是StringBuffer数组的默认长度，
+  //结果是0，返回的有多少值的长度，而不是StringBuffer数组的默认长度，
 StringBuffer stringBuffer2 = new StringBuffer();
 System.out.println(stringBuffer2.length());
 ```
@@ -93,7 +111,7 @@ StringBuilder > StringBuffer > String
 
 ##### java.lang.system类
 
-System类提供的public static long currentTimeMillis()用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。
+`System类`提供的public static long currentTimeMillis()用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。
 
 ##### java.util.Date
 
@@ -119,7 +137,7 @@ System.out.println(date.getTime());//1566296624156
 
 ### Collection接口
 
-是list、map、list子集合的父类，collection中的方法，其所有的子类都有
+是**list、map、list**子集合的父类，collection中的方法，其所有的子类都有
 
 ```java
 Collection<String> collection = new ArrayList<String>();
@@ -157,11 +175,11 @@ Collection<String> collection = new ArrayList<String>();
 
 ##### Iterator遍历集合
 
-iterator对象我们诚挚为迭代器，是设计模式中的一种，遍历collection中的集合元素
+iterator对象我们称之为**迭代器**，是设计模式中的一种，遍历collection中的集合元素
 
 GOF给迭代器模式的定义为:提供一种方法访问一个**容器**(container)对象中各个元索，而又不需暴露该对象的**内部细节**。迭代器模式，*就是为容器而生*。类似于“公交车上的售票员”、“火车上的乘务员”、“空姐”。
 
-Collection接口继承了java.lang.Iterable接口，该接口有一个iterator()方法，那么所
+Collection接口继承了`java.lang.Iterable`接口，该接口有一个`iterator()`方法，那么所
 有实现了Collection接口的集合类都有一个iterator()方法， 用以返回一个实现了
 Iterator接口的对象。
 
@@ -247,11 +265,11 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 
 *异*：
 
-- `ArrayList`是list集合的主要实现类，一般情况下我们都是ArrayList，线程不安全。扩容是1.5倍，jdk8中默认不会实例化添加内存，当需要add的时候默认为10的大小，***涉及到多次查询的时候使用ArrayList***
+- `ArrayList`是list集合的**主要实现类**，一般情况下我们都是ArrayList，线程不安全。扩容是1.5倍，jdk8中默认不会再第一次使用的时候实例化添加内存，当需要add的时候默认为10的大小，***涉及到多次查询的时候使用ArrayList***
 
 - `LinkedList`底层是双向链表，插入删除快，查询慢，线程不安全的，***涉及到多次插入删除的时候，使用linkedlist***
 
-- `vector`是最古老的的实现类，线程安全的，扩容是2倍
+- `vector`是最古老的的实现类，线程安全的，扩容是2倍，不常用
 
 
 
@@ -312,7 +330,7 @@ private void ensureCapacityInternal(int minCapacity) {
 
 #### LinkedList
 
-是一个实现了List接口和Deque接口的**双端链表**。 LinkedList底层的链表结构使它支持**高效的插入和删除操作**，另外它实现了Deque接口，使得LinkedList类也具有**队列**的特性; LinkedList不是线程安全的，如果想使LinkedList变成线程安全的，可以调用静态类Collections类中的**synchronizedList**方法
+是一个实现了List接口和Deque接口的**双端链表**。 LinkedList底层的链表结构使它支持**高效的插入和删除操作**，另外它实现了Deque接口，使得`LinkedList类`也具有**队列**的特性; LinkedList不是线程安全的，如果想使LinkedList变成线程安全的，可以调用静态类`Collections类`中的**synchronizedList**方法
 
 ```java
 List list=Collections.synchronizedList(new LinkedList(...));
@@ -358,10 +376,11 @@ addAll方法通常包括下面四个步骤：
 双向链表的表现，单向链表是知道节点的下一个节点，只有next，不能知道上一个节点的元素
 
 ```java
+//双向链表的优势
 private static cLass Node<E> {
     E item;
-    Node<E> next;
-    Node<E> prev;
+    Node<E> next;	//指向下一个节点的指针
+    Node<E> prev;	//指向上一个节点的指针
     
     Node(Node<E> prev, E eLement, Node<E> next) {
     this. item = eLement;
@@ -371,14 +390,7 @@ private static cLass Node<E> {
 }
 ```
 
-```java
-private static class Node<E> {
-    E item;	//元素本身
-    Node<E> next;	//指向下一个节点的指针
-    Node<E> prev;	//指向上一个节点的指针
-｝	
-    //还有last和first Node节点
-```
+
 
 首次调用linkLast新建一个node节点，第一次创建时第一个也是最后一个节点，如果l（prev指针为null），说明节点之前没有被添加过时第一个节点，如果不是则说明之前是有节点的并将前一位节点的l指向新加入的节点newNode
 
@@ -410,9 +422,9 @@ void linkLast(E e) {
 
 存储**无序不可重复**的数据
 
-（**无序性**不等于随机性，遍历的时候会遵循一个规律但不是数据的存放顺序，而是根据数据添加的hash值，**不可重复性**，添加的元素都会和集合中的元素进行equals比较一下，返回***false***表示不存在这个元素的时候才允许添加到集合中，*相同的元素只能添加一个*）
+（**无序性**不等于随机性，遍历的时候会遵循一个规律但不是数据的存放顺序，而是根据数据添加的**hash**值，**不可重复性**，添加的元素都会和集合中的元素进行equals比较一下，返回***false***表示不存在这个元素的时候才允许添加到集合中，*相同的元素只能添加一个*）
 
-***set接口每页额外定义的新方法，是继承父类collection定义的方法***
+**set接口没有额外定义的新方法，是继承父类collection定义的方法**
 
 
 
@@ -430,7 +442,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 ##### 添加元素的过程
 
-- 添加元素的时候会调用Object对象的hashCode()方法生成一个**唯一不重复**的Hash值，Hash值保证数据的唯一性和确定**存放的位置**（索引位置）
+- 添加元素的时候会调用`Object`对象的hashCode()方法生成一个**唯一不重复**的Hash值，Hash值保证数据的唯一性和确定**存放的位置**（索引位置）
 
 - 如果此位置上没有其他元素或者首次添加，直接插入数据
 
@@ -773,66 +785,43 @@ Comparator<Integer> comparator1 = (o1, o2) -> o1.compareTo(o2);
 
 
 
-### 多线程
-
-**什么是线程安全？**
-
-线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。
-
-**如何保证线程安全？**
-
-Java中主要通过加锁来实现线程安全。通常使用synchronized和Lock
-
-**什么是锁？死锁？**
-
-死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。
-
-死锁四个必要条件：互斥条件、请求和保持条件、不剥夺条件、环路等待条件
-
-死锁的解决办法就是破坏以上四种必备条件中的一个或者多个。
-
-#### Synchronized关键字
-
-***synchronized***，是Java中用于解决并发情况下数据同步访问的一个很重要的关键字。当我们想要保证一个共享资源在同一时间只会被一个线程访问到时，我们可以在代码中使用`synchronized`关键字对类或者对象加锁
-
-两种使用形式
-
-```java
-public class SynchronizedTest {
-
-    //方法块
-    public synchronized void doSth(){
-        System.out.println("Hello World");
-    }
-
-    //代码块（类对象）
-    public void doSth1(){
-        synchronized (SynchronizedTest.class){
-            System.out.println("Hello World");
-        }
-    }
-}
-```
-
-在进行反编译后，字节码文件同步方法和同步代码块都有自己的标识
-
-对于**同步方法**，JVM采用`ACC_SYNCHRONIZED`标记符来实现同步，同步方法的常量池中会有一个`ACC_SYNCHRONIZED`标志。当某个线程要访问某个方法的时候，会检查是否有`ACC_SYNCHRONIZED`，如果有设置，则需要先获得监视器锁，然后开始执行方法，方法执行之后再释放监视器锁。这时如果其他线程来请求执行方法，会因为无法获得监视器锁而被阻断住，*如果在方法执行过程中，发生了异常，并且方法内部并没有处理该异常，那么在异常被抛到方法外面之前监视器锁会被自动释放。*
-
-对于**同步代码块**。JVM采用`monitorenter`、`monitorexit`两个指令来实现同步，执行`monitorenter`指令理解为加锁，执行`monitorexit`理解为释放锁。 每个对象维护着一个记录着被锁次数的计数器，同一个线程访问锁会多次递增，当计数器为0释放所并可以被其他线程获取
-
-
-
 
 
 ### 反射
 
 **Reflection** (反射)是被视为**动态语言**的关键，反射机制允许程序在**执行期间**借助于Reflection API取得任何类的内部信息，**并能直接操作任意对象的内部属性及方法**。
 
+反射机制用来描述所有的类，所有的类都具有相同的特征，共同特征是每一个类都有属性，方法，构造方法，权限修饰符等
+
 加载完类之后，在**堆内存的方法区**中就产生了一个**Class**类型的对象(一个类只有一个Class对象)，这个对象就包含了完整的类的结构信息。我们可以通过这个对象看到类的结构。这个对象就像一面镜子，透过这个镜子看到类的结构，所以，我们形象的称之为:**反射**。
 
 ![](/../../%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%EF%BC%88java%E7%AF%87%EF%BC%89/images/QQ%E6%88%AA%E5%9B%BE20190827230328.png)
 
 反射机制使原本是静态语言的Java有了类似动态语言的特性，使编程更加的灵活，可以在运行期间决定是用的哪个类的对象、
+
+
+
+#### 类和反射
+
+![](/QQ截图20190924083007.png)
+
+Class类也可以描述基本数据类型，因为基本数据类型也是一个类
+
+
+
+#### 反射中的五大将军
+
+Class：用来描述类本身
+
+FieId：用来描述类中的属性
+
+Method：用来描述类中的方法
+
+Constroctor：用来描述类中的构造方法
+
+Annotation：用来描述类中的注解@Override
+
+
 
 #### 反射机制体统的功能
 
@@ -849,7 +838,7 @@ public class SynchronizedTest {
 java.lang.Class:代表一个类
 java.lang.reflect.Method:代表类的方法
 Java.lang.reflect.Field:代表类的成员变量
-Java.lang.reflect.Constructor:代表类的构造器
+Java.lang.reflect.Constructor:代表类的构造器、
 
 
 
@@ -907,7 +896,7 @@ Class类的实例对应着一个运行时类，不需要new创建，无论是自
 获取Class实例的方式
 
 ```java
-//通过运行时类调用.class 属性获取类实例
+//通过运行时类调用.class 属性获取类实例,Person类必须存在
 //需要加载的类已经固定，无法改变，必须正确才能通过编译期
 Class<Person> clazz = Person.class;
 
@@ -927,6 +916,10 @@ Class<?> clazz4 = classLoader.loadClass("com.sunny.reflection.Person");
 //调取的是同一个类的运行时类实例，所有内存地址和值都是一样的
 System.out.println(clazz1 == clazz2 && clazz1 == clazz3 && clazz3 == clazz2);
 ```
+
+**Class类的常用**
+
+
 
 #### 类的加载过程
 
@@ -1031,7 +1024,92 @@ for (int i = 0; i < 10; i++) {
 
 
 
+
+
 ### 多线程
+
+**什么是线程安全？**
+
+线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。
+
+**如何保证线程安全？**
+
+Java中主要通过加锁来实现线程安全。通常使用synchronized和Lock
+
+**什么是锁？死锁？**
+
+死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。
+
+死锁四个必要条件：互斥条件、请求和保持条件、不剥夺条件、环路等待条件
+
+死锁的解决办法就是破坏以上四种必备条件中的一个或者多个。
+
+##### 涉及到线程
+
+线程安全：StringBuffer、Vector、HashTable
+
+线程不安全：StringBuilder、ArrayList、HashMap
+
+##### 多线程的场景
+
+在播放器播放视频的时候，可以同时操作声音或是进度条，画面不会受到影响，实际上一个播放页面有多条线程执行，调节音量或进度条对应这一个线程
+
+程序是一组静态的代码，进程是正在运行的播放器（静态的代码运行起来），线程是正在执行的小单元（调节音量进度条），线程之间是互不影响
+
+1. 主线程 系统线程（JVM）
+
+2. 用户线程 main方法（用户创建的程序入口）
+
+3. 守护线程 GC垃圾回线程
+
+   线程的操作线程运行级别很大程度上是由CPU决定的，CPU决定线程的执行顺序 
+
+##### 线程的五种状态
+
+线程创建new()、就绪状态start()、执行状态notify()/notifyAll()、等待/挂起wait()、异常/死亡over/exception
+
+
+
+##### run()和start()
+
+run()方法会根据前后顺序执行，start()让线程进行就绪状态，并由CPU调度执行
+
+
+
+##### 生产者消费者模型
+
+
+
+#### Synchronized关键字
+
+***synchronized***，是Java中用于解决并发情况下数据同步访问的一个很重要的关键字。当我们想要保证一个共享资源在同一时间只会被一个线程访问到时，我们可以在代码中使用`synchronized`关键字对类或者对象加锁
+
+两种使用形式
+
+```java
+public class SynchronizedTest {
+
+    //方法块
+    public synchronized void doSth(){
+        System.out.println("Hello World");
+    }
+
+    //代码块（类对象）
+    public void doSth1(){
+        synchronized (SynchronizedTest.class){
+            System.out.println("Hello World");
+        }
+    }
+}
+```
+
+在进行反编译后，字节码文件同步方法和同步代码块都有自己的标识
+
+对于**同步方法**，JVM采用`ACC_SYNCHRONIZED`标记符来实现同步，同步方法的常量池中会有一个`ACC_SYNCHRONIZED`标志。当某个线程要访问某个方法的时候，会检查是否有`ACC_SYNCHRONIZED`，如果有设置，则需要先获得监视器锁，然后开始执行方法，方法执行之后再释放监视器锁。这时如果其他线程来请求执行方法，会因为无法获得监视器锁而被阻断住，*如果在方法执行过程中，发生了异常，并且方法内部并没有处理该异常，那么在异常被抛到方法外面之前监视器锁会被自动释放。*
+
+对于**同步代码块**。JVM采用`monitorenter`、`monitorexit`两个指令来实现同步，执行`monitorenter`指令理解为加锁，执行`monitorexit`理解为释放锁。 每个对象维护着一个记录着被锁次数的计数器，同一个线程访问锁会多次递增，当计数器为0释放所并可以被其他线程获取
+
+
 
 #### 程序、进程和线程的概念
 
@@ -1093,7 +1171,7 @@ java程序在执行的时候，至少会执行三个线程，main方法主方法
 
 ###### 方式一
 
-1. 继承Thread类，创建一个继承Thread类的子类
+1. 继承`Thread`类，创建一个继承Thread类的子类
 2. 重写run（）方法的子类 ，线程执行的操作写在run（）方法中
 3. 创建Thread类的子类对象
 4. 调用start（）执行当前线程，和调用当前线程的run方法
@@ -1115,19 +1193,19 @@ new Thread(() -> {
 
 ###### 方式二
 
-多线程的创建，方式- -: 继承于Thread类
+多线程的创建，方式一: 继承于Thread类
 
-1.创建-一个继承Thread类的子类
+1.创建-一个实现`Runnable`类的子类
 
-2.重写Thread类的run() --> 将此线程执行的操作声明在run()中
+2.重写`Thread`类的run() --> 将此线程	执行的操作声明在run()中
 
-3.创建**Thread**类的子类的对象
+3.创`Thread`类的子类的对象
 
 4. 通过此对象调用start()
 
 两种方式对比，实现接口的方式多态性更强，更灵活的实现方式，例如，根据java的特性，extends单继承的局限性，实现的方式更适合有多个线程共享数据的时候
 
-Thread类本身也实现了Runnable接口，两种方式都需要重写Run（）方法
+Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（）方法
 
 ***优先选择实现Runnable***
 
@@ -1163,7 +1241,7 @@ Thread类本身也实现了Runnable接口，两种方式都需要重写Run（）
 
 ##### 线程的分类
 
-守护线程（GC垃圾回收线程 ）和用户线程（main方法，主线程）
+**守护线程（GC垃圾回收线程 ）和用户线程（main方法，主线程）**
 
 线程的五种状态
 
@@ -1263,3 +1341,330 @@ public static  Bank getInstance() {
 
 
 
+#### Throwable和Exception的区别
+
+所有需要throw抛出的异常都是需要Throwable派生而来，是所有异常子类的超类父类。
+
+有的情况需要使用自定义的异常，而自定义的异常也是Exception派生而来
+
+**Throwable是java.lang包中一个专门用来处理异常的类。它有两个子类，即Error 和Exception，它们分别用来处理两组异常。** 
+
+Exception的两个子类的区别
+
+- Exception类表示程序可以处理的异常，可以捕获且可能恢复。遇到这类异常，应该尽可能处理异常，使程序恢复运行，而不应该随意终止异常
+- Exception类又分为运行时异常（Runtime Exception）和受检查的异常(Checked Exception )，运行时异常;ArithmaticException,IllegalArgumentException，编译能通过，但是一运行就终止了，程序不会处理运行时异常，出现这类异常，程序会终止。而受检查的异常，要么用try。。。catch捕获，要么用throws字句声明抛出，交给它的父类处理，否则编译不会通过。。
+- Error类一般是指与虚拟机相关的问题，如系统崩溃，虚拟机错误，内存空间不足，方法调用栈溢等。对于这类错误的导致的应用程序中断，仅靠程序本身无法恢复和和预防，遇到这样的错误，建议让程序终止。
+
+
+
+### I/O输入输出流
+
+数据流动的方向
+**读数据(输入Input)**、**写数据(输出output)**
+文件流、字符流、数据流、对象流、网络流
+
+#### 文件，文件流
+
+文件：一种电脑的存储形式：.txt .doc .jar
+
+使用File对象来操作电脑上的文件和文件夹（目录路径），是文件会或目录文件名的抽象表示形式，与真实硬盘的文件和目录是不一样的，File是内存中的一个对象，和真实文件形成映射关系
+
+文件夹是不占用大小的，取决于文件夹中的文件的数量和大小
+
+#### 绝对路径和相对路径
+
+**绝对路径**： 绝对路径是指文件在硬盘上真正存在的路径。（在实际开发中不推荐使用）
+
+**相对路径**： 所谓相对路径，就是相对于自己的目标文件位置。当前项目的所在位置
+
+
+
+createNewFile:创建一个新的文件
+
+mkdirs：创建包含文件夹的文件夹
+
+mkdir：创建单个文件夹	
+
+
+
+String[] names = list();	//获取当前文件的所有子文件或目录的名字
+
+File[] files = listFiles();	//获取当前当前文件的所有子文件或目录的对象
+
+delete();	//删除后的文件永久删除，文件夹中都没有
+
+
+
+#### 文件流
+
+操作文件中的内容
+
+**文件输入输出流、字节字符输入输出流**
+
+字节型文件流（**1字节**）：FileInputStream/FileOutputStream
+
+字符型文件流（**2字节/一字符**）：FileReader/FileWriter
+
+流是内存和硬盘之间的管道
+
+**存储**
+
+**变量**：只能存储一个
+
+**数组**：存放多个，数据类型统一大小固定
+
+**集合**：存储多个，存储大小可变自增	
+
+**泛型**：数据类型统一
+
+以上都是java的存储对象，存储在内存区域中，程序执行完毕就会像销毁，**临时性存储**
+
+文件：存储多个文件
+
+文件是存储在硬盘上，永久保存，对文件数据进行操作需要通过IO
+
+**int code = is.read()**；每次在流管道中读取一个字节，返回的字节的code码。
+
+**int code = is.read(byte[])**每次从流管道中读取若干个字节，存入byte数组后返回的是数组大小，也字节文件的个数
+
+**int count = is.available()**；返回流管管道中还有多少缓存的数字节数
+
+
+
+**对文件的操作**
+
+```
+/**
+ * 文件的复制
+ */
+public void copyFile(File file, String path) {
+    FileInputStream inputStream = null;
+    FileOutputStream outputStream = null;
+    try {
+        //创建一个流对象读取文件数据（复制文件先要使用输入流读取获得文件中的数据，
+        // 然后通过输出流对象将数据写入到新文件中）
+        inputStream = new FileInputStream(file);
+        //复制完成后的文件（路径名+文件名）
+        File newFile = new File(path + "//" + file.getName());
+        //文件输出流（将文件数据复制到新文件）
+         outputStream = new FileOutputStream(newFile);
+        //字节缓冲区数组（指定大小的值，若读取的值读不满，会有很大的空间浪费）
+        byte[] bytes = new byte[1024];
+        //将输入流对象中的数据放入到缓冲区(读取的是第一个字节)
+        int read = inputStream.read(bytes);
+        while (read != -1) {
+            //读取指定偏移量的有效字节
+            outputStream.write(bytes, 0, read);
+            outputStream.flush();
+            //循环读取第二个和接下来的数据
+            read = inputStream.read();
+        }
+        System.out.println("复制完毕");
+
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally {
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (outputStream != null) {
+            try {
+                outputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+/**
+ * 复制文件夹
+ */
+public void superCopyFile(File file, String newPath) {
+    String oldFilePath = file.getAbsolutePath();
+    //截取文件绝对路径名：后面的路径，索引值为0表示盘根路径
+    String newFilePath = newPath + oldFilePath.split(":")[1];
+    File newFile = new File(newFilePath);
+    //如果数组子元素不等于null说明文件下还有文件，是个文件夹
+    File[] files = file.listFiles();
+    //判断是否是文件夹
+    if (files != null) {
+        newFile.mkdir();
+        System.out.println(newFile.getName() + "复制完毕");
+        //递归复制文件夹下的内容
+        if (files.length != 0) {
+            for (File f : files) {
+                this.superCopyFile(f, newPath);
+            }
+        }
+    } else {
+        //输入输出流操作文件
+        FileInputStream is = null;
+        FileOutputStream os = null;
+        try {
+            is = new FileInputStream(file);
+            os = new FileOutputStream(newFile);
+            byte[] bytes = new byte[1024];
+            int count = is.read();
+            while (count != -1) {
+                os.write(bytes);
+                os.flush();
+                count = is.read();
+            }
+            System.out.println(newFile.getName() + "复制完毕");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+            	....
+            } catch (IOException e) {
+               	....
+            }
+        }
+    }
+}
+
+public static void main(String[] args) {
+    OperateFile operateFile = new OperateFile();
+    operateFile.superCopyFile(new File("C://test"),"D://test");
+//        operateFile.copyFile(new File("C://Users//Administrator//Desktop//知乎静文.txt"),"D://test");
+}
+```
+
+**字节型文件流**可以操作**所有类型**的文件，音频文本都可以，是一个字节一个字节读取写入，所以一般会用到while等循环操作，字节型可能对中文可能会产生乱码错误
+
+
+
+**字符型文件流**只能操作纯文本文件（txt.html.jsp），所谓纯文本文件就是可以右键记事本直接打开不会乱码的文件
+
+字节流的缓冲区是byte数组，字符流的缓冲区是char数组
+
+**FileReader**
+
+read();	read(char[])
+
+**FileWriter**
+
+writer(code);	writer(char[]);	writer(String);	flush();	close();
+
+字符（**character**）文字和**符号的总称**，在操作纯文本的文件，不需要改变开发运行环境的编码格式，推荐改变文本文件的编码格式为**utf-8**
+
+
+
+#### 流总结
+
+**文件流**：**FileInputStream/FileOutputStream	FileReader/FileWriter**
+
+**缓冲流：**为了在流管道中增加缓冲的数据，使读取数据的时候更加的流畅，缓冲流本质还是FIleInputStream，多了一个缓冲区，属于高级流，创建低级流升级为高级流
+
+**BufferdInpuStream/BufferdOutPutStream		BufferedReader/BufferedWriter**
+
+**BufferedRead**中有一个独特的方法.**readLine()**读取一行记录
+
+```java
+try {
+    File file = new File("D://test//知乎静文.txt");
+    FileInputStream fileInputStream = new FileInputStream(file);
+    //从缓冲中取出数据。底层还是普通的流，使用和基本流没有什么区别，但性能有很大的提升
+    BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+ **数组流**：byte数组	ByteArrayInputStream	ByteArrayOutputStream
+
+​			   char数组	CharArrayReader CharArrayWriter
+
+**对象流：**ObjectInputStream	ObjectOutputStream对象的序列化和反序列化（需要实现serialiazable接口）
+
+将对象直接拆分为字节码，直接写入到文件中
+
+
+
+#### IO小练习
+
+实现一个银行系统，基本的登录查询存取退出等功能
+
+##### 登录功能
+
+```java
+/**
+ * 以IO流的方式读取文件的信息，都需要创建一个内存到硬盘的的流管道，
+ * 业务需求增大的时候，频繁的开辟新的流和读取操作会消耗一定的性能
+ * 采用缓存机制
+ * 在内存中创建一个缓存区，存放所有读取的文件数据信息，都存放进缓存区中
+ * 优先使用Map集合
+ * 一行记录，有不同的字段属性，可以创建一个新的对象，java对对象的操作是比较自由的
+ */
+private HashMap<String, User> userHashMap = new HashMap<>();
+
+//程序块的作用是在对象创建之前 给集合进行复制操作
+{
+    //读取用户密码文件的流对象
+    File file = new File("src\\test\\user.txt");
+    FileReader fileReader = null;
+    BufferedReader bufferedReader = null;
+    try {
+        fileReader = new FileReader(file);
+        bufferedReader = new BufferedReader(fileReader);
+        String value = bufferedReader.readLine();
+        while (value != null) {
+            String[] userValue = value.split("-");
+            User user = new User(userValue[0], userValue[1], Float.parseFloat(userValue[2]));
+            userHashMap.put(user.getUsername(), user);
+            value = bufferedReader.readLine();
+        }
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally {
+        //关闭IO流释放内存
+        .....
+```
+
+Map集合充当提供执行性能的缓存区，也是作为修改数据的承载体，修改数据先是将集合中的数据修改，然后将集合中的数据全部写入覆盖文件（有个缺陷就是当数据量变大的时候，重复的全部覆盖读写，会造成不必要的性能浪费）
+
+##### 操作流将数据写入文件
+
+```java
+/**
+ * 将集合中的的临时数据永久写入到文件中
+ */
+public void commit(){
+
+    FileWriter fileWriter = null;
+    BufferedWriter bufferedWriter = null;
+    try {
+        File file = new File("");
+        fileWriter = new FileWriter(file);
+        bufferedWriter = new BufferedWriter(fileWriter);
+        //通过keySet遍历返回所有的Map键的Set集合
+        Iterator<String> names = userHashMap.keySet().iterator();
+        while (names.hasNext()) {
+            String name = names.next();
+            User user = userHashMap.get(name);
+            //字符串拼接使用StringBuilder，非线程安全效率高，使用String对象（是不可变的字符序列），JVM会创建多个String对象
+            StringBuilder stringBuilder = new StringBuilder(user.getUsername());
+            stringBuilder.append("-");
+            stringBuilder.append(user.getPassword());
+            stringBuilder.append("-");
+            stringBuilder.append(user.getAblance());
+            bufferedWriter.write(stringBuilder.toString());
+            //每次更新一个数据后要换行
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }finally {
+        //关闭流
+      .....
+}
+```
