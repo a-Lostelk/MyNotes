@@ -15,6 +15,8 @@ typora-root-url: images
 
 **Java**不是动态语言，但**Java**可以称之为“**准动态语言**”。即Java有-定的动态性，我们可以利用**反射机制**、**字节码操作**获得类似动态语言的特性。Java的动态性让编程的时候更加灵活!
 
+
+
 ### **三元运算符**
 
 (条件表达式)？表达式1：表达式2；
@@ -93,7 +95,7 @@ System.out.println(stringBuffer2.length());
 
 StringBuffer 和 StringBuilder的常用方法差不多，只不过一个是有synchronized关键字一个没有
 
-***StringBuffer append(xxx):***提供了很多的append()方法，用于进行字符串拼接
+**StringBuffer append(xxx):**提供了很多的append()方法，用于进行字符串拼接
 ***StringBuffer delete(int start,int end)***:删除指定位置的内容
 ***StringBuffer replace(int start, int end, String str)***:把[start,end)位 置替换为str
 ***StringBuffer insert(int offset, XXX)***:在指定位置插入xXX
@@ -111,7 +113,7 @@ StringBuilder > StringBuffer > String
 
 ##### java.lang.system类
 
-`System类`提供的public static long currentTimeMillis()用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。
+`System类`提供的`public static long currentTimeMillis()`用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。
 
 ##### java.util.Date
 
@@ -185,9 +187,9 @@ Iterator接口的对象。
 
 **Iterator的遍历方法**
 
-next []方法遍历出集合中的一个元素，遍历多次就能得出集合中所有的元素（又时候回发生数组越界状况）
+`next []`方法遍历出集合中的一个元素，遍历多次就能得出集合中所有的元素（又时候回发生数组越界状况）
 
-hasNext() 判断是否还有下一个元素
+`hasNext()`判断是否还有下一个元素
 
 推荐方法：
 
@@ -203,7 +205,7 @@ while (iterator.hasNext()) {
 
 ##### 迭代器的remove()方法
 
-迭代器内部定义了remove(）方法，可以删除集合中指定的元素。此方法不同于集合collection中的remove()方法，迭代器的remove()方法必须是使用next()方法之后
+迭代器内部定义了`remove()`方法，可以删除集合中指定的元素。此方法不同于集合collection中的remove()方法，迭代器的remove()方法必须是使用next()方法之后
 
 ```java
 while (iterator.hasNext()) {
@@ -238,7 +240,7 @@ while(collection.iterator().hasNext()){
 
 #### 自定义collection及其子类需要实现的方法
 
-equals()方法：判断两个对象是否相等，hashCode()：生成唯一的hash值保证唯一性和数据的存放位置
+`equals()`方法：判断两个对象是否相等，`hashCode()`：生成唯一的hash值保证唯一性和数据的存放位置
 
 List: equals()方法。
 Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
@@ -261,13 +263,13 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 
 *同*：
 
-​	存储数据的特点（有序可重复），继承list接口，ArrayList、Vector底层是使用object数组结构支持随机访问，LinkedList是双向链表存储的
+​	存储数据的特点（有序可重复），继承list接口，`ArrayList、Vector`底层是使用object数组结构支持随机访问，`LinkedList`是双向链表存储的
 
 *异*：
 
-- `ArrayList`是list集合的**主要实现类**，一般情况下我们都是ArrayList，线程不安全。扩容是1.5倍，jdk8中默认不会再第一次使用的时候实例化添加内存，当需要add的时候默认为10的大小，***涉及到多次查询的时候使用ArrayList***
+- `ArrayList`是list集合的**主要实现类**，一般情况下我们都是ArrayList，线程不安全。扩容是1.5倍，jdk8中默认不会再第一次使用的时候实例化添加内存，当需要add的时候默认为10的大小，**涉及到多次查询的时候使用ArrayList**
 
-- `LinkedList`底层是双向链表，插入删除快，查询慢，线程不安全的，***涉及到多次插入删除的时候，使用linkedlist***
+- `LinkedList`底层是双向链表，插入删除快，查询慢，线程不安全的，**涉及到多次插入删除的时候，使用LinkedList**
 
 - `vector`是最古老的的实现类，线程安全的，扩容是2倍，不常用
 
@@ -282,7 +284,9 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 ***add(int index,Object obj)***
 ***size()*** 
 
-**使用Iterator;foreach;普通的for,**
+**遍历方式：使用Iterator;foreach;普通的for,**
+
+
 
 #### ArrayList
 
@@ -296,13 +300,13 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 ArrayList arrayList = new ArrayList();	//默认长度是10，可以动态的添加数组
 ```
 
-ArrayList中的元素添加满了后继续添加的话，会在最小容量minCapacity size+1，如果minCapacity - 默认大小  > 0，则说明需要更大的大小去扩容新的元素，默认情况是扩容到原来内存的1.5倍，会创建一个新的Object数组并将原来的旧数组中的值复制到新的数组中并抛弃到就的数组，扩容是占据一定的性能和时间的
+ArrayList中的元素添加满了后继续添加的话，会在最小容量minCapacity size+1，如果minCapacity - 默认大小  > 0，则说明需要更大的大小去扩容新的元素，默认情况是扩容到原来内存的**1.5倍**，会创建一个新的Object数组并将原来的旧数组中的值复制到新的数组中并抛弃到就的数组，扩容是占据一定的性能和时间的
 
-JDK7中创建的时候Object[]数组的默认大小是10
+JDK7中在ArrayList创建的时候`Object[]`数组的默认大小是10
 
 而在JDK1.8中并没有初始化的时候指定默认大小，而是在使用**add()**方法时，底层才**创建长度为10**的数组，在使用的时候才实例化
 
-***jdk7中ArrayList对象床架类似于单例模式中的饿汉式，jdk8中的类似于懒汉式，延时在需要使用的时候才会创建***
+***jdk7中ArrayList对象创建类似于单例模式中的饿汉式，jdk8中的类似于懒汉式，延时在需要使用的时候才会创建***
 
 ```java
 //判断是否需要扩容
@@ -324,13 +328,13 @@ private void ensureCapacityInternal(int minCapacity) {
 
 
 
-*在开发中，尽量使用带参的构造器：	ArrayList arrayList = new ArrayList(int capacity);*
+*在开发中，尽量使用带参的构造器：	`ArrayList arrayList = new ArrayList(int capacity)`;*
 
 
 
 #### LinkedList
 
-是一个实现了List接口和Deque接口的**双端链表**。 LinkedList底层的链表结构使它支持**高效的插入和删除操作**，另外它实现了Deque接口，使得`LinkedList类`也具有**队列**的特性; LinkedList不是线程安全的，如果想使LinkedList变成线程安全的，可以调用静态类`Collections类`中的**synchronizedList**方法
+是一个实现了`List`接口和`Deque接口`的**双端链表**。 LinkedList底层的链表结构使它支持**高效的插入和删除操作**，另外它实现了Deque接口，使得`LinkedList类`也具有**队列**的特性; LinkedList不是线程安全的，如果想使LinkedList变成线程安全的，可以调用静态类`Collections类`中的**synchronizedList**方法
 
 ```java
 List list=Collections.synchronizedList(new LinkedList(...));
@@ -340,7 +344,7 @@ List list=Collections.synchronizedList(new LinkedList(...));
 
 ![](/arraylist.png)
 
-***双向链表优势***：链表中每一个元素都包含着***两个指针***，指向上一个元素和下一个元素的内存地址，在某个位置插入元素，***是将该位置索引前的元素的next指针指向新插入的元素，新插入的元素的prev指针指向该位置前的那个元素***
+**双向链表优势**：链表中每一个元素都包含着**两个指针**，指向**上一个元素**和**下一个元素**的内存地址，在某个位置插入元素，***是将该位置索引前的元素的next指针指向新插入的元素，新插入的元素的prev指针指向该位置前的那个元素***
 
 ![](/QQ截图20190822101355.png)
 
@@ -355,14 +359,14 @@ addAll方法通常包括下面四个步骤：
 
 *****
 
-**void add(int index, 0bject ele)**：在index位置插入ele元素
-**boolean addAll(int index, Collection eles)**：从index位置开始将eLes中的所有元素添加进来
-**object get(int index)**：获取指定index位置的元素
-**int indexOf(object obj)：**返回obj在集合中首次出现的位置
-**int LastIndexOf(object obj)**：返回obj在当前集合中末次出现的位置
-**object remove(int index)：**移除指定index位置的元素，并返回此元素
-**object set(int index, object ele)**：设置指定index位置的元素为ele
-**List sublist(int fromIndex, int toIndex)**：返回从fromIndex到toIndex位置的子集合
+**void add(int index, 0bject ele)**：	在index位置插入ele元素
+**boolean addAll(int index, Collection eles)**：	从index位置开始将ele中的所有元素添加进来
+**object get(int index)**：	获取指定index位置的元素
+**int indexOf(object obj)：**	返回obj在集合中首次出现的位置
+**int LastIndexOf(object obj)**：	返回obj在当前集合中末次出现的位置
+**object remove(int index)：**	移除指定index位置的元素，并返回此元素
+**object set(int index, object ele)**：	设置指定index位置的元素为ele
+**List sublist(int fromIndex, int toIndex)**：	返回从fromIndex到toIndex位置的子集合
 
 **addFirst(E e)**： 将元素添加到链表头部
 **addAll(int index, Collection c)**： 将集合从指定位置开始插入
@@ -392,7 +396,7 @@ private static cLass Node<E> {
 
 
 
-首次调用linkLast新建一个node节点，第一次创建时第一个也是最后一个节点，如果l（prev指针为null），说明节点之前没有被添加过时第一个节点，如果不是则说明之前是有节点的并将前一位节点的l指向新加入的节点newNode
+首次调用`linkLast`新建一个node节点，第一次创建时第一个也是最后一个节点，如果（prev指针为null），说明节点之前没有被添加过时第一个节点，如果不是则说明之前是有节点的并将前一位节点的l指向新加入的节点newNode
 
 ```java
 void linkLast(E e) {
@@ -412,7 +416,7 @@ void linkLast(E e) {
 
 #### Vector 
 
-和ArrayList功能类似，创建方式也大致相同，底层都是创建的长度为10的数组，不同的一点是在扩容方面，默认扩容的是原来数组长度的2倍
+和`ArrayList`功能类似，创建方式也大致相同，底层都是创建的长度为10的数组，不同的一点是在扩容方面，默认扩容的是原来数组长度的2倍
 
 线程安全的，效率慢
 
@@ -446,7 +450,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 - 如果此位置上没有其他元素或者首次添加，直接插入数据
 
-- 有可能发生数据要存放的位置已经有元素，但是两个数据彼此之间的hash值并不相同，通过**equals()**方法判断两个元素的hash值，hash值不相等的话被认为是两个不同的元素，就会添加元素，否则添加失败
+- 有可能发生数据要存放的位置已经有元素，但是两个数据彼此之间的hash值并不相同，通过`equals()`方法判断两个元素的hash值，hash值不相等的话被认为是两个不同的元素，就会添加元素，否则添加失败
 
 - **HashSet提供了链表的机制**，新元素会添加到集合数组已存在数据位置的链表前或是后，JDK7是添加在当前数据前并将**next**指针指向该数据，jdk8添加到当前数据后指针指向新插入的数据（***七上八下***）
 
@@ -460,9 +464,9 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 #### LinkedHashSet
 
-作为HashSet的子类，遍历其内部的数据时，***可以根据添加的顺序遍历***，***但本质上存放的位置顺序还是无序的***
+作为`HashSet`的子类，遍历其内部的数据时，***可以根据添加的顺序遍历***，***但本质上存放的位置顺序还是无序的***
 
-在HashSet的基础上，每个元素都添加了**两个指针**，指向新前一个和后一个添加的元素，***底层的链表linked是用来计入数据的添加顺序***
+在`HashSet`的基础上，每个元素都添加了**两个指针**，指向新前一个和后一个添加的元素，***底层的链表linked是用来计入数据的添加顺序***
 
 ##### 原理图
 
@@ -472,7 +476,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 
 
-#### Teeset
+#### TreeSet
 
 可以按照添加对象的指定属性进行排序（比如从小到大），但是不能是不同类的对象
 
@@ -500,18 +504,19 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 ![](/QQ截图20190825135553.png)
 
-双列数据，key-value对应的数据
+***双列数据，key-value对应的数据***
 
 
 
 #### HashMap
 
-HashMap是Map主要的实现类，线程不安全，效率高
+`HashMap`是Map主要的实现类，线程不安全，效率高
 
-HashMap底层是使用**哈希表**，基本结构是**数组+链表**，默认的长度是***16***
+`HashMap`底层是使用**哈希表**，基本结构是**数组+链表**，默认的长度是***16***
 
  * 数组:占用空间连续。寻址容易,查询速度快。但是,增加和删除效率非常低。
  * 链表:占用空间不连续。寻址困难， 查询速度慢。 但是,增加和删除效率非常高。
+ * HashMap结合两种数据结构的优点
 
 ***entry[]*** 数组是HashMap的核心，entry对象中存储了key value键值对，next指向下一个节点，hash值，每一个entry对象都是一个**单向链表**（或者叫节点对象）
 
@@ -536,25 +541,29 @@ key和value键值对组成一个entry对象
 ![](/QQ拼音截图20190814225446.png)
 
 ***HashMap的底层:  数组+链表(jdk7及之前)***
-				***数组+链表+红黑树(jdk8)***
+							 ***数组+链表+红黑树(jdk8)***
 
 ##### 存储过程
 
-Object对象的**hashCode()**方法，通过hashcode()方法得到hash码，得到在entry数组中的存放位置，HashMap的hash()方法计算出数组的长度，计算出对于的hash值（区间在[0,数组长度-1]）之间，转换的hash值尽量均匀分布在这个区间之内，通过**散列算法**等分散分配put进去的值，理论上越分散越有利于HashMap的性能
+Object对象的`hashCode()`方法，通过`hashcode()`方法得到hash码，得到在entry数组中的存放位置，HashMap的hash()方法计算出数组的长度，计算出对于的hash值（区间在[0,数组长度-1]）之间，转换的hash值尽量均匀分布在这个区间之内，通过**散列算法**等分散分配put进去的值，***理论上越分散越有利于HashMap的性能***
 
 ![](/QQ拼音截图20190814231536.png)
 
 **总结**：由上可知，当添加一个元素时，首先计算key的hash值，**确定插入数组的位置**，如果某一hash值存在的数组节点中已经有元素了，哈希值相同的继续比较**equals**，返回false表示两个对象是不同的，返回true则是修改功能覆盖原来的数据，数据添加到同一hash值的后面（**单向链表**），jdk8之后，链表长度大于8时，链表转换为**红黑树**，提高效率，jdk8中的底层数组是Node[]，而非entry[]数组，
 
+
+
 ##### 取数据过程
 
-1. 获得key的hashcode , 通过hash()散列算法得到hash值,进而定位到数组的位置。
+1. 获得key的hashcode , 通过**hash()散列算法**得到hash值,进而定位到数组的位置。
 
 2. 在链表上挨个比较key对象。调用equals()方法 ,将key对象和链表上所有节点的key对象进行，,直到碰到返回true的节点对象为止。
 
 3. 返回equals()为true的节点对象的value对象
 
    ***Java中规定,两个内容相同(equals(为true)的对象必须具有相等的hashCode和quals()***
+   
+   
 
 ##### HashMap扩容
 
@@ -562,23 +571,31 @@ HashMap的位桶数组,初始大小为16。实际使用时,显然大小是可变
 
 扩容的本质是定义新的更大的数组,并将旧数组内容挨个拷贝到新数组中。很费时间
 
+根据LoadFactor加载因子，加载因子越接近于1，说明HashMap中的数据存储的越多链表越长，越接近于0，存储的数据越少，临界因子的大小会影响到执行效率，0.75f是最好的临界值
+
+
+
+
+
 ##### jdk8中HashMap的区别
 
 jdk8相较于jdk7在底层实现方面的不同:
 1. new HashMap():底层没有创建一个长度为16的数组
 2. jdk 8底层的数组是: Node[], 而非Entry[]
-3.首次调用put()方法时，底层创建长度为16的数组
+3. 首次调用`put()`方法时，底层创建长度为16的数组
 4. jdk7底层结构只有:数组+链表。jdk8中底层结构:**数组+链表+红黑树**。
-当数组的某一个索引位置上的元素以链表形式存在的数据个数> 8且当前数组的长度> 64时，
-些索引位器的所有数据改为用红黑树存储；
+  当数组的某一个索引位置上的元素以链表形式存在的数据个数> 8且当前数组的长度> 64时，
+  些索引位器的所有数据改为用红黑树存储；
 
 
 
 #### LinkedHashMap
 
-HashMap的子类，在遍历数据的时候，可以按照添加的顺序实现遍历
+HashMap的子类，在遍历数据的时候，**可以按照添加的顺序实现遍历**
 
 在HashMap的基础上添加了两个指针，指向前一个后一个元素，***频繁的遍历高于HashMap***
+
+
 
 ##### LinkedHashMap和HashMap的内部类区别
 
@@ -917,112 +934,111 @@ Class<?> clazz4 = classLoader.loadClass("com.sunny.reflection.Person");
 System.out.println(clazz1 == clazz2 && clazz1 == clazz3 && clazz3 == clazz2);
 ```
 
-**Class类的常用**
+**Class类的常用方法**
 
-
-
-#### 类的加载过程
-
-![](/QQ截图20190828220211.png)
-
-**加载**:将class文件字节码内容加载到内存中，并将这些静态数据转换成方法区的**运行时数据结构**，然后生成一个代表这个类的**java.lang.Class**对象，作为方法区中类数据的**访问入口**(即引用地址)。所有需要访问和使用类数据只能通过这个Class对象。这个加载的过程需要**类加载**器参与。
-
-**链接**：将Java类的二进制代码合并到JVM的运行状态之中的过程。
-
-验证:确保加载的类信息符合JVM规范，例如:以cafe开头， 没有安全方面的问题
-
-准备:正式为类变量(static) **分配内存并设置类变量默认初始值**的阶段，具体的值会在初始化的时候分配，这些内存都将在方法区中进行分配。
-
-解析:虚拟机常量池内的符号引用(常量名)替换为直接引用(地址)的过程。
-
-**初始化**：执行**类构造器**<clinit>()方法的过程。类构造器<clinit>()方法是由编译期自动收集类中所有类变量的**赋值动作**和**静态代码块**中的语句合并产生的。 (类构造器是构造类信息的，不是构造该类对象的构造器)。
-
-当初始化一个类的时候，如果发现其父类还没有进行初始化，则需要先触发其父类的初始化。
-
-虚拟机会保证一个类的<clinit:()方法在多线程环境中被正确加锁和同步。
-
-例子：
-
-![](/QQ截图20190828224609.png)
-
-#### 三种类加载器
-
-系统类加载器、拓展类加载器、引导类加载器
+`getModifiers()`获取类的修饰符，返回的是一个整数，各个权限修饰符和特征修饰符都是用一个数字表示，两个权限修饰符返回的值会求和
 
 ```java
-//自定义类，使用系统类加载器
-ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
-System.out.println(classLoader);
-
-//获取系统类加载器的父类：拓展类加载器
-ClassLoader parent = classLoader.getParent();
-System.out.println(parent);
-
-//拓展类加载器的父类：引导类加载器（无法获取），无法加载自定义类，主要用于加载核心类库
-ClassLoader parent1 = parent.getParent();
-System.out.println(parent1);
-
-//换言之，核心类库，java系统类库中的属性的加载器则无法被获取到
-ClassLoader classLoader1 = String.class.getClassLoader();
-System.out.println(classLoader1);
+int modifiers = clazz. getModifiers() ;
+//每一个修饰符用一个整数来进行表示
+//0开始---01248163264128256512
+//0--默认不写 1--public 2--private 4--protected
+//8--static 
+//16--final 32--synchronized 64volati le
+//128--transient
 ```
 
+`clazz.getSimpleName()和getName()`前者获取的仅仅是类名，后者是全路径名
+
+`getPackage()`获取包名
+
+`getSuperclass()`和`getInterface()`获取超类父类和父接口
+
+`newInstance`调用Person类的无参构造方法
+
+`getField()`和`getFields()`获取类中的属性，只能调用本类中的私有公有属性，包括获取父类的
+
+`getDecalaredFileds()`和`getDecalaredFiled()` 获取类的全部属性，但不包括父类的
+
+`getClasses()`获取内部类
 
 
-#### 反射的例子
 
-##### 调用反射机制来加载配置文件
+反射可以获取操作私有属性，private关键字修饰的变量本质上是不允许外界修改的，但反射的强大之处可以体现在此处
 
-```java
-//读取配置文件的方式一：流的方式
-Properties properties = new Properties();
-FileInputStream inputStream = new FileInputStream("jdbc.properties");
-properties.load(inputStream);
-
-//识别默认配置文件的路径是在src下：调用的是当前类的类加载器
-ClassLoader classLoader = ClassLoaderTest.class.getClassLoader();
-InputStream resourceAsStream = classLoader.getResourceAsStream("jdbc1.properties");
-properties.load(resourceAsStream);
-```
-
-##### 通过反射创建运行时类的对象
-
-```java
-Class<Person> clazz = Person.class;
-Person person = clazz.newInstance();	
-//调用的是Person类的无参构造器，可以看出，只要是创建对象，就会使用到构造器，
-//而newInstance，调用的是运行时类的无参构造器，运行时类必须要有运行时参构造器
-
-```
-
-##### 根据传递的参数创建对象
-
-```java
-for (int i = 0; i < 10; i++) {
-    //0,1,2
-    int num = new Random().nextInt(3);
-    String classPath = "";
-    switch (num) {
-        case 0:
-            classPath = "java.util.Date";	//随机数为0的时候打印日期
-            break;
-        case 1:
-            classPath = "java.lang.Object";	//随机数为1的时候打印对象名
-            break;
-        case 2:
-            classPath = "com.sunny.reflection.Person";	////随机数为2的时候打印自定义对象
-            break;
-    }
-    try {
-        Object instance = newInstance(classPath);
-        System.out.println(instance);
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-```
+`setAccessible(true)`：java 中私有属性是不能随意被修改的，Accessible设置为true表示该私有属性可以被修改
 
 
+
+**Filed类中的常用方法**
+`getModifiers()`获取属性修饰符(权限+特征)
+
+`getType()`获取属性的类型对应的那个class
+
+`getName` 获取属性的名字，操作属性
+
+set(对象,值);给属性赋值
+
+Object = get(对象)从某个对象内取得属性的值
+
+`setAccessable()`可以设置私有变量可以修改
+
+**操作方法**
+
+clazz.getMethod();	//获取方法
+
+int mm = m.getModifiers();//获取方 法的修饰符(权限+特征)
+
+Class mrt = m.getReturnType();//获取返回值数据类型
+
+String mn = m.getName();//获取方法的名字
+
+Class[] mpts = m.getParameterTypes();//获取方法参数列表的类型
+
+Class[] mets = m.getExceptionTypes();//获取方法抛出异常的类型
+
+setAccessable(true);//如果方法是私有的，设置为true的可以操作私有方法
+
+
+
+**操作构造方法**（和操作方法大致相同）
+
+Constructor<Person> constructor = clazz.getConstructor();	//获取构造方法
+
+con.getModifiers();
+
+con.getName();
+
+con.getParameterTypes();
+
+con.getExceptionTypes();
+
+操作构造方法，执行一-次创建对象
+
+object = newInstance(执行构造方法时的所有参数
+
+#### 反射的技术应用
+
+反射应用应用层的开发和功能实现可能效果不是很理想，但是应用于一些小框架的封装和对象的管理效果很好
+
+反射有四种加载类的方式，已知类.class（Person.class）、已知类.getClass(Person.getClass)、类加载器(Person.class.getClassLoader)、Class.forName(Class.forName(com.sunny.Person)
+
+其中`Class.forName`可以根据字符串String生成一个实例类，在做一些底层的开发中，可以根据包含类信息的字符串文件生成大批量的对象，
+
+##### 动态代理
+
+代理模式的原理：使用一个代理将对家包装起来，然后用该代理取代原始对象。仕何对原始对象的							调用都要通过代理。代理对象决定是否以及何时将方法调用转到原始对象上
+
+实际场景：辩护人的律师，明星的经纪人
+
+静态代理是一个代理类对应一个接口，只能为一个接口服务，如果需要代理的对象很多，相应的代理的的代理类也会很多，**最好是能有一个代理类完成全部的代理功能——动态代理**
+
+动态代理通过一个代理类来调用其他对象的方法，在运行期间动态的创建目标代理对象
+
+一个代理就可以完成所有代理类的功能
+
+1. 如何动态的创建代理类和对象
+2. 如何动态的调用被代理类的同名方法
 
 
 
@@ -1034,15 +1050,15 @@ for (int i = 0; i < 10; i++) {
 
 **如何保证线程安全？**
 
-Java中主要通过加锁来实现线程安全。通常使用synchronized和Lock
+Java中主要通过加锁来实现线程安全。通常使用`synchronized`和`Lock`
 
 **什么是锁？死锁？**
 
-死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。
+死锁是指两个或两个以上的进程在执行过程中，由于**竞争资源**或者由于**彼此通信**而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。
 
-死锁四个必要条件：互斥条件、请求和保持条件、不剥夺条件、环路等待条件
+死锁四个必要条件：**互斥条件、请求和保持条件、不剥夺条件、环路等待条件**
 
-死锁的解决办法就是破坏以上四种必备条件中的一个或者多个。
+***死锁的解决办法就是破坏以上四种必备条件中的一个或者多个。***
 
 ##### 涉及到线程
 
@@ -1062,21 +1078,15 @@ Java中主要通过加锁来实现线程安全。通常使用synchronized和Lock
 
 3. 守护线程 GC垃圾回线程
 
-   线程的操作线程运行级别很大程度上是由CPU决定的，CPU决定线程的执行顺序 
+   线程的操作线程运行级别很大程度上是由CPU决定的，***CPU决定线程的执行顺序***
 
 ##### 线程的五种状态
 
 线程创建new()、就绪状态start()、执行状态notify()/notifyAll()、等待/挂起wait()、异常/死亡over/exception
 
-
-
 ##### run()和start()
 
 run()方法会根据前后顺序执行，start()让线程进行就绪状态，并由CPU调度执行
-
-
-
-##### 生产者消费者模型
 
 
 
@@ -1105,7 +1115,11 @@ public class SynchronizedTest {
 
 在进行反编译后，字节码文件同步方法和同步代码块都有自己的标识
 
-对于**同步方法**，JVM采用`ACC_SYNCHRONIZED`标记符来实现同步，同步方法的常量池中会有一个`ACC_SYNCHRONIZED`标志。当某个线程要访问某个方法的时候，会检查是否有`ACC_SYNCHRONIZED`，如果有设置，则需要先获得监视器锁，然后开始执行方法，方法执行之后再释放监视器锁。这时如果其他线程来请求执行方法，会因为无法获得监视器锁而被阻断住，*如果在方法执行过程中，发生了异常，并且方法内部并没有处理该异常，那么在异常被抛到方法外面之前监视器锁会被自动释放。*
+对于
+
+
+
+**同步方法**，JVM采用`ACC_SYNCHRONIZED`标记符来实现同步，同步方法的常量池中会有一个`ACC_SYNCHRONIZED`标志。当某个线程要访问某个方法的时候，会检查是否有`ACC_SYNCHRONIZED`，如果有设置，则需要先获得监视器锁，然后开始执行方法，方法执行之后再释放监视器锁。这时如果其他线程来请求执行方法，会因为无法获得监视器锁而被阻断住，*如果在方法执行过程中，发生了异常，并且方法内部并没有处理该异常，那么在异常被抛到方法外面之前监视器锁会被自动释放。*
 
 对于**同步代码块**。JVM采用`monitorenter`、`monitorexit`两个指令来实现同步，执行`monitorenter`指令理解为加锁，执行`monitorexit`理解为释放锁。 每个对象维护着一个记录着被锁次数的计数器，同一个线程访问锁会多次递增，当计数器为0释放所并可以被其他线程获取
 
@@ -1113,30 +1127,37 @@ public class SynchronizedTest {
 
 #### 程序、进程和线程的概念
 
-● **程序(program)**是为完成**特定任务**、用某种语言编写的**一组指令的集合**。即指一段**静态的代码**，静态对象。
+● **程序(program)是为完成特定任务**、用某种语言编写的**一组指令的集合**。即指一段**静态的代码**，静态对象。
 
-● **进程(process)**是程序的**一次执行过程**， 或是正在运行的一个程序。是一个动态的过程:有它自身的**产生**、**存在**和**消亡**的过程。生命周期	
-➢如:运行中的QQ,运行中的MP3播放器
-➢程序是**静态**的，进程是**动态**的
+● **进程(process)是程序的一次执行过程**， 或是正在运行的一个程序。是一个动态的过程:有它自身的**产生**、**存在**和**消亡**的过程。
+
+生命周期 ➢如:运行中的QQ,运行中的MP3播放器 ➢程序是**静态**的，进程是**动态**的 
+
 ➢进程作为**资源分配的单位**，系统在运行时会为每个进程分配不同的内存区域
 
-● **线程(thread)**， **进程可进一步细化为线程**，是一个程序内部的**一条执行路径**。
-➢若一个进程同一时间并行执行多个线程，就是支持多线程的
-➢线程作为调度和执行的单位，每个线程拥有独立的运行栈和程序计数器(pc)，线程切换的开
-销小
-➢一个进程中的多个线程共享相同的内存单元/内存地址空间→它们从同一堆中分配对象，可以
-访问相同的变量和对象。这就使得线程间通信更简便、高效。***但多个线程操作共享的系统资***
-***源可能就会带来安全的隐患。***
+● **线程(thread)**， **进程可进一步细化为线程**，是一个程序内部的**一条执行路径**。 
 
- Java中一个main方法其实就是对应一个线程
+➢若一个进程同一时间并行执行多个线程，就是支持多线程的 ➢线程作为调度和执行的单位，每个线程拥有独立的运行栈和程序计数器(pc)，线程切换的开 销小 
 
-![](/QQ截图20190902214736.png)
+➢一个进程中的多个线程共享相同的内存单元/内存地址空间→它们从同一堆中分配对象，可以 访问相同的变量和对象。这就使得线程间通信更简便、高效。***但多个线程操作共享的系统资*** ***源可能就会带来安全的隐患。***
+
+Java中一个main方法其实就是对应一个线程
+
+[![img](QQ截图20190902214736.png)
 
 虚拟机栈和程序计数器每一个线程都各自具备一个，方法区和堆是一个进程一个，进程下的多个线程共享方法区和堆
 
 
 
-##### ● 单核CPU和多核CPU的理解
+##### 从JVM角度说一下线程和进程的区别
+
+一个进程下的多个线程，共享Java内存区域的堆和方法区（JDK1.8是元空间），每个线程有独立互不影响的程序计数器，虚拟机栈和本地方法栈，因此线程之间是会互相影响的
+
+
+
+
+
+##### 单核CPU和多核CPU的理解
 
 **➢单核CPU**, 其实是一种**假的多线程**，因为在一一个时间单元内，也只能执行一个线程的任务。例如:虽然有多车道，但是收费站只有一一个工作人员在收费，只有收了费才能通过，那么CPU就好比收费人员。如果有某个人不想交钱，那么收费人员可以把他**“挂起”**(晾着他， 等他想通了，准备好了钱，再去收费)。***但是因为CPU时间单元特别短，因此感觉不出来***。
 
@@ -1146,35 +1167,34 @@ public class SynchronizedTest {
 
 ● **并行与并发**
 
-➢**并行**:**多个CPU同时执行多个任务**。比如:多个人同时做不同的事。
+➢**并行**:**多个CPU同时执行多个任务**。比如:多个人同时做不同的事。 
+
 ➢**并发**:一个CPU(采用时间片)**同时执行多个任务**。比如:秒杀、多个人做同一件事，会设计到多个线程访问一个共享资源
 
-java程序在执行的时候，至少会执行三个线程，main方法主方法线程，垃圾回收机制，
+Java程序在执行的时候，至少会执行三个线程，**main方法、主方法，垃圾回收机制线程**，
+
+
 
 ##### 单核多线程的用意
 
-背景:
-以单核CPU为例，只使用单个线程先后完成多个任务(调用多个方法)，肯定比用多个线程来完成用的时间更短，为何仍需多线程呢?
-**多线程程序的优点**:
+背景: 以单核CPU为例，只使用单个线程先后完成多个任务(调用多个方法)，肯定比用多个线程来完成用的时间更短，为何仍需多线程呢? **多线程程序的优点**:
 
-1.提高应用程序的响应。对图形化界面更有意义，可增强用户体验。
-2.提高计算机系统CPU的利用率
-3.改善程序结构。将既长又复杂的进程分为多个线程，独立运行，利于理解和修改
+1.提高应用程序的响应。对图形化界面更有意义，可增强用户体验。 2.提高计算机系统CPU的利用率 3.改善程序结构。将既长又复杂的进程分为多个线程，独立运行，利于理解和修改
 
 执行的背景
 
-● 程序需要同时执行两个或多个任务。
-● 程序需要实现一些需要等待的任务时，如用户输入、文件读写操作、网络操作、搜索等。
-● 需要一些后台运行的程序时。
+● 程序需要同时执行两个或多个任务。 ● 程序需要实现一些需要等待的任务时，如用户输入、文件读写操作、网络操作、搜索等。 ● 需要一些后台运行的程序时。
+
+
 
 ##### 多线程的创建
 
 ###### 方式一
 
 1. 继承`Thread`类，创建一个继承Thread类的子类
-2. 重写run（）方法的子类 ，线程执行的操作写在run（）方法中
-3. 创建Thread类的子类对象
-4. 调用start（）执行当前线程，和调用当前线程的run方法
+2. 重写`run（）`方法的子类 ，线程执行的操作写在run（）方法中
+3. 创建`Thread`类的子类对象
+4. 调用`start（）`执行当前线程，和调用当前线程的run方法
 
 注意：不能直接调用执行方法的run（）方法，这样不会开启新的线程，已经执行的线程不能再次star()执行，但是可以new一个新的线程执行
 
@@ -1201,15 +1221,15 @@ new Thread(() -> {
 
 3.创`Thread`类的子类的对象
 
-4. 通过此对象调用start()
+1. 通过此对象调用start()
 
 两种方式对比，实现接口的方式多态性更强，更灵活的实现方式，例如，根据java的特性，extends单继承的局限性，实现的方式更适合有多个线程共享数据的时候
 
 Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（）方法
 
+
+
 ***优先选择实现Runnable***
-
-
 
 ##### 线程的调度
 
@@ -1219,25 +1239,23 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 
 ➢抢占式：高优先级的线程抢占CPU
 
-● Java的调度方法
-➢ 同优先级线程组成先进先出队列(先到先服务)，使用时间片策略?
-➢ 对高优先级，使用优先调度的抢占式策略
+● Java的调度方法 ➢ 同优先级线程组成先进先出队列(先到先服务)，使用时间片策略? ➢ 对高优先级，使用优先调度的抢占式策略
 
 ##### 线程的优先级
 
 1. 线程的优先级:
 
-* MAX PRIORITY: 10 
+- MAX PRIORITY: 10
 
-* MIN PRIORITY: 1
+- MIN PRIORITY: 1
 
-* NORM PRIORITY: 5 
+- NORM PRIORITY: 5
 
-  2.如何获取和设置当前线程的优先级:
-  getPriority():获取线程的优先级
-  setPriority(int p): 设置线程的
+  2.如何获取和设置当前线程的优先级: getPriority():获取线程的优先级 setPriority(int p): 设置线程的
 
-* 线程优先级高的线程被CPU执行的概率更高，但是并不是说，执行级别高的会优先执行，而低优先级的线程就不会被执行
+- 线程优先级高的线程被CPU执行的概率更高，但是并不是说，执行级别高的会优先执行，而低优先级的线程就不会被执行
+
+
 
 ##### 线程的分类
 
@@ -1246,7 +1264,6 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 线程的五种状态
 
 - **新建:**当一个Thread类或其子类的对象被声明并创建时，新生的线程对象处于新建状态
-
 - **就绪**:处于新建状态的线程被start()后，将进入线程队列等待CPU时间片，此时它已具备了运行的条件，只是没分配到CPU资源
 - **运行**:当就绪的线程被调度并获得CPU资源时,便进入运行状态，run()方法定义了 线程的操作和功能
 - **阻塞**:在某种特殊情况下，被人为挂起或执行输入输出操作时，让出CPU并临时中止自己的执行，进入阻塞状态
@@ -1254,9 +1271,9 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 
 ***线程最终会走向死亡***
 
+
+
 ![](/QQ截图20190905080108.png)
-
-
 
 ##### 线程的同步
 
@@ -1267,6 +1284,8 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 当一个线程在操作共享数据的时候，其他线程不能参与进来，直到当前线程操作完成退出时，就算当前线程是存在阻塞状况，其他线程也不能参与到对共享资源的访问，当前线程访问共享资源如果对资源进行了修改，修改后的资源才是其他线程访问的共享资源
 
 关键字：线程锁、同步机制
+
+
 
 ###### 方法一：同步代码块
 
@@ -1285,8 +1304,6 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 ###### 方法二：同步方法
 
 同步方法的同步监视器是this当前对象
-
-
 
 ##### 线程安全的懒汉式
 
@@ -1318,12 +1335,20 @@ public static  Bank getInstance() {
 }
 ```
 
+##### 线程死锁
+
+➢不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁 ➢出现死锁后，不会出现异常，不会出现提示，只是所有的线程都处于阻塞状态，无法继续
+
+**线程死锁的解决方法**
+
+破坏产生死锁的四个条件就可以
+
+- 互斥条件
+- 请求和保持条件
+- 不剥夺条件
+- 循环等待条件
 
 
-线程死锁
-
-➢不同的线程分别占用对方需要的同步资源不放弃，都在等待对方放弃自己需要的同步资源，就形成了线程的死锁
-➢出现死锁后，不会出现异常，不会出现提示，只是所有的线程都处于阻塞状态，无法继续
 
 
 
@@ -1339,15 +1364,13 @@ public static  Bank getInstance() {
 2. 谁调用这个方法，谁处理异常
 3. 抛出异常也可以有多个
 
-
-
 #### Throwable和Exception的区别
 
 所有需要throw抛出的异常都是需要Throwable派生而来，是所有异常子类的超类父类。
 
 有的情况需要使用自定义的异常，而自定义的异常也是Exception派生而来
 
-**Throwable是java.lang包中一个专门用来处理异常的类。它有两个子类，即Error 和Exception，它们分别用来处理两组异常。** 
+**Throwable是java.lang包中一个专门用来处理异常的类。它有两个子类，即Error 和Exception，它们分别用来处理两组异常。**
 
 Exception的两个子类的区别
 
@@ -1359,9 +1382,7 @@ Exception的两个子类的区别
 
 ### I/O输入输出流
 
-数据流动的方向
-**读数据(输入Input)**、**写数据(输出output)**
-文件流、字符流、数据流、对象流、网络流
+数据流动的方向 **读数据(输入Input)**、**写数据(输出output)** 文件流、字符流、数据流、对象流、网络流
 
 #### 文件，文件流
 
@@ -1377,23 +1398,17 @@ Exception的两个子类的区别
 
 **相对路径**： 所谓相对路径，就是相对于自己的目标文件位置。当前项目的所在位置
 
-
-
 createNewFile:创建一个新的文件
 
 mkdirs：创建包含文件夹的文件夹
 
-mkdir：创建单个文件夹	
-
-
+mkdir：创建单个文件夹
 
 String[] names = list();	//获取当前文件的所有子文件或目录的名字
 
 File[] files = listFiles();	//获取当前当前文件的所有子文件或目录的对象
 
 delete();	//删除后的文件永久删除，文件夹中都没有
-
-
 
 #### 文件流
 
@@ -1413,7 +1428,7 @@ delete();	//删除后的文件永久删除，文件夹中都没有
 
 **数组**：存放多个，数据类型统一大小固定
 
-**集合**：存储多个，存储大小可变自增	
+**集合**：存储多个，存储大小可变自增
 
 **泛型**：数据类型统一
 
@@ -1429,11 +1444,9 @@ delete();	//删除后的文件永久删除，文件夹中都没有
 
 **int count = is.available()**；返回流管管道中还有多少缓存的数字节数
 
-
-
 **对文件的操作**
 
-```
+```java
 /**
  * 文件的复制
  */
@@ -1447,7 +1460,7 @@ public void copyFile(File file, String path) {
         //复制完成后的文件（路径名+文件名）
         File newFile = new File(path + "//" + file.getName());
         //文件输出流（将文件数据复制到新文件）
-         outputStream = new FileOutputStream(newFile);
+        outputStream = new FileOutputStream(newFile);
         //字节缓冲区数组（指定大小的值，若读取的值读不满，会有很大的空间浪费）
         byte[] bytes = new byte[1024];
         //将输入流对象中的数据放入到缓冲区(读取的是第一个字节)
@@ -1539,8 +1552,6 @@ public static void main(String[] args) {
 
 **字节型文件流**可以操作**所有类型**的文件，音频文本都可以，是一个字节一个字节读取写入，所以一般会用到while等循环操作，字节型可能对中文可能会产生乱码错误
 
-
-
 **字符型文件流**只能操作纯文本文件（txt.html.jsp），所谓纯文本文件就是可以右键记事本直接打开不会乱码的文件
 
 字节流的缓冲区是byte数组，字符流的缓冲区是char数组
@@ -1555,19 +1566,17 @@ writer(code);	writer(char[]);	writer(String);	flush();	close();
 
 字符（**character**）文字和**符号的总称**，在操作纯文本的文件，不需要改变开发运行环境的编码格式，推荐改变文本文件的编码格式为**utf-8**
 
-
-
 #### 流总结
 
 **文件流**：**FileInputStream/FileOutputStream	FileReader/FileWriter**
 
 **缓冲流：**为了在流管道中增加缓冲的数据，使读取数据的时候更加的流畅，缓冲流本质还是FIleInputStream，多了一个缓冲区，属于高级流，创建低级流升级为高级流
 
-**BufferdInpuStream/BufferdOutPutStream		BufferedReader/BufferedWriter**
+**BufferdInpuStream/BufferdOutPutStream	BufferedReader/BufferedWriter**
 
 **BufferedRead**中有一个独特的方法.**readLine()**读取一行记录
 
-```java
+```
 try {
     File file = new File("D://test//知乎静文.txt");
     FileInputStream fileInputStream = new FileInputStream(file);
@@ -1578,15 +1587,13 @@ try {
 }
 ```
 
- **数组流**：byte数组	ByteArrayInputStream	ByteArrayOutputStream
+**数组流**：byte数组	ByteArrayInputStream	ByteArrayOutputStream
 
-​			   char数组	CharArrayReader CharArrayWriter
+​	char数组	CharArrayReader CharArrayWriter
 
 **对象流：**ObjectInputStream	ObjectOutputStream对象的序列化和反序列化（需要实现serialiazable接口）
 
 将对象直接拆分为字节码，直接写入到文件中
-
-
 
 #### IO小练习
 
@@ -1668,3 +1675,52 @@ public void commit(){
       .....
 }
 ```
+
+
+
+### 网络编程
+
+Java实现了全平台的网络库，有一个统一的编程环境
+
+#### 计算机网络
+
+把分布在不同地理区域的计算机与专门的外部设备用通信线路互连成一个规模大、功能强的网络系统，从而使众多的计算机可以方便地互相传递信息、共享硬件、软件、数据信息等资源。
+
+**网络编程的目的**：直接或间接的和其他计算机实现数据传递或交换
+
+**两个关注点**：1.如何准确地定位网络上一-台或多台主机;定位主机上的特定的应用
+
+​					  2.找到主机后如何可靠高效地进行数据传输
+
+
+
+##### 网络通信要素
+
+IP和端口号
+
+网络通讯协议
+
+##### 
+
+#### 计算机之间的通信
+
+**通信双方**
+
+ip：定位通信双方的主机地址，ip地址是唯一的，每个人都有独立的IP
+
+端口号：定位主机上的应用程序
+
+**网络通信协议**
+
+OSI参考模型：过于理想化，应用范围不广泛
+
+TCP/IP协议：国际标准
+
+![](/QQ截图20190928215522.png)
+
+##### 数据的拆装
+
+![](/QQ截图20190928215651.png)
+
+
+
