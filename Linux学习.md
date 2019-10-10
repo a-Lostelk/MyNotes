@@ -916,15 +916,38 @@ quit退出后就需要输入密码了
 
 Shell是一个命令行解释器，为用户提供了一个向Linux内核发送请求一遍运行程序的界面系统级程序	，可以用Shell启动，挂起，停止甚至编写一些程序
 
+#### shell的分类
+
+Shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括sh、ksh、 Bash、 psh、 zsh; C家族主
+要包括: csh、tcsh，B Shell和C Shell的语法结构是完全不相同的
+
+一般Linux中的Shell是Bash
+
+**vi /etc/shells**可以查询当前Linux系统支持的Shell
+
 ![](/QQ截图20190812154431.png)
 
 
 
 ##### shell脚本的执行方式
 
-脚本以#!/bin/bash 开头
+脚本以 **#!/bin/bash** 开头
 
 ![](/QQ截图20190812155328.png)
+
+
+
+echo输出命令，是相当强大的Shell输出语法，在Linux中，所有的系统命令都可以直接被脚本调用
+
+-e支持反斜线控制的字符转换
+
+比如改变输出字体的颜色
+
+30m=黑色，31=红色，32m=绿色等 
+
+![](/QQ截图20191003212757.png)
+
+
 
 ##### 执行方式
 
@@ -938,7 +961,11 @@ Shell是一个命令行解释器，为用户提供了一个向Linux内核发送�
 
 2. 明确指定用Shell执行（不推荐）
 
-   sh ./myShell.sh
+   sh ./myShell.sh 或者bash ./myShell.sh
+
+3. 使用第一种方式执行的实现要赋予文件可执行权限
+
+   
 
    
 

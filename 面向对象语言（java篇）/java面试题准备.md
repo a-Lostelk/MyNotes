@@ -17,6 +17,28 @@ typora-root-url: images
 
 
 
+### Java面向对象三大特性
+
+#### 封装
+
+把一个对象的属性私有化，同时提供一些给外部访问属性的方法，一个类不能被外部访问，那就失去了存在的意义
+
+#### 继承
+
+在已经存在的类作为基础拓展父类的功能或者继续使用父类的功能建立新的类，Java的一个强大之处就是在于代码的复用性很高，能非常方便的使用之前使用过的代码
+
+1. 子类拥有父类对象所有的属性和方法（包括私有属性和私有方法），但是父类中的私有属性和方法子类是无法访问，**只是拥有**。
+2. 子类可以拥有自己属性和方法，即子类可以对父类进行扩展。
+3. 子类可以用自己的方式实现父类的方法
+
+#### 多态
+
+一个引用变量会指向那个类的实例，该类引用变量调用的方法是哪个类中的方法，在编程期间不确定，要在运行期间才能决定
+
+Java实现多态的两种方式：**基础**（多个子类继承同一个父类）和 **接口**（实现接口并覆盖接口中的方法）
+
+
+
 ### **三元运算符**
 
 (条件表达式)？表达式1：表达式2；
@@ -63,13 +85,13 @@ String对象缓存`HashCode`，Java中String对象的哈希码被频繁地使用
 
 ### StringBuffer和StringBuilder
 
-String是不可变的字符序列，StringBuffer和StringBuilder是可变的字符序列
+`String`是不可变的字符序列，`StringBuffer`和`StringBuilder`是可变的字符序列
 
 - String：char[] 以final修饰即不可变
   - StringBuffer：效率低，线程安全（所有的同步方法都是被synchronized修饰的），没有final修饰，底层创建了一个长度为16的数组
 - StringBudler：效率高，线程不安全，没有final修饰
 
-作为参数传递的时候，方法内部 String不会改变值，**StringBuffer**和 **StringBuilder**会改变值，不存在多线程和线程安全问题，一般建议使用StringBuilder
+作为参数传递的时候，方法内部 String不会改变值，`StringBuffer`和 `StringBuilder`会改变值，不存在多线程和线程安全问题，一般建议使用`StringBuilder`
 
 可变：底层的char[]数组中含有abc，添加def，不会改变原有的数组，而是在原有的数组上进行增加改变
 
@@ -89,7 +111,7 @@ System.out.println(stringBuffer2.length());
 
 **扩容问题**：*如果原有的底层数组装不下了，那么就需要扩容新的数组，默认情况下是扩容原来的2倍 +  2，同时将原有数组中的数据复制到新的数组中*
 
-在开发过程中使用带有参数的StringBuffer（int capacity）
+在开发过程中使用带有参数的`StringBuffer`（int capacity）
 
 ##### StringBuffer的常用方法
 
@@ -120,10 +142,6 @@ StringBuilder > StringBuffer > String
 Date date = new Date();
 
 System.out.println(date.getTime());//1566296624156
-
-### JVM虚拟机
-
-全称 **Java virtual machine** (**JVM**)
 
 
 
@@ -852,10 +870,10 @@ Annotation：用来描述类中的注解@Override
 
 #### 反射的主要API
 
-java.lang.Class:代表一个类
-java.lang.reflect.Method:代表类的方法
-Java.lang.reflect.Field:代表类的成员变量
-Java.lang.reflect.Constructor:代表类的构造器、
+`java.lang.Class`:代表一个类
+`java.lang.reflect.Method`:代表类的方法
+`Java.lang.reflect.Field`:代表类的成员变量
+`Java.lang.reflect.Constructor`:代表类的构造器、】
 
 
 
@@ -910,7 +928,7 @@ Class类的实例对应着一个运行时类，不需要new创建，无论是自
 
 加载到内存中的运行时类，会在内存中缓存一定的时间，期间可以用以下的方式来获取运行时类
 
-获取Class实例的方式
+##### 获取Class实例的方式
 
 ```java
 //通过运行时类调用.class 属性获取类实例,Person类必须存在
@@ -1052,6 +1070,8 @@ object = newInstance(执行构造方法时的所有参数
 
 Java中主要通过加锁来实现线程安全。通常使用`synchronized`和`Lock`
 
+
+
 **什么是锁？死锁？**
 
 死锁是指两个或两个以上的进程在执行过程中，由于**竞争资源**或者由于**彼此通信**而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。
@@ -1059,6 +1079,22 @@ Java中主要通过加锁来实现线程安全。通常使用`synchronized`和`L
 死锁四个必要条件：**互斥条件、请求和保持条件、不剥夺条件、环路等待条件**
 
 ***死锁的解决办法就是破坏以上四种必备条件中的一个或者多个。***
+
+产生死锁的**四个必要条件**：
+
+（1） **互斥条件**：一个资源每次只能被一个进程使用。
+
+（2） **占有且等待**：一个进程因请求资源而阻塞时，对已获得的资源保持不放。
+
+（3）**不可强行占有**:进程已获得的资源，在末使用完之前，不能强行剥夺。
+
+（4） **循环等待条件**:若干进程之间形成一种头尾相接的循环等待资源关系。
+
+***这四个条件是死锁的必要条件***，只要系统发生死锁，这些条件必然成立，而只要上述条件之
+
+一不满足，就不会发生死锁。
+
+
 
 ##### 涉及到线程
 
@@ -1082,7 +1118,7 @@ Java中主要通过加锁来实现线程安全。通常使用`synchronized`和`L
 
 ##### 线程的五种状态
 
-线程创建new()、就绪状态start()、执行状态notify()/notifyAll()、等待/挂起wait()、异常/死亡over/exception
+线程创建`new()`、就绪状态`start()`、执行状态`notify()/notifyAll()`、等待/挂起`wait()`、异常/死亡`over/exception`
 
 ##### run()和start()
 
@@ -1152,8 +1188,6 @@ Java中一个main方法其实就是对应一个线程
 ##### 从JVM角度说一下线程和进程的区别
 
 一个进程下的多个线程，共享Java内存区域的堆和方法区（JDK1.8是元空间），每个线程有独立互不影响的程序计数器，虚拟机栈和本地方法栈，因此线程之间是会互相影响的
-
-
 
 
 
@@ -1724,3 +1758,175 @@ TCP/IP协议：国际标准
 
 
 
+### 数据结构与算法
+
+**常用排序算法分配**
+
+交换排序：冒泡排序、快速排序
+
+插入排序：直接插入排序、希尔排序
+
+选择排序：简单排序、堆排序
+
+归并排序
+
+基数排序 
+
+#### 冒泡排序
+
+```java
+public static void main(String[] args) {
+    int[] arr = new int[]{4, 2, 8, 9, 3, 1, 7, 5, 6,};
+    sort(arr);
+}
+/**
+ * 一共需要比较arr.length-1次，因为起始位置不用再次和本身自己比较，或者末尾位置也不用和自己比较
+ * 假设:先由第一个数和第二个数比较，大于前一位的往后移一位，小于后一位则位置保持不变，然后进入下一轮比较
+ *     比较中最大的值会放在数组中的最后一位，最大值就不必和其他数进行比较
+ */
+public static void sort(int[] arr) {
+    //循环多少轮比较
+    for (int i = 0; i < arr.length - 1; i++) {
+        //j表示比较的两个数的区间，当比较的次数i时，剩余比较的次数是数arr.length()-1-i
+        for (int j = 0; j < arr.length - 1 - i; j++) {
+            /**
+             * 如果当前位置j的数组大于后一位，开始位置互换，直接互换是无法实现的
+             * 于是创建一个临时int存储，将当前位置大的数取出，后一位的数替换j位置的数组，后一位j+1的的数由临时int数替代
+             * 执行多次循环，越到后面比较的次数越少
+             */
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+        System.out.println("第" + (i + 1) + "次排序结果");
+        for (int a = 0; a < arr.length; a++) {
+            System.out.print(arr[a] + "\t");
+        }
+        System.out.println();
+    }
+    System.out.println("最后一次排序的结果");
+    for (int a = 0; a < arr.length; a++) {
+        System.out.print(arr[a] + "\t");
+    }
+}
+```
+
+运行结果
+
+```
+第1次排序结果
+2	4	8	3	1	7	5	6	9	
+第2次排序结果
+2	4	3	1	7	5	6	8	9	
+......
+......
+第8次排序结果
+1	2	3	4	5	6	7	8	9	
+最后一次排序的结果
+1	2	3	4	5	6	7	8	9	
+```
+
+#### 快速排序
+
+将数组进行二分拆分，取一个随机数比较，比它大的放在右边，比他小的放在左边，之后再次取一个随机数，循环执行
+
+假设对**6 1 2 7 9 3 4 5 10 8**这个 10 个数进行排序，随机找一个基准数为参照，比6大的放在右边，比6小的放在左边，首次比较会得出“3 1 2 5 4 **6** 9 7 10 8”
+
+
+
+### Spring
+
+#### IOC实现
+
+```java
+public static void main(String[] args) {
+    ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationfile.xml");
+}
+```
+
+最基本的启动IOC容器的方法，加载配置文件后启动一个Spring容器 
+
+`ClassPathXmlApplicationContext`对象返回的是`ApplicationContext`接口对象，其中还会经历过多个接口和类的传递，最终返回一个IOC容器
+
+
+
+#### BeanFactory工厂
+
+生产Bean的工厂，Spring容器的作用就是生产Bean并为之添加依赖
+
+![](/BeanFactory.png)
+
+上图所知，`ApplicationContext`的最上层父级接口是`BeanFactory`，由此可知`ApplicationContext`就可以看做事一个Bean工厂
+
+- `ListableBeanFactory`的获取多个Bean，继承`BeanFactory`单个Bean的基础上拓展可以变成获取多个
+- `HierarchicalBeanFactory`将多个BeanFactory分层设置为父子关系
+- `AutoWiredCapableBeanFactory`自动装配Bean，`ApplicationContext`接口并没有继承该接口，但是最后有一个方法`getAutowireCapableBeanFactory（）`方法调用了该接口
+- `DefaultListableBeanFactory`的父类是左右两个，大致来说，这是最强大的Bean工厂的子类，具备了自动装载个ApplicationContext的功能
+
+
+
+#### IOC启动过程分析
+
+##### ClassPathXmlApplicationContext
+
+有多达七种构造方法，以应对不同的场景
+
+```java
+public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
+  private Resource[] configResources;
+
+  // 如果已经有 ApplicationContext 并需要配置成父子关系，那么调用这个构造方法（容器已存在时候只需要配置依赖关系）
+  public ClassPathXmlApplicationContext(ApplicationContext parent) {
+    super(parent);
+  }
+  ...
+  /**
+   * configLocations 读取配置文件的路径，可能存在多个，返回的是String类型的数组，保留的都是配置文件的路径名
+   * refresh 是否需要刷新	
+   * parent 已存在容器，就继承已存在容器
+   */
+  public ClassPathXmlApplicationContext(String[] configLocations, boolean refresh, ApplicationContext parent)
+      throws BeansException {
+
+    super(parent);
+    // 根据提供的路径，处理成配置文件数组(以分号、逗号、空格、tab、换行符分割)
+    setConfigLocations(configLocations);
+    if (refresh) {
+      refresh(); // 核心方法
+    }
+  }
+```
+
+#####  refresh()方法详解
+
+```java
+@Override
+public void refresh() throws BeansException, IllegalStateException {
+   // 来个锁，不然 refresh() 还没结束，你又来个启动或销毁容器的操作，那不就乱套了嘛
+   synchronized (this.startupShutdownMonitor) {
+      // 准备工作，记录下容器的启动时间、标记“已启动”状态、处理配置文件中的占位符
+      prepareRefresh();
+
+      // 这步比较关键，这步完成后，配置文件就会解析成一个个 Bean 定义，注册到 BeanFactory 中，
+      // 当然，这里说的 Bean 还没有初始化，只是配置信息都提取出来了，
+      // 注册也只是将这些信息都保存到了注册中心(说到底核心是一个 beanName-> beanDefinition 的 map)
+      ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
+ // 设置 BeanFactory 的类加载器，添加几个 BeanPostProcessor，手动注册几个特殊的 bean
+      // 这块待会会展开说
+      prepareBeanFactory(beanFactory);
+
+      try {
+         // 【这里需要知道 BeanFactoryPostProcessor 这个知识点，Bean 如果实现了此接口，
+         // 那么在容器初始化以后，Spring 会负责调用里面的 postProcessBeanFactory 方法。】
+
+         // 这里是提供给子类的扩展点，到这里的时候，所有的 Bean 都加载、注册完成了，但是都还没有初始化
+         // 具体的子类可以在这步的时候添加一些特殊的 BeanFactoryPostProcessor 的实现类或做点什么事
+         postProcessBeanFactory(beanFactory);
+         // 调用 BeanFactoryPostProcessor 各个实现类的 postProcessBeanFactory(factory) 方法
+         invokeBeanFactoryPostProcessors(beanFactory);
+       	 ......
+         //注册一些IOC容器需要的相关组件,监听器、广播器等
+         ......
+```
