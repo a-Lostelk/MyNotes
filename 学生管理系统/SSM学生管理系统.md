@@ -8,7 +8,7 @@ typora-root-url: Images
 
 Spring是一个大容器，bean（Java实体对象）的集合
 
-SpringMVC：控制器（业务逻辑层）（视图分发器）由前端分发器dispatcherServlet决定调用后台的那个控制器
+SpringMVC：控制器（业务逻辑层）（视图分发器）由前端分发器`dispatcherServlet`决定调用后台的那个控制器
 
 mybatis：JDBC的封装（数据库框架）
 
@@ -54,7 +54,7 @@ tomcat的入口是web.xml 文件
 
 ### BufferedImage图片生成工具
 
-继承 ***java.awt.Image*** 接口，提供获得绘图对象、图像缩放、选择图像平滑度等功能，BufferedImage是带数据缓冲区的图像类,BufferedImage生成的图片在内存里有一个图像缓冲区，利用这个缓冲区我们可以很方便的操作这个图片，通常用来做图片修改操作如大小变换、图片变灰、设置图片透明或不透明等
+继承 `java.awt.Image` 接口，提供获得绘图对象、图像缩放、选择图像平滑度等功能，`BufferedImage`是带数据缓冲区的图像类,`BufferedImage`生成的图片在内存里有一个图像缓冲区，利用这个缓冲区我们可以很方便的操作这个图片，通常用来做图片修改操作如大小变换、图片变灰、设置图片透明或不透明等
 
 #### 生成验证码功能
 
