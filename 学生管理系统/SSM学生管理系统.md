@@ -140,7 +140,7 @@ public void getCpacha( HttpServletRequest request,
 
 ### 登录管理
 
-*SystemController*：Java后台验证，将返回结果封装为HashMap对象，StringUtils工具类判断是否为null*（实际开发中，尽量减少服务器的压力，一些简单的判断验证可以在页面中处理）*
+*SystemController*：Java后台验证，将返回结果封装为HashMap对象，`StringUtils`工具类判断是否为null*（实际开发中，尽量减少服务器的压力，一些简单的判断验证可以在页面中处理）*
 
 ```java
 @ResponseBody

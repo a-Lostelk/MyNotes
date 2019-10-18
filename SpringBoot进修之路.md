@@ -32,8 +32,7 @@ typora-root-url: images
 ##### **微服务**
 
 - 传统的架构风格是把所有的功能放入到单一进程中,将整个项目部署到服务器上,在对项目进行修改的时候,可能需要将整个项目重新发布或者部署并且通过在多个服务器上复制这个单体进行拓展
-
-  - 微服务提倡的是将每个功能元素放进独立的元素,通过跨服务器分发这些服务进行拓展,只有在需要的时候才进行复制，每一个功能元素都是一个独立替换和独立升级的软件单元
+- 微服务提倡的是将每个功能元素放进独立的元素,通过跨服务器分发这些服务进行拓展,只有在需要的时候才进行复制，每一个功能元素都是一个独立替换和独立升级的软件单元
 
 
   #### ***Springboot*的java配置方式**
@@ -926,13 +925,11 @@ public class ThymeleafProperties {
 
    4 . 内置的工具对象
 
-   #execInfo : information about the template being processed.
-   #messages : methods for obtaining externalized messages insid
    would be obtained using #{…} syntax.
    #uris : methods for escaping parts of URLs/URIs 
-
+   
    #conversions : methods for executing the configured conversion service (if any).
-   #dates : methods for java.util.Date objects: formatting, component extraction, etc.
+#dates : methods for java.util.Date objects: formatting, component extraction, etc.
    #calendars : analogous to #dates , but for java.util.Calendar objects.
    #numbers : methods for formatting numeric objects.
    #strings : methods for String objects: contains, startsWith, prepending/appending, etc.
@@ -1202,7 +1199,6 @@ URI：/资源名称/资源标识	，用请求方式来区分对资源的CRUD操�
 <div th:insert="footer :: copy"></div>	//将公共页面直接插入到元素中
 <div th:replace="footer :: copy"></div>	//将声明的元素替换为公共片段
 <div th:include="footer :: copy"></div> 	//被引入的片段包含在片段中
-
 **@PathVariable：**当使用@RequestMapping URI template 样式映射时， 即 someUrl/{paramId}, 这时的paramId可通过 @Pathvariable注解绑定它传过来的值到方法的参数上。*将id绑定到请求方法的参数上*
 
 

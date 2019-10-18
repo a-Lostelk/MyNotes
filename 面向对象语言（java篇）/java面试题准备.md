@@ -104,7 +104,7 @@ String对象缓存`HashCode`，Java中String对象的哈希码被频繁地使用
 都是底层使用`char[]`数组存储
 
 ```java
-  //结果是0，返回的有多少值的长度，而不是StringBuffer数组的默认长度，
+//结果是0，返回的有多少值的长度，而不是StringBuffer数组的默认长度，
 StringBuffer stringBuffer2 = new StringBuffer();
 System.out.println(stringBuffer2.length());
 ```
@@ -133,15 +133,17 @@ StringBuilder > StringBuffer > String
 
 ### 日期时间API
 
-##### java.lang.system类
+##### `java.lang.system`类
 
 `System类`提供的`public static long currentTimeMillis()`用来返回当前时间与1970年1月1日0时0分0秒之间以毫秒为单位的时间差。
 
-##### java.util.Date
+##### `java.util.Date`
 
+```java
 Date date = new Date();
 
 System.out.println(date.getTime());//1566296624156
+```
 
 
 
@@ -151,13 +153,13 @@ System.out.println(date.getTime());//1566296624156
 
 泛型相当于数据结构中的占位符，在调用的时候传入实际类型
 
-许多容器list、collection、map等都包含了泛型
+许多容器`list、collection、map`等都包含了泛型
 
 
 
 ### Collection接口
 
-是**list、map、list**子集合的父类，collection中的方法，其所有的子类都有
+是**`list、map、list`**子集合的父类，collection中的方法，其所有的子类都有
 
 ```java
 Collection<String> collection = new ArrayList<String>();
@@ -273,7 +275,7 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 
 有序可重复的的容器，每个元素都有对应的顺序索引，数组存储数据的局限性，通常使用`list`替代数组，相当于是一个动态的自增长的数组
 
-常用的实现类是ArrayList（数组），LinkedList（链表）和Vector（线程安全的数组）
+常用的实现类是`ArrayList`（数组），`LinkedList`（链表）和`Vector`（线程安全的数组）
 
 
 
@@ -452,7 +454,7 @@ void linkLast(E e) {
 
 #### Hashset
 
-set接口的主要实现类，存储无序，不可重复的数据，可以存储null值，**线程不安全**的
+set接口的主要实现类，存储无序，不可重复的数据，可以存储null值，**线程不安全**的，`HashSe`t底层是`HashMap`
 
 底层是**数组+链表**存储
 
@@ -464,7 +466,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 ##### 添加元素的过程
 
-- 添加元素的时候会调用`Object`对象的hashCode()方法生成一个**唯一不重复**的Hash值，Hash值保证数据的唯一性和确定**存放的位置**（索引位置）
+- 添加元素的时候会调用**Object**对象的`hashCode()`方法生成一个**唯一不重复**的**Hash**值，Hash值保证数据的唯一性和确定**存放的位置**（索引位置）
 
 - 如果此位置上没有其他元素或者首次添加，直接插入数据
 
@@ -585,11 +587,11 @@ Object对象的`hashCode()`方法，通过`hashcode()`方法得到hash码，得�
 
 ##### HashMap扩容
 
-HashMap的位桶数组,初始大小为16。实际使用时,显然大小是可变的。如果位桶数组中的元素，达到(0.75*数组length)，就重新调整数组大小变为原来2倍大小。（数组为16，大小为12时开始扩容）
+HashMap的位桶数组**,初始大小为16**。实际使用时,显然大小是可变的。如果位桶数组中的元素，达到(0.75*数组length)，就重新调整数组大小变为原来**2倍**大小。（数组为16，大小为12时开始扩容）
 
-扩容的本质是定义新的更大的数组,并将旧数组内容挨个拷贝到新数组中。很费时间
+**扩容的本质是定义新的更大的数组,并将旧数组内容挨个拷贝到新数组中。很费时间**
 
-根据LoadFactor加载因子，加载因子越接近于1，说明HashMap中的数据存储的越多链表越长，越接近于0，存储的数据越少，临界因子的大小会影响到执行效率，0.75f是最好的临界值
+根据**LoadFactor**加载因子，加载因子越接近于1，说明HashMap中的数据存储的越多链表越长，越接近于0，存储的数据越少，临界因子的大小会影响到执行效率，0.75f是最好的临界值
 
 
 
@@ -672,7 +674,7 @@ public HashSet(){
 
 ##### HashMap的遍历
 
-在collection及其子类，可以使用forEach，迭代器，for循环遍历
+在collection及其子类，可以使用**forEach，迭代器，for循环遍历**
 
 HashMap中的存储数据是键值对存在的，只要取到其中的一个属性，就能知道另一个属性，比如说先获得Map中的Key，key相当于是一个set的集合
 
@@ -732,13 +734,13 @@ HashMap中的存储数据是键值对存在的，只要取到其中的一个属�
 
 #### ConcurrentHashMap
 
-是J.U.C(java.util.concurrent包)的重要成员，它是HashMap的一个**线程安全的**、**支持高效并发**的版本，***ConcurrentHashMap可以支持16个线程执行并发写操作及任意数量线程的读操作***。
+是J.U.C(`java.util.concurrent`包)的重要成员，它是HashMap的一个**线程安全的**、**支持高效并发**的版本，***`ConcurrentHashMap`可以支持16个线程执行并发写操作及任意数量线程的读操作***。
 
 ##### 概述
 
-HashMap不是线程安全的，多线程环境下，操作HashMap可能会出现线程安全问题
+`HashMap`不是线程安全的，多线程环境下，操作HashMap可能会出现线程安全问题
 
-ConcurrentHashMap本质上是一个Segment数组，而一个Segment实例又包含若干个桶，每个桶中都包含一条由若干个 HashEntry 对象链接起来的链表。总的来说
+`ConcurrentHashMap`本质上是一个Segment数组，而一个Segment实例又包含若干个桶，每个桶中都包含一条由若干个 HashEntry 对象链接起来的链表。总的来说
 
 ![](/ConcurrentHashMap.jpg)
 
@@ -832,7 +834,7 @@ Comparator<Integer> comparator1 = (o1, o2) -> o1.compareTo(o2);
 
 ![](/../../%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%EF%BC%88java%E7%AF%87%EF%BC%89/images/QQ%E6%88%AA%E5%9B%BE20190827230328.png)
 
-反射机制使原本是静态语言的Java有了类似动态语言的特性，使编程更加的灵活，可以在运行期间决定是用的哪个类的对象、
+反射机制使原本是静态语言的Java有了类似动态语言的特性，使编程更加的灵活，可以在**运行期间决定是用的哪个类的对象、**
 
 
 
@@ -1179,7 +1181,7 @@ public class SynchronizedTest {
 
 Java中一个main方法其实就是对应一个线程
 
-[![img](QQ截图20190902214736.png)
+![img](QQ截图20190902214736.png)
 
 虚拟机栈和程序计数器每一个线程都各自具备一个，方法区和堆是一个进程一个，进程下的多个线程共享方法区和堆
 
@@ -1836,6 +1838,33 @@ public static void sort(int[] arr) {
 
 
 
+### SpringMVC
+
+#### 工作流程
+
+![](/1365825529_4693.png)
+
+1. 用户向服务器发送请求，被`DispatcherServlet`分发器捕获到
+2. `DispatcherServlet`处理请求URL，调用相应的`HandlerMapping`映射器获得相应的映射信息并将`Handler`返回
+3. `DispatcherServlet`调用相应的处理器适配器`HandlerAdapter`，找到对应的`Controller`后端控制器‘
+4. 根据请求的数据和配置，Spring会做一些事情：`HttpMessageConveter`、数据转换、数据格式化、数据验证
+5. 数据处理完毕Controller执行结果，向`DispatcherServlet`返回一个`ModelAndView`对象
+6. `ModelAndView`对象传递给指定的`ViewResolver`视图解析器
+7. `ViewResolver`视图解析器将`Model`和`View`，来渲染视图
+8. `DispatcherServlet`将最终的结果返回到用户的页面上
+
+**SpringMVC的核心就是围绕着DispatcherServlet工作的**
+
+`HttpMessageConveter`： 将请求消息（如Json、xml等数据）转换成一个对象，将对象转换为指定的响应信息
+
+数据转换：对请求消息进行数据转换。如String转换成Integer、Double等
+
+数据根式化：对请求消息进行数据格式化。 如将字符串转换成格式化数字或格式化日期等
+
+数据验证： 验证数据的有效性（长度、格式等），验证结果存储到`BindingResul`t或`Error`中
+
+
+
 ### Spring
 
 #### IOC实现
@@ -1930,3 +1959,130 @@ public void refresh() throws BeansException, IllegalStateException {
          //注册一些IOC容器需要的相关组件,监听器、广播器等
          ......
 ```
+
+
+
+### MySQL
+
+#### 索引
+
+索引是提高数据库性能的常用方法，它可以令数据库服务器以比没有索引快得多的速度检索特定的行，尤其是在查询语句当中包含有`MAX(), MIN()和ORDERBY`这些命令的时候，性能提高更为明显
+
+索引是依靠某些**数据结构**和**算法**来组织数据，最终引导用户快速检索出所需要的数据。
+
+##### 索引的本质
+
+**通过不断地缩小想要获取`数据的范围`来筛选出最终想要的结果，同时把`随机`的事件变成`顺序`的事件，也就是说，有了这种索引机制，我们可以总是用同一种查找方式来锁定数据。**
+
+##### MySQL中的页
+
+mysql中和磁盘交互的最小单位称为页，页是mysql内部定义的一种**数据结构**，默认为16kb，相当于4个磁盘块，也就是说mysql**每次从磁盘中读取一次数据是16KB，要么不读取，要读取就是16KB，此值可以修改的**
+
+
+
+##### 数据检索过程
+
+MySQL从磁盘读取IO次数需要性能开销和时间，需要良好的数据结构和检索算法来提高mysql的查询速度
+
+1. 需要一种**数据存储结构**：当从磁盘中检索数据的时候能，够减少磁盘的io次数，最好能够降低到一个稳定的常量值
+2. 需要一种**检索算法**：当从磁盘中读取磁盘块的数据之后，这些块中可能包含多条记录，这些记录被加载到内存中，那么需要一种算法能够快速从内存多条记录中快速检索出目标数据
+
+##### 有以下几种算法	
+
+- 循环遍历查找
+
+  从一组无序的数组中查找结果，从头遍历到尾， n条数据，时间复杂度为O(n)，最快需要1次，最坏的情况需要n次，查询效率不稳定 
+
+- 二分查找法
+
+  也叫拆半查找法，从一个有序的数组中快速定义一个需要查找的数据
+
+  [1,2,3,4,5,6,7,8,9]
+
+  第1次查找：[1,2,3,4,5,6,7,8,9]中间位置值为5，9>5，将查找范围缩小至5右边的部分：[6、7、8、9]
+
+  第2次查找：[6、7、8、9]中间值为8，9>8 ，将范围缩小至8右边部分：[9]
+
+  第3次查找：在[9]中查找9，找到了。
+
+  这样三次就确定了数据的位置，循环遍历的话则需要9次
+
+  
+
+- 
+
+
+
+1. ##### 普通索引
+
+    普通索引(由关键字KEY或INDEX定义的索引)的唯一任务是加快对数据的访问速度。因此，应该只为那些最经常出现在查询条件(WHERE column = …)或排序条件(ORDER BY column)中的数据列创建索引。只要有可能，就应该选择一个数据最整齐、最紧凑的数据列(如一个整数类型的数据列)来创建索引
+
+   普通索引可能会存在相同的值
+
+2. ##### 唯一索引
+
+   如果能确定某个数据列将只包含彼此**各不相同**的值，在为这个数据列创建索引的时候就应该用关键字`UNIQUE`把它定义为一个**唯一索引**，好处：是唯一不重复的值的索引，MySQL简化了这个索引之间的工作，当插入新的数据的时候存在重复，就不执行插入操作
+
+3. ##### 主索引
+
+   为主键字段创建索引，关键字是`PRIMARY`
+
+4. ##### 外键索引
+
+   外键字段定义一个，外键约束条件，MySQL就会定义一个内部索引来帮助自己以最有效率的方式去管理和使用外键约束条件
+
+5. ##### 复合索引
+
+   索引可以覆盖多个数据列，如像`INDEX(columnA, columnB)`索引
+
+```mysql
+/*根据Id创建索引的两种方式*/
+create index idx1 on test1 (id);
+
+create unique index idx2 on test1(name);
+
+/* 查看索引 */
+show index from test1;
+
+/*删除索引*/
+drop index idx1 on test1;
+```
+
+
+
+
+
+#### 表锁
+
+ **MyISAM 和 InnoDB 实现的锁机制不一样！ MyISAM 使用的是表锁， 而 InnoDB实现的是行锁。**
+
+由于MyISAM写进程优先获得锁，使得读锁请求靠后等待队列。不仅如此，即使读请求先到锁等待队列，写请求后 到，写锁也会插到读锁请求之前！**这是因为MySQL认为写请求一般比读请求要重要**。
+
+**INNODB的行锁是基于索引实现**，如果不通过索引访问数据，Innodb会使用表锁
+
+表级锁更适合以**查询**为主，只有少量按索引条件更新数据的应用。
+
+行级锁更适合于有**大量按索引条件**并发**更新少量不同数据**，同时**又并发查询**。因为只锁定要操作的行， 所以可以多个线程同时操作不同的行（只要不操作其他线程已经锁定的行）。
+
+
+
+#### delimiter 
+
+告诉mysql解释器，该段命令是否已经结束了，mysql是否可以执行了。默认情况下，**delimiter**是分号;。在命令行客户端中，如果有一行命令以分号结束，那么回车后，mysql将会执行该命令
+
+其中DELIMITER 定好结束符为"$$", 然后最后又定义为";", MYSQL的默认结束符为";". 
+
+```mysql
+
+mysql> delimiter // 
+mysql> CREATE PROCEDURE simpleproc (OUT param1 INT) 
+-> BEGIN 
+-> SELECT COUNT(*) INTO param1 FROM t; 
+-> END; 
+-> // 
+Query OK, 0 rows affected (0.00 sec) 
+```
+
+#### PROCEDURE 
+
+创建一个存储过程

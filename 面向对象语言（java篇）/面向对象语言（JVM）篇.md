@@ -62,6 +62,18 @@ public class LongAtomTest implements Runnable {
 
 
 
+#### Java内存模型
+
+简称JMM，隶属于JVM **Java Memory Model**
+
+JVM中的并发问题，有两个关键问题：线程之间的**通信**和**同步**
+
+
+
+ 
+
+
+
 #### JVM内存模型中的原子操作
 
 1. lock:将一个变量标识为被一个线程独占状态

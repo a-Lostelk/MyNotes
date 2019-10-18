@@ -933,6 +933,17 @@ Spring不对事务直接控制，而是提供了多种事务管理器，
 
 
 
+#### MySQL相关
+
+`mysql`常用引擎包括：`MYISAM`、`Innodb`、`Memory`、`MERGE`
+
+- `MYISAM`：**全表锁**，拥有**较高的执行速度**，**不支持事务，不支持外键**，并发性能差，占用空间相对较小，对事务完整性没有要求，以`select、insert`为主的应用基本上可以使用这引擎
+- `Innodb`:行级锁，提供了具有**提交、回滚和崩溃回复**能力的事务安全，支持自动增长列，支持**外键约束**，并发能力强，占用空间是MYISAM的2.5倍，处理效率相对会差一些（大多都是这个引擎）
+- `Memory`:全表锁，存储在内容中，**速度快，但会占用和数据量成正比**的内存空间且数据在`mysql`重启时会丢失，默认使用**HASH索引**，检索效率非常高，但不适用于精确查找，主要用于那些内容变化不频繁的代码表
+- `MERGE`：是一组MYISAM表的组合
+
+
+
 #### TCP的三次握手和四次握手
 
 [关于计算机网络的相关知识总结](<https://hit-alibaba.github.io/interview/basic/network/TCP.html>)
@@ -950,4 +961,11 @@ TCP 提供一种**面向连接的、可靠的**字节流服务，是基于IP的�
 
 
 
-​	
+#### 48.谈谈SpringMVC的工作原理
+
+- 客户端请求提交到DispatcherServlet
+- 由DispatcherServlet控制器查询一个或多个HandlerMapping，找到处理请求的Controller
+- DispatcherServlet将请求提交到Controller
+- Controller调用业务逻辑处理后，返回ModelAndView
+- DispatcherServlet查询一个或多个ViewResoler视图解析器，找到ModelAndView指定的视图
+- 视图负责将结果显示到客户端
