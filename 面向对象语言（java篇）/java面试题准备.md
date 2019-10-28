@@ -87,8 +87,8 @@ String对象缓存`HashCode`，Java中String对象的哈希码被频繁地使用
 
 `String`是不可变的字符序列，`StringBuffer`和`StringBuilder`是可变的字符序列
 
-- String：char[] 以final修饰即不可变
-  - StringBuffer：效率低，线程安全（所有的同步方法都是被synchronized修饰的），没有final修饰，底层创建了一个长度为16的数组
+- String：`char[] `以final修饰即不可变
+- StringBuffer：效率低，线程安全（所有的同步方法都是被synchronized修饰的），没有final修饰，底层创建了一个长度为16的数组
 - StringBudler：效率高，线程不安全，没有final修饰
 
 作为参数传递的时候，方法内部 String不会改变值，`StringBuffer`和 `StringBuilder`会改变值，不存在多线程和线程安全问题，一般建议使用`StringBuilder`
@@ -2086,3 +2086,49 @@ Query OK, 0 rows affected (0.00 sec)
 #### PROCEDURE 
 
 创建一个存储过程
+
+
+
+
+
+### 通用mapper
+
+#### 1. 前言
+
+​	使用MyBatis的开发者，大多数都会遇到一个问题，就是要写大量的SQL在xml文件中，除了特殊的业务逻辑SQL之外，还有大量结构类似的增删改查SQL。而且，当数据库表结构改动时，对应的所有SQL以及实体类都需要更改
+
+#### 2. 通用mapper简介
+
+​	通用Mapper就是为了解决单表增删改查，基于Mybatis的插件。开发人员不需要编写SQL，不需要在DAO中增加方法，只要写好实体类，就能支持相应的增删改查方法。
+
+使用原生Mybatis的一些痛点：
+
+1. mapper.xml文件里有大量的sql,当数据库表字段变动，配置文件就要修改
+2. **需要自己实现sq|分页**，`select * from table where... limit 1,3`自己手写分页，除了传参page、pageSize, 还需要返回条目总数count.
+3. **数据库可移植性差**:如果项目更换数据库，比如oracle-->mysql, mapper.xml中的sql要重新写， 因为Orace的PLSQL和mysg!支持的函数是不同的。
+4. **生成的代码量过大。**
+5. **批量操作，批量插入，批量更新，需要自写。**
+
+
+
+####  
+
+#### 3. 通用mapper
+
+Spring作为时下最流行的Java框架，大多数框架都可以和或者都应该和他进行集成整合，通用mapper的三种使用方式：纯Java的方式、Spring集成、SpringBoot集成
+
+原生Mybatis和Spring集成的时候，需要有多个依赖：Mybatis、Mybatis-Spring整合包、Spring-context、Spring-jdbc、Spring-tx包
+
+当使用通用mapper的时候，需要引入这个依赖
+
+```xml
+<dependency>
+    <groupId>tk.mybatis</groupId>
+    <artifactId>mapper</artifactId>
+    <version>4.1.4</version>
+</dependency>
+
+```
+
+Mybatis和Spring整合，需要扫描Dao层的Mapper类，只需要改变一下配置文件中的`org`为`tk.`使用通用Mapper文件的扫描方式
+

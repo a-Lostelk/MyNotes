@@ -260,9 +260,9 @@ redisÖÐµÄË÷ÒýÊÇ´Ó0¿ªÊ¼µÄ
 
 
 
-
-
 ### RedisÊý¾Ý½á¹¹
+
+[¹ØÓÚredisµÄÎåÖÖÊý¾ÝÀàÐÍ½éÉÜ](https://www.cnblogs.com/lizhenghn/p/5322887.html)
 
 #### ¹þÏ££¨hash£©
 
@@ -283,9 +283,13 @@ Map<String,Object>
 Á´±íÃüÁî"I"´ú±í×ó²Ù×÷,"r"´ú±íµÄÊÇÓÒ²Ù×÷,ÔÚÊ¹ÓÃredisÁ´±íµÄÊ±ºò,ÎªÁË·ÀÖ¹²¢·¢°²È«ºÍÒ»ÖÂÐÔµÄÎÊÌâ,ÐèÒª¸øÁ´±íµÄÃüÁî¼ÓÉÏ
 Ëø»úÖÆ,±£Ö¤Á´±íµÄÃüÁî°²È«ÐÔ
 
+
+
 #### ×Ö·û´®£¨String£©
 
 ÊÇredis×î»ù±¾µÄÀàÐÍ£¬Ò»¸ökey¶ÔÓ¦Ò»¸övalue£¬StringÊÇ¶þ½øÖÆ°²È«µÄ£¬°üÀ¨ÈÎÒâÀàÐÍµÄÊý¾Ý£¬jpgÍ¼Æ¬»òÕßÐòÁÐ»¯µÄ¶ÔÏó
+
+
 
 #### ¼¯ºÏ(set)
 
@@ -294,11 +298,11 @@ redisÖÐµÄ¼¯ºÏ²»ÊÇÒ»¸öÏßÐÔ½á¹¹,¶øÊÇ¹þÏ£±í½á¹¹,»áÔÚÄÚ²¿¸ù¾Ýhash·Ö×ÓÀ´²éÕÒºÍ´æ´¢Êý¾
 µ±²åÈëÏàÍ¬µÄÊý¾ÝµÄÊ±ºò»áÊ§°Ü,¼¯ºÏÊÇÎÞÐòµÄ
 ¼¯ºÏÖÐµÄÃ¿Ò»¸öÔªËØµÄ¶¼ÊÇStringÀàÐÍµÄÊý¾Ý½á¹¹5
 
+
+
 #### ÓÐÐò¼¯ºÏ£¨sorted set£©
 
 ºÍsetÒ»ÑùÒ²ÊÇStringÀàÐÍÔªËØµÄ¼¯ºÏ£¬²»ÔÊÐíÖØ¸´µÄ³ÉÔ±£¬**ÓÐÒ»¸öÌØµãÃ¿¸öÔªËØ¶¼»á¹ØÁªÒ»¸ödoubleÀàÐÍµÄ·ÖÊý**£¬redisÊÇÍ¨¹ý·ÖÊýÀ´¶Ô¼¯ºÏÖÐµÄ³ÉÔ±½øÐÐ´ÓÐ¡µ½´óµÄÅÅÐò£¬¼¯ºÏÖÐµÄ³ÉÔ±ÊÇÎ¨Ò»µÄ£¬µ«·ÖÊýÊÇ¿ÉÒÔÖØ¸´µÄ
-
-
 
 
 
@@ -353,4 +357,231 @@ linsert key before/after 	Öµ1Öµ2
 Èç¹û¼üÒÑ´æÔÚ£¬ÐÂÔöÄÚÈÝ;
 Èç¹ûÖµÈ«ÒÆ³ý£¬¶ÔÓ¦µÄ¼üÒ²¾ÍÏûÊ§ÁË¡£
 Á´±íµÄ²Ù×÷ÎÞÂÛÊÇÍ·ºÍÎ²Ð§ÂÊ¶¼¼«¸ß£¬µ«¼ÙÈçÊÇ¶ÔÖÐ¼äÔªËØ½øÐÐ²Ù×÷£¬Ð§ÂÊ¾ÍºÜ²Òµ­ÁË¡£|
+
+##### set
+
+sadd/smembers/sismember		Ìí¼ÓºÍ»ñÈ¡setÖÐµÄÔªËØ
+scard,								 »ñÈ¡¼¯ºÏÀïÃæµÄÔªËØ¸öÊý
+srem key value				  É¾³ý¼¯ºÏÖÐÔªËØ
+srandmember key			 Ä³¸öÕûÊý(Ëæ»ú³ö¼¸¸öÊý) 
+spop key							Ëæ»ú³öÕ»
+smove key1 key2ÔÚkey1ÀïÄ³¸öÖµ×÷ ÓÃÊÇ½«key1ÀïµÄÄ³¸öÖµ¸³¸økey2
+ÊýÑ§¼¯ºÏÀà						 ²î¼¯£ºsdiff£¬**È¡³öÔÚµÚÒ»¸ösetÀïÃæ¶ø²»ÔÚºóÃæÈÎºÎÒ»¸ösetÀïÃæµÄÏî£¨È¡²»Í¬µÄ£©**
+
+?											½»¼¯£ºsinter£¬**È¡³öÒ»¸ö»ò¶à¸ösetÖÐÏàÍ¬µÄÊý¾Ý£¨È¡ÏàÍ¬µÄ£©**
+
+?											²¢¼¯£ºsunion£¬**È¡³öÒ»¸ö»ò¶à¸ösetÖÐµÄËùÓÐµÄÔªËØ**
+
+##### Hash
+
+±¾ÖÊÊÇkey/vaue£¬µ«valueÊµ¼ÊÉÏ»¹ÊÇÒ»¸ö¼üÖµ¶Ô
+
+![](/QQ½ØÍ¼20191021181405.png)
+
+hset/hget/hmset/hmget/hmget/hgetall/hdel		»ñÈ¡ÉèÖÃÒ»¸öÖµ£¬»ñÈ¡ÉèÖÃ¶à¸öÖµ£¬Ò»´Î»ñÈ¡ËùÓÐkeyµÄÖµ£¬É¾³ý
+
+hlen		»ñÈ¡HashµÄ³¤¶È
+
+hexits key		ÅÐ¶ÏHashÖÐÄ³¸öÖµÊÇ·ñ´æÔÚ
+
+hkeys/hvals	 »ñÈ¡ËùÓÐµÄ¼üÖµ
+
+hincrby/hincrbyfloat	ÒÔ´Ë×ÔÔö¼ÓÉÏÒ»¸öÕûÊý£¬Ð¡Êý
+
+hsetnx			Ìí¼ÓÒ»¸öÈç¹û²»´æÔÚµÄÖµ
+
+
+
+##### ZSetÓÐÐò¼¯ºÏ£¨sorted set£©
+
+zadd/zrange 
+zrangebyscore key		¿ªÊ¼score½áÊøscore 
+zremkey						Ä³scoreÏÂ¶ÔÓ¦µÄvalueÖµ£¬×÷ÓÃÊÇÉ¾³ýÔªËØ
+zcard/zcount key score	Çø¼ä/zrank key valuesÖµ£¬×÷ÓÃÊÇ»ñµÃÏÂ±êÖµ/zscore key¶ÔÓ¦Öµ,»ñµÃ·Ö
+zrevrank key values		Öµ£¬×÷ÓÃÊÇÄæÐò»ñµÃÏÂ±êÖµ
+zrevrange
+zrevrangebyscore key	½áÊøscore¿ªÊ¼score
+
+
+
+#### redis¹ýÆÚ²ßÂÔ
+
+ÔÚredisÖÐµÄÅäÖÃÎÄ¼þÖÐ£¬Ä¬ÈÏÓÐ6ÖÖ¹ýÆÚ²ßÂÔ£¬Ä¬ÈÏÊÇÓÀ²»¹ýÆÚµÄ
+
+```xml
+# volatile-lru -> remove the key with an expire set using an LRU algorithm
+# allkeys-lru -> remove any key according to the LRU algorithm
+# volatile-random -> remove a random key with an expire set
+# allkeys-random -> remove a random key, any key
+# volatile-ttl -> remove the key with the nearest expire time (minor TTL)
+# noeviction -> don't expire at all, just return an error on write operations
+```
+
+volatile-lru£ºÊ¹ÓÃÁËLRUËã·¨ÒÆ³ýkey£¬ÒÆ³ýÄ³¸öÉèÖÃÁË¹ýÆÚÊ±¼äµÄkey
+
+allkeys-lru£ºÊ¹ÓÃLURËã·¨Ëæ»úÒÆ³ýkey£¬×î½üÊ¹ÓÃÆµÂÊÉÙµÄÒÆ³ýkey
+
+volatile-random£ºÔÚ¹ýÆÚ¼¯ºÏÖÐÒÆ³ýËæ»úµÄkey£¬Ö»¶ÔÉèÖÃÁË¹ýÆÚÊ±¼äµÄ¼ü
+
+allkeys-random£ºÒÆ³ýËæ»úµÄkey
+
+volatile-ttl£ºÒÆ³ýTTLÖµ×îÐ¡µÄÖµ£¬Ò²¾ÍÊÇ×î½üÒª¹ýÆÚµÄkey
+
+noeviction£ºÓÀ²»¹ýÆÚ²ßÂÔ£¬Ò»°ãÔÚÊµ¼Ê¿ª·¢ÖÐ²»»áÑ¡ÔñËü
+
+
+
+#### Redis.confÅäÖÃÎÄ¼þ½éÉÜ
+
+Redis.confÅäÖÃÏîËµÃ÷ÈçÏÂ:
+1. RedisÄ¬ÈÏ²»ÊÇÒÔÊØ»¤½ø³ÌµÄ·½Ê½ÔËÐÐ£¬¿ÉÒÔÍ¨¹ý¸ÃÅäÖÃÏîÐÞ¸Ä£¬Ê¹ÓÃyesÆôÓÃÊØ»¤½ø³Ì
+	daemonize no
+
+2. µ±RedisÒÔÊØ»¤½ø³Ì·½Ê½ÔËÐÐÊ±£¬RedisÄ¬ÈÏ»á°ÑpidÐ´Èë/var/run/redis.pidÎÄ¼þ£¬ ¿ÉÒÔÍ¨¹ýpidfileÖ¸¶¨
+   pidfile /var/run/redis. pid
+
+3. Ö¸¶¨Redis¼àÌý¶Ë¿Ú£¬Ä¬ÈÏ¶Ë¿ÚÎª6379£¬×÷ÕßÔÚ×Ô¼ºµÄÒ»Æª²©ÎÄÖÐ½âÊÍÁËÎªÊ²Ã´Ñ¡ÓÃ6379×÷ÎªÄ¬ÈÏ¶Ë¿Ú£¬ÒòÎª6379ÔÚÊÖ»ú°´¼üEMERZ¶ÔÓ¦µÄºÅÂë£¬¶øMERZÈ¡×ÔÒâ´óÀû¸èÅ®Alessia MerzµÄÃû×Ö
+  port 6379
+
+4. °ó¶¨µÄÖ÷»úµØÖ·
+  bind 127.0.0.1
+
+5. µ±¿Í»§¶ËÏÐÖÃ¶à³¤Ê±¼äºó¹Ø±ÕÁ¬½Ó£¬Èç¹ûÖ¸¶¨Îª0£¬±íÊ¾¹Ø±Õ¸Ã¹¦ÄÜ
+  timeout 300
+
+6. Ö¸¶¨ÈÕÖ¾¼ÇÂ¼¼¶±ð£¬Redis×Ü ¹²Ö§³ÖËÄ¸ö¼¶±ð: `debug¡¢ verbose¡¢notice¡¢ warning`, **Ä¬ÈÏÎª**`verbose
+  loglevel verbose`
+
+7. ÈÕÖ¾¼ÇÂ¼·½Ê½£¬Ä¬ÈÏÎª±ê×¼Êä³ö£¬Èç¹ûÅäÖÃRedisÎªÊØ»¤½ø³Ì·½Ê½ÔËÐÐ£¬¶øÕâÀïÓÖÅäÖÃÎªÈÕÖ¾¼ÇÂ¼·½Ê½Îª±ê×¼Êä³ö£¬ÔòÈÕÖ¾½«»á·¢ËÍ¸ø/dev/null
+  logfile stdout
+
+8. Ö¸¶¨ÔÚ¶à³¤Ê±¼äÄÚ£¬ÓÐ¶àÉÙ´Î¸üÐÂ²Ù×÷£¬¾Í½«Êý¾ÝÍ¬²½µ½Êý¾ÝÎÄ¼þ£¬¿ÉÒÔ¶à¸öÌõ¼þÅäºÏ
+  save <seconds> <changes>
+  RedisÄ¬ÈÏÅäÖÃÎÄ¼þÖÐÌá¹©ÁËÈý¸öÌõ¼þ:
+  save 900 1
+  save 300 10
+
+9. ÉèÖÃÊý¾Ý¿âµÄÊýÁ¿£¬Ä¬ÈÏµ±Ç°Êý¾Ý¿âÎª0£¬`select dbid`Ñ¡ÔñÊ¹ÓÃµÄÊý¾Ý¿â
+
+10. ´æ´¢±¾µØÊý¾Ý¿âÊÇ¹»½øÐÐÑ¹Ëõ£¬Ä¬ÈÏÊÇyes£¬²ÉÓÃµÄÊÇLZFÑ¹Ëõ
+
+  rdbcompression yes
+
+11. Ö¸¶¨±¾µØÊý¾Ý¿âµÄÎÄ¼þÃû
+
+   dbfilename dump.rdb
+
+12. Ö¸¶¨±¾µØÊý¾Ý¿â´æ·ÅÄ¿Â¼£¬¿ÉÄÜ»áÔÚ²»Í¬µÄÄ¿Â¼Æô¶¯redis£¬´æ·ÅµÄÄ¿Â¼¿ÉÄÜ»áËæÖ®¸Ä±ä
+
+   dir ./
+
+13. ÉèÖÃµ±±¾»úÎªslav·þÎñÊ±£¬ÉèÖÃmaster·þÎñµÄIPµØÖ·¼°¶Ë¿Ú£¬ÔÚRedisÆô¶¯Ê±£¬ Ëü»á×Ô¶¯´Ómaster½øÐÐÊý¾ÝÍ¬²½
+   slaveof <masterip> <masterport>
+
+14. µ±master·þÎñÉèÖÃÁËÃÜÂë±£»¤Ê±£¬slav·þÎñÁ¬½ÓmasterµÄÃÜÂë
+   masterauth <master-password>
+
+15. ÉèÖÃRedisÁ¬½ÓÃÜÂë£¬Èç¹ûÅäÖÃÁËÁ¬½ÓÃÜÂë£¬¿Í»§¶ËÔÚÁ¬½ÓRedisÊ±ÐèÒªÍ¨¹ý`AUTH <password>`ÃüÁîÌá¹©ÃÜÂë£¬Ä¬ÈÏ¹Ø±Õ
+   requirepass foobared
+
+16. ÉèÖÃÍ¬Ò»Ê±¼ä**×î´ó¿Í»§¶ËÁ¬½ÓÊý**£¬Ä¬ÈÏÎÞÏÞÖÆ£¬Redis¿É ÒÔÍ¬Ê±´ò¿ªµÄ¿Í»§¶ËÁ¬½ÓÊýÎªRedis½ø³Ì¿ÉÒÔ´ò¿ªµÄ×î´óÎÄ¼þÃèÊö·ûÊý£¬Èç¹ûÉèÖÃmaxclients 0,±íÊ¾²»×÷ÏÞÖÆ¡£µ±¿Í»§¶ËÁ¬½ÓÊýµ½´ïÏÞÖÆÊ±£¬Redis»á¹Ø±ÕÐÂµÄÁ¬½Ó²¢Ïò¿Í»§¶Ë·µ»Ømax number of clients reached´íÎóÐÅÏ¢
+   maxclients 128
+
+17. Ö¸¶¨Redis**×î´óÄÚ´æÏÞÖÆ**£¬RedisÔÚ Æô¶¯Ê±»á°ÑÊý¾Ý¼ÓÔØµ½ÄÚ´æÖÐ£¬´ïµ½×î´óÄÚ´æºó£¬Redis»áÏÈ³¢ ÊÔÇå³ýÒÑµ½ÆÚ»ò¼´½«µ½ÆÚµÄKey,µ±´Ë·½·¨´¦Àíºó£¬ÈÔÈ»µ½´ï×î´óÄÚ´æÉèÖÃ£¬½«ÎÞ·¨ÔÙ½øÐÐÐ´Èë²Ù×÷£¬µ«ÈÔÈ»¿ÉÒÔ½øÐÐ¶ÁÈ¡²Ù×÷¡£RedisÐÂµÄvm»úÖÆ£¬ »á°ÑKey´æ·ÅÄÚ´æ£¬Value»á´æ·ÅÔÚswapÇø
+   maxmemory <bytes>
+
+18. Ö¸¶¨ÊÇ·ñÔÚ**Ã¿´Î¸üÐÂ²Ù×÷ºó½øÐÐÈÕÖ¾¼ÇÂ¼**£¬RedisÔÚÄ¬ÈÏÇé¿öÏÂÊÇ**Òì²½**µÄ°ÑÊý¾ÝÐ´Èë´ÅÅÌ£¬***Èç¹û²»¿ªÆô£¬¿ÉÄÜ»áÔÚ¶ÏµçÊ±µ¼ÖÂÒ»¶ÎÊ±¼äÄÚµÄÊý¾Ý¶ªÊ§***¡£ ÒòÎªredis±¾Éí
+   Í¬²½Êý¾ÝÎÄ¼þÊÇ°´ÉÏÃæsaveÌõ¼þÀ´Í¬²½µÄ£¬ËùÒÔÓÐµÄÊý¾Ý»áÔÚÒ»¶ÎÊ±¼äÄÚÖ»´æÔÚÓÚÄÚ´æÖÐ¡£ Ä¬ÈÏÎªno
+
+   appendonly yes
+
+19. Ö¸¶¨¸üÐÂÈÕÖ¾ÎÄ¼þÃû£¬Ä¬ÈÏÎª**appendonly.aof**
+   appendfilename appendonly.aof
+
+20. Ö¸¶¨¸üÐÂÈÕÖ¾Ìõ¼þ£¬¹²ÓÐ3¸ö¿ÉÑ¡Öµ:
+   **no:** ±íÊ¾µÈ²Ù×÷ÏµÍ³½øÐÐÊý¾Ý»º´æÍ¬²½µ½´ÅÅÌ(¿ì)
+   **always**: ±íÊ¾Ã¿´Î¸üÐÂ²Ù×÷ºóÊÖ¶¯µ÷ÓÃfsync()½«Êý¾ÝÐ´µ½´ÅÅÌ(Âý£¬°²È«)
+   **everysec**: ±íÊ¾Ã¿ÃëÍ¬²½Ò»´Î(ÕÛÖÔ£¬Ä¬ÈÏÖµ)
+
+21. Ö¸¶¨ÊÇ·ñÆôÓÃÐéÄâÄÚ´æ»úÖÆ£¬Ä¬ÈÏÖµÎªno,¼òµ¥µÄ½éÉÜÒ»ÏÂ£¬VM»úÖÆ½«Êý¾Ý·ÖÒ³´æ·Å£¬ÓÉRedis½«·ÃÎÊÁ¿½ÏÉÙµÄÒ³¼´ÀäÊý¾Ýswapµ½´ÅÅÌÉÏ£¬·ÃÎÊ¶àµÄÒ³ÃæÓÉ´ÅÅÌ×Ô¶¯»»³öµ½ÄÚ´æÖÐ(ÔÚºóÃæµÄÎÄÕÂÎÒ»á×ÐÏ¸·ÖÎöRedisµÄVM»úÖÆ)
+   vm-enabled no
+
+22. ÐéÄâÄÚ´æÎÄ¼þÂ·¾¶£¬Ä¬ÈÏÖµÎª/tmp/redis.swap,²»¿É¶à¸öRedisÊµÀý¹²Ïí
+   vm-swap-file /tmp/redis. swap
+
+23. ½«ËùÓÐ´óÓÚvm-max-memoryµÄÊý¾Ý´æÈëÐéÄâÄÚ´æ,ÎÞÂÛvm-max-memoryÉèÖÃ¶àÐ¡,ËùÓÐË÷ÒýÊý¾Ý¶¼ÊÇÄÚ´æ´æ´¢µÄ(RedisµÄË÷ÒýÊý¾Ý¾ÍÊÇkeys),Ò²¾ÍÊÇËµ,µ±
+   vm-max-memoryÉèÖÃÎª0µÄÊ±ºò,ÆäÊµÊÇËùÓÐvalue¶¼´æÔÚÓÚ´ÅÅÌ¡£Ä¬ÈÏÖµÎª0
+   vm-max-memory 0
+
+24. Redis swapÎÄ¼þ·Ö³ÉÁËºÜ¶àµÄpage,Ò»¸ö¶ÔÏó¿ÉÒÔ±£´æÔÚ¶à¸öpageÉÏÃæ£¬µ«Ò»-¸öpage ÉÏ²»ÄÜ±»¶à¸ö¶ÔÏó¹²Ïí£¬vm-page-sizeÊÇ Òª¸ù¾Ý´æ´¢µÄÊý¾Ý´óÐ¡À´Éè¶¨µÄ£¬
+×÷Õß½¨ÒéÈç¹û´æ´¢ºÜ¶àÐ¡¶ÔÏó£¬page´óÐ¡×îºÃÉèÖÃÎª32»òÕß64bytes;Èç¹û´æ´¢ºÜ´ó´ó¶ÔÏó£¬Ôò¿ÉÒÔÊ¹ÓÃ¸ü´óµÄpage,Èç¹û²»È·¶¨£¬¾ÍÊ¹ÓÃÄ¬ÈÏÖµ
+vm-page-size 32
+25. ÉèÖÃswapÎÄ¼þÖÐµÄpageÊýÁ¿£¬ÓÉÓÚÒ³±í(Ò»ÖÖ±íÊ¾Ò³Ãæ¿ÕÏÐ»òÊ¹ÓÃµÄbitmap)ÊÇÔÚ·ÅÔÚÄÚ´æÖÐµÄ£¬£¬ÔÚ´ÅÅÌÉÏÃ¿8¸öpages½«ÏûºÄ1byteµÄÄÚ´æ¡£
+   vm-pages 134217728
+26. ÉèÖÃ·ÃÎÊswapÎÄ¼þµÄÏß³ÌÊý,×îºÃ²»Òª³¬¹ý»úÆ÷µÄºËÊýÈç¹ûÉèÖÃÎª0,ÄÇÃ´ËùÓÐ¶ÔswapÎÄ¼þµÄ²Ù×÷¶¼ÊÇ´®ÐÐµÄ£¬¿ÉÄÜ»áÔì³É±È½Ï³¤Ê±¼äµÄÑÓ³Ù¡£Ä¬ÈÏÖµÎª4
+   vm-max-threads 4
+
+
+
+#### RedisºÍ³Ö¾Ã»¯
+
+##### RDB£¨Redis Database£©
+
+<u>**ÔÚÖ¸¶¨µÄÊ±¼ä¼ä¸ôÄÚ½«ÉÁ´æÖÐµÄÊý¾Ý¼¯¿ìÕÕÐ´Èë´ÅÅÌ£¬Ëü»Ö¸´Ê±½«¿ìÕÕÎÄ¼þÖ±½Ó¶ÁÔÚÄÚ´æÖÐ**</u>
+
+Redis»áµ¥¶À´´½¨Ò»¸ö×Ó½ø³ÌÀ´½øÐÐ³Ö¾Ã»¯£¬»áÏÈ½«Êý¾ÝÐ´Èëµ½Ò»¸öÁÙÊ±ÎÄ¼þÖÐ£¬³Ö¾Ã»¯¹ý³Ì¶¼½áÊøÁË£¬ÔÙÓÃÕâ¸öÁÙÊ±ÎÄ¼þÌæ»»ÉÏ´Î³Ö¾Ã»¯µÄÎÄ¼þ
+
+ÔÚ×Ó½ø³Ì³Ö¾Ã»¯µÄ¹ý³ÌÖÐ£¬**Ö÷Ïß³ÌÊÇ²»»á½øÐÐÈÎºÎµÄIO²Ù×÷**£¬Õâ¾ÍÈ·±£ÁË¼«¸ßµÄÐÔÄÜ£¬RDBÊÊºÏÓÚ»Ö¸´´óÅúÁ¿µÄÊý¾Ý¸ß¸ßÐ§¶ÔÊý¾ÝµÄ¾«¶È²»¸ß£¬RDB×îºóÒ»´Î³Ö¾Ã»¯ºóµÄÊý¾Ý¿ÉÄÜ¶ªÊ§
+
+Rdb±£´æµÄÎÄ¼þÊÇ`dump.rdb`ÎÄ¼þ£¬±£´æÔÚÄÚ´æÖÐµÄÊý¾ÝÔÚ¶Ïµç¾Í»áÏûÊ§£¬È»¶øÔÚ¶ÔredisµÄ²Ù×÷»¹ÄÜ»ñµÃÉÏ´Î²Ù×÷µÄÊý¾Ý£¬ËµÃ÷ÔÚÎÒÃÇ¶ÏµçÖ®Ç°£¬redis¶ÔÊý¾Ý½øÐÐ¿ìÕÕ±£´æ£¬¶ÁÈ¡µÄÄÚÈÝÊÇ.rdbÎÄ¼þÖÐµÄÄÚÈÝµ½Êý¾ÝÖÐ£¬Ò»°ãÔÚredisµÄÆô¶¯ÎÄ¼þ¼Ð»á±£´æÒ»¸ö**dumpÎÄ¼þ**
+
+×¢Òâµã£º**µ±flush shutdownµÈÕ¶¶ÏÄÚ´æ²Ù×÷µÄÊ±ºò£¬redis»áÁ¢¿ÌÖ´ÐÐ±¸·Ý²¢Éú³½Ò»¸ö¿ÕµÄrdbÎÄ¼þ£¬¶àÌ¨·þÎñÆ÷¿ÉÒÔ½«Ò»¸ördbÎÄ¼þ½øÐÐ±¸·Ý£¬µ±Ò»¸öÎÄ¼þ³öÏÖ¹ÊÕÏ£¬¿ÉÒÔÊ¹ÓÃÁíÍâÒ»¸ö·þÎñÆ÷µÄ±¸·ÝÎÄ¼þ½øÐÐ±¸·Ý»Ö¸´**
+
+- **`fork`£º**¸´ÖÆÒ»¸öºÍµ±Ç°Ïß³ÌÒ»ÑùµÄ½ø³Ì£¬ÐÂ½ø³Ì**ËùÓÐµÄ±äÁ¿**£¨±äÁ¿¡¢»·¾³±äÁ¿¡¢³ÌÐò¼ÆÊýÆ÷£©¶¼ºÍÔ­½ø³ÌÒ»ÖÂ£¬×÷Îªµ±Ç°Ïß³ÌÒ»¸öÈ¨ÏÞµÄ×ÓÏß³Ì
+
+- `save`£º±£´æÊý¾Ý£¬`save 900 1` ±íÊ¾900sÄÚÈç¹ûÓÐ1ÌõÊÇÐ´ÈëÃüÁî£¬¾Í´¥·¢²úÉúÒ»´Î¿ìÕÕ£¬¿ÉÒÔÀí½âÎª¾Í½øÐÐÒ»´Î±¸·Ý
+- `stop-writes-on-bgsave-error yes`£ºÕâÊÇµ±±¸·Ý½ø³Ì³ö´íÊ±£¬Ö÷½ø³Ì¾ÍÍ£Ö¹½ÓÊÜÐÂµÄÐ´Èë²Ù×÷£¬ÊÇÎªÁË±£»¤³Ö¾Ã»¯µÄÊý¾ÝÒ»ÖÂÐÔÎÊÌâ¡£**Èç¹û×Ô¼ºµÄÒµÎñÓÐÍêÉÆµÄ¼à¿ØÏµÍ³£¬¿ÉÒÔ½ûÖ¹´ËÏîÅäÖÃ£¬** ·ñÔòÇë¿ªÆô
+- `rdbcompression yes`£º¶Ô´æ´¢µ½Ó²ÅÌÖÐµÄÊý¾ÝÊÇ·ñ£¬ÊÇ·ñ½øÐÐÑ¹Ëõ´æ´¢£¬»á²ÉÓÃLZFËã·¨½øÐÐÑ¹Ëõ
+- `rdbchecksum yes`£ºÔÚ´æ´¢¿ìÕÕ£¬Ê¹ÓÃCRC64Ëã·¨À´½øÐÐÐ£Ñé£¬»áÓÐÒ»µãµÄÐÔÄÜÏûºÄ£¬µ«ÊÇ»ù±¾ºöÂÔ²»¼Æ
+- `saveºÍbgsave`£ºSave: saveÊ±**Ö»¹Ü±£´æ£¬ÆäËü²»¹Ü£¬È«²¿×èÈû**£¬BGSAVE: Redis»áÔÚºóÌ¨Òì²½½øÐÐ¿ìÕÕ²Ù×÷£¬¿ìÕÕÍ¬Ê±»¹¿ÉÒÔÏìÓ¦¿Í»§¶ËÇëÇó¡£¿ÉÒÔÍ¨¹ýlastsave|ÃüÁî»ñÈ¡×îºó--´Î³É¹¦Ö´ÐÐ¿ìÕÕµÄÊ±¼ä
+
+ÔÚÖ´ÐÐ`flushAll`ÃüÁîµÄÊ±ºò£¬»¹ÊÇ»á²úÉúÒ»¸ö`.dump`ÎÄ¼þ£¬Ö»²»¹ýÕâ¸öÎÄ¼þÊÇ¿Õ°×µÄ£¬ÖØÐÂ¶ÁÈ¡µÄÊ±ºò¾ÍÊÇ¶ÁÈ¡¿ÕµÄÄÚÈÝ
+
+![](/QQ½ØÍ¼20191023235651.png)
+
+
+
+
+
+##### AOF£¨Append only File£©
+
+ÒÔÈÕÖ¾µÄÐÎÊ½À´¼ÇÂ¼Ã¿¸ö`Ð´`²Ù×÷£¬¶Á¼ÇÂ¼²»»á¼ÇÂ¼£¬Ö»Ðè×·¼ÓÎÄ¼þµ«²»¿ÉÒÔ¸ÄÐ´ÎÄ¼þ£¬redisÖØÆôºó»á¸ù¾ÝÈÕÖ¾ÎÄ¼þ½«Ð´Ö¸Áî´ÓÇ°µ½ºóÖØÐÂÖ´ÐÐÒ»±é£¬¾Í¿ÉÒÔÍê³ÉÊý¾ÝµÄ»Ö¸´¹¤×÷
+
+Ä¬ÈÏµÄÈÕÖ¾ÎÄ¼þÊÇ±£´æÔÚappendonly.aofÎÄ¼þÖÐ£¬redisÖÐµÄ²Ù×÷¶¼»á¼ÇÔØ.aofÎÄ¼þÖÐ
+
+ÓÐÒ»¸ö×¢Òâµã£ºflushAllÃüÁîÒ²»á¼ÇÂ¼µ½ÈÕÖ¾ÎÄ¼þÖÐ£¬redis¸ù¾ÝÈÕÖ¾ÎÄ¼þÖð²½¼ÓÔØ²Ù×÷µÄÊ±ºò£¬ÔÙ´ÎÖ´ÐÐÇå³ýÃüÁî£¬µ±flushAllÃüÁîÔÚÈÕÖ¾ÎÄ¼þÖÐÉ¾³ýµÄÊ±ºò£¬redisÔÚÖØÆôºó¸ù¾ÝÎÄ¼þÖØÐÂ¼ÓÔØºó£¬Ö®Ç°redisÖÐµÄÏà¹Ø²Ù×÷Ò²»áÖðÒ»Ö´ÐÐ£¬ËùÓÐÊý¾Ý¾ÍÄÜ»Ö¸´
+
+**ÐÞ¸´apendonly.aofÎÄ¼þ**
+
+ÔÚÄ³Ð©Çé¿ö£¬¶Ïµç»òÊÇÍøÂçÑÓ³ÙµÄÇé¿öÏÂ£¬µ¼ÖÂappendonly.aofÎÄ¼þÐ´Èë´íÎóµÄ²»·ûºÏÓï·¨µÄÊý¾Ý£¬»áµ¼ÖÂredisÎÞ·¨Æô¶¯£¬`redis-check-aof --fix appendonly.aof`ÃüÁî¿ÉÒÔÐÞ¸´ÈÕÖ¾ÎÄ¼þ£¬½«ËùÓÐ²»ÊôÓÚÓï·¨¹æ·¶µÄ´íÎóÃüÁîÊý¾ÝÉ¾³ý
+
+![](/QQ½ØÍ¼20191028092111.png)
+
+- `appendonly`£º¿ªÆôappendonly£¬Ä¬ÈÏÊÇno
+
+- `appendfilename`£ºÐÞ¸ÄÄ¬ÈÏµÄÈÕÖ¾ÎÄ¼þÃû×Ö
+
+- `Appendfsync`
+
+  **Always**:Í¬²½³Ö¾Ã»¯Ã¿´Î·¢ÉúÊý¾Ý±ä¸ü»á±»Á¢¼´¼ÇÂ¼µ½´ÅÅÌÐÔÄÜ½Ï²îµ«Êý¾ÝÍêÕûÐÔ±È½ÏºÃ£¬ÏµÍ³µÄ´ó²¿·ÖÐÔÄÜ¶¼ÓÃÔÚ¸´ÖÆ
+  **Everysec**: ³ö³§Ä¬ÈÏÍÆ¼ö£¬Òì²½²Ù×÷£¬Ã¿Ãë¼ÇÂ¼Èç¹ûÒ»ÃëÄÚå´»ú£¬ÓÐÊý¾Ý¶ªÊ§
+  **No**£º²»¿ªÆô
+
+- `No-appendfsync-on-rewrite`:ÖØÐ´Ê±ÊÇ·ñ¿ÉÒÔÔËÓÃAppendfsync£¬ÓÃÄ¬ÈÏno¼´¿É£¬±£Ö¤Êý¾Ý°²È«ÐÔ¡£
+
+- `Auto-aof-rewrite-min-size`:ÉèÖÃÖØÐ´µÄ»ù×¼Öµ¡¢
+
+- `Auto-aof-rewrite-percentage`: ÉèÖÃÖØÐ´µÄ»ù×¼Öµ
+
+
 

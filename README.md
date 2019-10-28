@@ -53,12 +53,7 @@
 
 #### 📚 计算机网络
 
-- [计算机网络技术]([https://github.com/a-Lostelk/MyNotes/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF.md](https://github.com/a-Lostelk/MyNotes/blob/master/计算机网络/计算机网络技术.md))
-
-
-
-
-###  🏫 实战小项目
+- [计算机网络技术](https://github.com/a-Lostelk/MyNotes/blob/master/计算机网络/计算机网络技术.md)
 
 - [Coding社区](https://github.com/a-Lostelk/MyNotes/blob/master/coding%E7%A4%BE%E5%8C%BA%E7%AC%94%E8%AE%B0.md)
 - [学生管理系统](https://github.com/a-Lostelk/MyNotes/blob/master/%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/SSM%E5%AD%A6%E7%94%9F%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F.md)

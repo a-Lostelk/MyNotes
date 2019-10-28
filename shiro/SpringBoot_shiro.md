@@ -280,16 +280,62 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
 
 3. 完成Shiro的资源授权，在对资源进行拦截会对perms授权添加一个授权字符串
 
+   subject：目前表示被Shiro拦截认证的对象，也就是当前登录对象
+   
+   
+   
    ```java
-   @Override
+   /**
+    * 执行授权
+    * @param principalCollection
+    * @return
+    */
+@Override
    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
        System.out.println("-------正在授权--------");
        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
        //添加授权字符串
-       info.addStringPermission("user:add");
+       Subject subject = SecurityUtils.getSubject();
+       User user = (User) subject.getPrincipal();
+       User byId = userService.findById(user.getId());
+       info.addStringPermission(byId.getPerms());
        return info;
    }
+   
+   /**
+    * 执行认证
+    *
+    * @param authenticationToken
+    * @return
+    * @throws AuthenticationException
+    */
+   @Override
+   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+       System.out.println("--------正在认证--------");
+       UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+       User user = userService.findByName(token.getUsername());
+       if (user == null) {
+           //用户不存在，SpringBoot默认会抛出UnKnownAccountException异常
+           return null;
+       }
+       //判断密码
+       return new SimpleAuthenticationInfo(user, user.getPassword(), "");
+   }
    ```
-
+   
    
 
+#### Shiro和Thymeleaf拓展
+
+1. 导入插件依赖
+
+   ```xml
+   <!--thymeleaf拓展插件-->
+       <dependency>
+           <groupId>com.github.theborakompanioni</groupId>
+           <artifactId>thymeleaf-extras-shiro</artifactId>
+           <version>2.0.0</version>
+       </dependency>
+   ```
+
+2. 改造成功登录显示的页面，会根据登录用户权限的不同，将某些不属于权限用户的内容隐藏
