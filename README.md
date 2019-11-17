@@ -64,6 +64,15 @@
 #### ☕️☕️☕️
 
 由于本地分支是采用Markdown引入图片相对地址，上传到git后本机相对路径变成服务器所分配的路径名，所以图片无法显示
+
+类似HashMap的数据结构
+
+![HasMap数据结构]([https://github.com/a-Lostelk/MyNotes/blob/master/images/QQ%E6%88%AA%E5%9B%BE20190713183829.png](https://github.com/a-Lostelk/MyNotes/blob/master/images/QQ截图20190713183829.png))
+
+就像这样Spring的BeanFactory
+
+![]([https://github.com/a-Lostelk/MyNotes/blob/master/images/QQ%E6%88%AA%E5%9B%BE20191117115656.png](https://github.com/a-Lostelk/MyNotes/blob/master/images/QQ截图20191117115656.png))
+
 算是小遗憾吧，毕竟有图有真相，思维和导图结合理解更加透彻
 
 
