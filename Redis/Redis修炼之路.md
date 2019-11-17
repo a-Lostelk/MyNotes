@@ -17,14 +17,14 @@ Redis±¾ÖÊÉÏÊÇÒ»ÖÖNOSQL¹¤¾ß,ÊÇÒ»ÖÖ»ùÓÚÄÚ´æµÄÊý¾Ý¿â,Ìá¹©Ò»¶¨µÄ³Ö¾Ã»¯¹¦ÄÜ.Ö§³ÖÃ¿Ãë¼
 
 ### RedisÐÔÄÜÓÅÔ½µÄÔ­Òò
 
-»ùÓÚANSIC CÓïÑÔ±àÐ´µÄ,ÐÔÄÜ½Ó½ü»ã±à»úÆ÷ÓïÑÔ,ÊÇ»ùÓÚÄÚ´æµÄ¶ÁÐ´,ËüµÄÊý¾Ý½á¹¹Ö»ÓÐÁùÖÖÊý¾Ý½á¹¹,Ïà¶Ô´«Í³Êý¾Ý¿â½ÏÎª¼òµ¥
+»ùÓÚANSIC CÓïÑÔ±àÐ´µÄ,ÐÔÄÜ½Ó½ü»ã±à»úÆ÷ÓïÑÔ,ÊÇ»ùÓÚÄÚ´æµÄ¶ÁÐ´,ËüµÄÊý¾Ý½á¹¹Ö»ÓÐ**ÁùÖÖÊý¾Ý½á¹¹**,Ïà¶Ô´«Í³Êý¾Ý¿â½ÏÎª¼òµ¥
 
 Ó¦ÓÃ³¡¾°
 	Ò»¸öÊÇ»º´æ³£ÓÃµÄÊý¾Ý,Ò»¸öÊÇÐèÒª¸ßËÙ¶ÁÐ´µÄ³¡ºÏ
 
 »º´æ
 	1)ÔÚÊý¾Ý¿âµÄ¶ÁÐ´²Ù×÷ÖÐ,Êµ¼ÊÉÏÊÇ¶Á²Ù×÷µÄ´ÎÊýÔ¶³¬Ð´²Ù×÷
-	2)Ê¹ÓÃÄÚ´æ´æ´¢Êý¾ÝµÄ¿ªÏú±È½Ï´ó,ÄÚ´æÌõµÄ¼ÛÖµÔ¶±ÈÓ²ÅÌ¸ß,ÄÚ²¿µÄÈÝÁ¿Ò²±È½ÏÐ¡,Òò´ËµÄÊý¾Ý±ØÐëÊÇÒ»Ð©³£ÓÃµÄÊý¾Ý,±ÈÈç:ÓÃ»§µÇÂ¼
+	2)Ê¹ÓÃÄÚ´æ´æ´¢Êý¾ÝµÄ¿ªÏú±È½Ï´ó,ÄÚ´æÌõµÄ¼ÛÖµÔ¶±ÈÓ²ÅÌ¸ß,ÄÚ²¿µÄÈÝÁ¿Ò²±È½ÏÐ¡,Òò´ËµÄÊý¾Ý±ØÐëÊÇÒ»Ð©³£ÓÃµÄÊý¾Ý,±ÈÈç:ÓÃ»§µÇÂ¼£¬ÈÈµã¸ßÆµ×Ö¶ÎÓÅÏÈÌí¼Óµ½redisÖÐ
 	µÄÐÅÏ¢,¿Í»§»ù´¡´æ´¢ÐÅÏ¢
 	3)µÚÒ»´Î¶ÁÈ¡ÅÐ¶ÏÊÇ·ñ¶ÁÈ¡³É¹¦(¶ÁÈ¡Ê§°Ü»áÔÚÊý¾Ý¿âÖÐ¶ÁÈ¡²¢Ð´Èë»º´æÖÐRedisÖÐ),µÚ¶þ´Î¶ÁÈ¡¸ÃÊý¾ÝµÄÊ±ºò,¾Í²»ÓÃÁË¶ÁÈ¡Êý¾Ý¿âµÄ
 	Á÷³ÌÁË,¶ÁÈ¡Êý¾Ý¿â´ÅÅÌµÄËÙ¶ÈÊÇºÜµÍµÄ,ÕâÒªËÙ¶È¾Í»á´ó´ó¼Ó¿ì
@@ -39,7 +39,7 @@ Redis±¾ÖÊÉÏÊÇÒ»ÖÖNOSQL¹¤¾ß,ÊÇÒ»ÖÖ»ùÓÚÄÚ´æµÄÊý¾Ý¿â,Ìá¹©Ò»¶¨µÄ³Ö¾Ã»¯¹¦ÄÜ.Ö§³ÖÃ¿Ãë¼
 jedisÊÇJava¿Í»§¶Ë
 
 ```Java
-Jedis jedis = new Jedis("localhost", 6379); //Á¬½ÓRedis
+Jedis jedis = new Jedis("localhost", 6379); //Á¬½ÓRedis hostÖ÷»úip£¬port¶Ë¿ÚºÅ
     int i = 0;
     try {
         long start = System.currentTimeMillis();    //¿ªÊ¼ºÁÃëÊý
@@ -306,7 +306,7 @@ redisÖÐµÄ¼¯ºÏ²»ÊÇÒ»¸öÏßÐÔ½á¹¹,¶øÊÇ¹þÏ£±í½á¹¹,»áÔÚÄÚ²¿¸ù¾Ýhash·Ö×ÓÀ´²éÕÒºÍ´æ´¢Êý¾
 
 
 
-#### RedisµÄ³£ÓÃ²Ù×÷
+### RedisµÄ³£ÓÃ²Ù×÷
 
 ##### key
 
@@ -404,7 +404,7 @@ zrevrangebyscore key	½áÊøscore¿ªÊ¼score
 
 
 
-#### redis¹ýÆÚ²ßÂÔ
+### redis¹ýÆÚ²ßÂÔ
 
 ÔÚredisÖÐµÄÅäÖÃÎÄ¼þÖÐ£¬Ä¬ÈÏÓÐ6ÖÖ¹ýÆÚ²ßÂÔ£¬Ä¬ÈÏÊÇÓÀ²»¹ýÆÚµÄ
 
@@ -523,7 +523,7 @@ vm-page-size 32
 
 
 
-#### RedisºÍ³Ö¾Ã»¯
+### RedisºÍ³Ö¾Ã»¯
 
 ##### RDB£¨Redis Database£©
 
@@ -579,9 +579,169 @@ Rdb±£´æµÄÎÄ¼þÊÇ`dump.rdb`ÎÄ¼þ£¬±£´æÔÚÄÚ´æÖÐµÄÊý¾ÝÔÚ¶Ïµç¾Í»áÏûÊ§£¬È»¶øÔÚ¶ÔredisµÄ
 
 - `No-appendfsync-on-rewrite`:ÖØÐ´Ê±ÊÇ·ñ¿ÉÒÔÔËÓÃAppendfsync£¬ÓÃÄ¬ÈÏno¼´¿É£¬±£Ö¤Êý¾Ý°²È«ÐÔ¡£
 
-- `Auto-aof-rewrite-min-size`:ÉèÖÃÖØÐ´µÄ»ù×¼Öµ¡¢
+  AOF²ÉÓÃÎÄ¼þ×·¼ÓµÄ·½Ê½£¬×·¼ÓµÄÊý¾ÝÔ½À´Ô½¶à£¬ÎÄ¼þ»á±äµÃÏàµ±ÅÓ´ó£¬Òò´ËÌí¼ÓÁË**ÎÄ¼þÖØÐ´»úÖÆ**£¬AOFÎÄ¼þ³¬³öÁËÒ»¶¨µÄãÐÖµ £¬»á¶ÔÔ­À´µÄÎÄ¼þ½øÐÐÑ¹Ëõ£¬Ö»±£Áô»Ö¸´ÎÄ¼þµÄ×îÐ¡Ö¸Áî¼¯£¬`bgrewritteaof`
+
+  **ÖØÐ´Ô­Àí£º**AOFÎÄ¼þÔÚ³ÖÐøÔö´óµÄÊ±ºò£¬»áfork³öÒ»ÌõÐÂµÄ½ø³Ì½øÐÐÖØÐ´²Ù×÷£¬ÔÚÊµÀý²Ù×÷ÖÐ¿ÉÄÜredis»áÉ¾³ýÄ³Ð©Êý¾Ý£¬¶øÖØÐ´»úÖÆÖØÐ´Ð´ÈëµÄÊÇÔÚredisÖÐ»¹ÓÐµÄÊý¾ÝÎÄ¼þ£¬±éÀúÐÂµÄAOFÎÄ¼þ£¬Ã¿Ò»Ìõ¼ÇÂ¼¶¼ÊÇÓÐÒ»¸ösetÖ¸Áî£¬½«redisÊý¾Ý¿âÖÐËùÓÐµÄ´æÔÚµÄÊý¾ÝÖØÐ´³ÉÎªÒ»¸öÐÂµÄAOFÊý¾ÝÎÄ¼þ£¬ÏÂ´Î»Ö¸´ÎÄ¼þ¾ÍÊÇ°´ÕÕÕâ¸öÊý¾ÝÎÄ¼þ½øÐÐ»Ö¸´£¬ºÍ¿ìÕÕÀàËÆ  
+
+  **´¥·¢»úÖÆ£º**Ä¬ÈÏÅäÖÃÊÇµ±Ç°AOFÎÄ¼þÊÇÉÏ´ÎrewriteÎÄ¼þµÄ1±¶£¬ÇÒ´óÐ¡³¬¹ýÁË64µÄÊ±ºò´¥·¢»úÖÆ
+
+  ![](/QQ½ØÍ¼20191028103058.png)
+
+- `Auto-aof-rewrite-min-size`:ÉèÖÃÖØÐ´µÄ»ù×¼Öµ
 
 - `Auto-aof-rewrite-percentage`: ÉèÖÃÖØÐ´µÄ»ù×¼Öµ
+
+- AOFÒª¼ÇÂ¼µÄÈÕÖ¾ÎÄ¼þÔ¶´óÓÚRDB£¬»Ö¸´ËÙ¶ÈÒ²¾ÍÂýÓÚRDB £¬AOFµÄ»Ö¸´²ßÂÔÊÇÖðÌõ»Ö¸´£¬Ð§ÂÊ±È½ÏµÍ 
+
+##### ×Ü½á
+
+![](/QQ½ØÍ¼20191028130047.png)
+
+RDBÔÚÖ¸¶¨µÄÊ±¼ä¶Î¶ÔÊý¾Ý½øÐÐ¿ìÕÕ´æ´¢£¬AOF¶ÔÃ¿´Î¶ÁÈë²Ù×÷½øÐÐÈÕÖ¾¼ÇÂ¼£¬ÔÚ·þÎñÆ÷ÖØÆôºóredis»á¶ÔÈÕÖ¾ÎÄ¼þÖÐµÄÊý¾Ý»áÖØÐÂÖ´ÐÐÈÕÖ¾ÖÐµÄ²Ù×÷£¬½øÐÐÎÄ¼þ»Ö¸´²¢±£´æ
+
+#### Á½ÖÖ³Ö¾Ã»¯·½Ê½µÄÊ¹ÓÃ
+
+- µ±Êý¾ÝÖ»ÐèÒªÔÚ·þÎñÆ÷ÔËÐÐµÄÊ±ºò´æÔÚ£¬²»ÓÃ¿ªÆôÈÎºÎ³Ö¾Ã»¯·½Ê½£¬redisÖ»×ö»º´æ²Ù×÷
+- **redisÔÚÖØÆôµÄÊ±ºò»ØÓÅÏÈ¼ÓÔØAOFÎÄ¼þ»Ö¸´Ô­Ê¼µÄÊý¾Ý **£¨AOFÎÄ¼þ±ÈRDBÎÄ¼þ¸ü¼ÓµÄÍêÕû£©£¬AOFÎÄ¼þÔÚ²»¶ÏµÄÐ´Èë²Ù×÷ÖÐ¿ÉÄÜ»á·¢ÉúÒ»Ð©Î´Öª´íÎó£¬ËùÒÔ²»ÄÜÖ»Ê¹ÓÃAOF²Ù×÷£¬RDB¸üÊÊºÏ±¸·ÝÊý¾Ý¿âÊý¾Ý£¬AOF¸üÊÊºÏRedis ÖØÆô»Ö¸´Êý¾Ý
+
+#### ÐÔÄÜ½¨Òé
+
+ÒòÎªRDBÎÄ¼þÖ»ÓÃ×÷ºó±¸ÓÃÍ¾£¬½¨ÒéÖ»ÔÚSlaveÉÏ³Ö¾Ã»¯RDBÎÄ¼þ£¬¶øÇÒÖ»Òª**15**·ÖÖÓ±¸·ÝÒ»´Î¾Í¹»ÁË£¬Ö»±£Áô`save 900 1`ÕâÌõ¹æ
+Ôò¡£
+
+Èç¹û`Enalbe AOF`£¬ºÃ´¦ÊÇÔÚ×î¶ñÁÓÇé¿öÏÂÒ²Ö»»á¶ªÊ§²»³¬¹ýÁ½ÃëÊý¾Ý£¬Æô¶¯½Å±¾½Ï¼òµ¥Ö»load×Ô¼ºµÄAOFÎÄ¼þ¾Í¿ÉÒÔÁË¡£´ú¼ÛÒ»
+ÊÇ´øÀ´ÁË³ÖÐøµÄIO£¬¶þÊÇAOF rewriteµÄ×îºó½«rewrite¹ý³ÌÖÐ²úÉúµÄÐÂÊý¾ÝÐ´µ½ÐÂÎÄ¼þÔì³ÉµÄ×èÈû¼¸ºõÊÇ²»¿É±ÜÃâµÄ¡£Ö»ÒªÓ²ÅÌ
+Ðí¿É£¬Ó¦¸Ã¾¡Á¿**¼õÉÙAOF rewriteµÄÆµÂÊ**£¬AOFÖØÐ´µÄ»ù´¡´óÐ¡Ä¬ÈÏÖµ**64M**Ì«Ð¡ÁË£¬¿ÉÒÔÉèµ½**5G**ÒÔÉÏ¡£Ä¬ÈÏ³¬¹ýÔ­´óÐ¡100%´óÐ¡
+Ê±ÖØÐ´¿ÉÒÔ¸Äµ½ÊÊµ±µÄÊýÖµ¡£
+Èç¹û²»Enable AOF£¬½ö¿¿`Master-Slave Replication`£¨Ö÷´Ó¸´ÖÆ£©ÊµÏÖ¸ß¿ÉÓÃÐÔÒ²¿ÉÒÔ¡£ÄÜÊ¡µôÒ»´ó ±ÊIOÒ²¼õÉÙÁËrewriteÊ±´øÀ´µÄÏµÍ³²¨
+¶¯¡£´ú¼ÛÊÇÈç¹ûMaster/SlaveÍ¬Ê±µ¹µô£¬»á¶ªÊ§Ê®¼¸·ÖÖÓµÄÊý¾Ý£¬Æô¶¯½Å±¾Ò²Òª±È½ÏÁ½¸öMaster/SlaveÖÐµÄRDBÎÄ¼þ£¬ÔØÈë½ÏÐÂ
+µÄÄÇ¸ö¡£ÐÂÀËÎ¢²©¾ÍÑ¡ÓÃÁËÕâÖÖ¼Ü¹¹
+
+
+
+### RedisµÄÊÂÎñ
+
+Redis¶ÔÊÂÎñµÄÖ§³ÖÊÇ²¿·ÖµÄ£¬²»Ïñ¹ØÏµÐÍÊý¾Ý¿â¶ÔÊÂÎñµÄÖ§³ÖÊÇ¾ø¶ÔµÄ
+
+¿ÉÒÔÒ»´ÎÖ´ÐÐ¶à¸öÃüÁî£¬±¾ÖÊÒ»×éÃüÁîµÄ¼¯ºÏ£¬Ò»¸öÊÂÎñÖÐµÄËùÓÐÃüÁî¶¼»á**ÐòÁÐ»¯**£¬°´ÕÕ**Ë³Ðò´®ÐÐ»¯Ö´ÐÐ**¶ø²»»á±»ÆäËûÃüÁî²åÈë
+
+ Ïà¹ØÃüÁî£¬ÀàËÆÓÚJavaÖÐµÄÊý¾Ý½á¹¹¶ÓÁÐqueue
+
+`DISCARD`:È¡ÏûÊÂÎñ£¬·ÅÆúÊÂÎñÖÐµÄËùÓÐÃüÁî
+
+`EXEC`£ºÖ´ÐÐÊÂÎñµÄÃüÁî
+
+`MULTI`£º±ê¼ÇÊÂÎñµÄ¿ªÊ¼
+
+`UNWATCH`£ºÈ¡ÏûWATCH¶ÔkeyµÄ¼àÊÓ
+
+`WATCH key`£º
+
+**·ÅÆúÊÂÎñ**£ºÔÚÖ´ÐÐÅúÁ¿²Ù×÷µÄÊ±ºò£¬¿ÉÒÔÔÚÖ´ÐÐÊÂÎñÖ®Ç°È¡Ïû£¬ËùÓÐÖ´ÐÐµÄÊÂÎñ¶¼»áÈ¡Ïû
+
+**È«ÌåÁ¬×ø£º**ÔÚÖ´ÐÐÅúÁ¿²Ù×÷µÄÊ±ºò£¬ÓÐÒ»Ìõ²Ù×÷ÊÇ´íÎóµÄ»òÊÇ²»¿ÉÊµÏÖµÄ£¬ÄÇÃ´Ö´ÐÐµÄÊ±ºòËùÓÐµÄÊÂÎñÒ²»áÊ§°Ü
+
+#### watch¼à¿Ø
+
+ÀàËÆÀÖ¹ÛËø£¬Èç¹ûkeyµÄÖµ±»ÆäËûÓÃ»§¸Ä±äÁË£¬Õû¸öÊÂÎñ¶¼²»»áÖ´ÐÐ
+
+##### ±¯¹ÛËø
+
+±¯¹ÛµÄÈÏÎªÒ»¶¨»áÓÐÊÂÇé·¢Éú£¬Ã¿´Î»ñÈ¡µÄÊ±ºò¶¼»á¼ÓËø£¬È·±£×Ô¼ºµÄÊý¾Ý²»»á±»ÆäËûÓÃ»§ËùÐÞ¸Ä£¬ÆÚ¼äÆäËû¶ÁÐ´µÄÏß³Ì»áÔÚµÈ´ý£¬´«Í³µÄ¹ØÏµÐÍÊý¾Ý¿â¾Í»áÓöµ½ºÜ¶àÕâÖÖËø»úÖÆ£¬ÐÐËø£¬±íËø£¬¶ÁËø£¬Ð´Ëø
+
+**ÊÊºÏÐ´Èë½ÏÎªÆµ·±µÄ³¡¾°**
+
+±íËø£º¶ÔÊý¾Ý¿âµÄ±í¼ÓÉÏËø
+
+##### ÀÖ¹ÛËø
+
+Ã¿´Î»ñÈ¡Êý¾ÝµÄÊ±ºò¶¼²»»áµ£ÐÄÊý¾ÝµÄÐÞ¸Ä£¬ËùÒÔÃ¿´Î»ñÈ¡Êý¾ÝµÄÊ±ºò¶¼²»»á½øÐÐ¼ÓËø£¬µ«ÊÇÔÚ¸üÐÂÊý¾ÝµÄÊ±ºòÐèÒªÅÐ¶Ï¸ÃÊý¾ÝÊÇ·ñ±»±ðÈËÐÞ¸Ä¹ý£¬Èç¹ûÊý¾Ý±»ÆäËûÏß³ÌÐÞ¸Ä£¬Ôò²»½øÐÐÊý¾Ý¸üÐÂ£¬Èç¹ûÊý¾ÝÃ»ÓÐ±»ÆäËûÏß³ÌÐÞ¸Ä£¬Ôò½øÐÐÊý¾Ý¸üÐÂ¡£ÓÉÓÚÊý¾ÝÃ»ÓÐ½øÐÐ¼ÓËø£¬ÆÚ¼ä¸ÃÊý¾Ý¿ÉÒÔ±»ÆäËûÏß³Ì½øÐÐ¶ÁÐ´²Ù×÷¡£
+
+ÀÖ¹ÛËøÓÐ°æ±¾ºÅµÄ»úÖÆ£¬Ìá½»µÄÊ±ºòÒª´óÓÚµ±Ç°°æ±¾ºÅ²ÅÄÜÖ´ÐÐ
+
+**ÊÊºÏ¶ÁÈ¡²Ù×÷½ÏÎªÆµ·±µÄ²Ù×÷**
+
+##### CAS 
+
+#### ÊÂÎñµÄÈý¸ö½×¶Î
+
+- ¿ªÆô:ÒÔ`MULTI`¿ªÊ¼Ò»¸öÊÂÎñ
+
+- Èë¶Ó:½«¶à¸öÃüÁîÈë¶Óµ½ÊÂÎñÖÐ£¬½Óµ½ÕâÐ©ÃüÁî²¢²»»áÁ¢¼´Ö´ÐÐ£¬¶øÊÇ·Åµ½µÈ´ýÖ´ÐÐµÄÊÂÎñ¶ÓÁÐÀïÃæ
+
+- Ö´ÐÐ:ÓÉ`EXEC`ÃüÁî´¥·¢ÊÂÎñ
+
+ÔÚRedisÖÐÊÇµ¥¶ÀµÄ¸ôÀë²Ù×÷£¬ËùÓÐµÄÃüÁî¶¼»áÐòÁÐ»¯¡¢°´Ë³ÐòµØÖ´ÐÐ£¬Ã»ÓÐ´«Í³µÄ¹ØÏµÐÍÊý¾Ý¿âµÄ¸ôÀë¼¶±ðºÍ³öÏÖµÄÔà¶Á»Ã¶ÁÇé¿ö
+
+²»±£³ÖÔ­×ÓÐÔ£ºredisµÄÅúÁ¿²Ù×÷ÊÂÎñÖÐÈç¹ûÓÐÒ»ÌõÃüÁîÊ§°ÜÁË£¬ÆäËûÃüÁîÈÔÈ»Ö´ÐÐ£¬²»»á»Ø¹ö£¬²¿·ÖÖ´ÐÐ»Ø¹ö»úÖÆ
+
+
+
+### redisµÄÏûÏ¢¶©ÔÄ
+
+ÀàËÆÓÚÎ¢ÐÅÖÐµÄ¶©ÔÄºÅ£¬Ö»ÓÐµ±Äã¹Ø×¢ÁË¶©ÔÄºÅ£¬²Å»áÃ¿ÌìÊÕµ½¸÷ÖÖ¶©ÔÄºÅµÄÏûÏ¢
+
+½ø³ÌÖÐµÄÒ»ÖÖÏûÏ¢Í¨ÐÅÄ£Ê½£¬·¢ËÍÕß£¨pub£©·¢ËÍÏûÏ¢£¬¶©ÔÄÕß£¨sub£©½ÓÊÜÏûÏ¢
+
+ÀàËÆÓÚÏûÏ¢ÖÐ¼ä¼þµÄ×÷ÓÃ£¬µ«ÊÇÊµ¼Ê¿ª·¢ÖÐ²»»áÑ¡ÔñredisµÄÏûÏ¢¶©ÔÄ¹¦ÄÜ
+
+
+
+### redisµÄÖ÷´Ó¸´ÖÆ
+
+**Ò²¾ÍÊÇÎÒÃÇËùËµµÄÖ÷´Ó¸´ÖÆ£¬Ö÷»úÊý¾Ý¸üÐÂºó¸ù¾ÝÅäÖÃºÍ²ßÂÔ£¬×Ô¶¯Í¬²½µ½±¸»úµÄ`master/slaver`»úÖÆ£¬MasterÒÔÐ´ ÎªÖ÷£¬SlaveÒÔ¶Á ÎªÖ÷**
+
+ÒòÎªÓÃ»§µÄÔö¶à£¬Êý¾ÝµÄÔö¶à£¬µ¥»úµÄÊý¾Ý¿âÍùÍùÖ§³Å²»×¡¿ìËÙ·¢Õ¹µÄÒµÎñ£¬ËùÒÔÊý¾Ý¿â¼¯Èº¾Í²úÉúÁË£¡
+
+¶ÁÐ´·ÖÀë£º ¶ÁÐ´·ÖÀë¹ËÃûË¼Òå¾ÍÊÇ**¶ÁºÍÐ´**·ÖÀëÁË£¬¶ÔÓ¦µ½Êý¾Ý¿â¼¯ÈºÒ»°ã¶¼ÊÇÒ»Ö÷Ò»´Ó(**Ò»¸öÖ÷¿â£¬Ò»¸ö´Ó¿â**)»òÕßÒ»Ö÷¶à´Ó(**Ò»¸öÖ÷¿â£¬¶à¸ö´Ó¿â**)£¬ÒµÎñ·þÎñÆ÷°ÑÐèÒªÐ´µÄ²Ù×÷¶¼Ð´µ½**Ö÷Êý¾Ý¿â**ÖÐ£¬¶ÁµÄ²Ù×÷¶¼È¥**´Ó¿â²éÑ¯**¡£Ö÷¿â»áÍ¬²½Êý¾Ýµ½´Ó¿â±£Ö¤Êý¾ÝµÄÒ»ÖÂÐÔ¡£
+
+ÈÝÔÖ»Ö¸´£ºÈÝÔÖ±¸·ÝÏµÍ³ÊÇÖ¸ÔÚÏà¸ô½ÏÔ¶µÄÒìµØ£¬½¨Á¢Á½Ì×»ò¶àÌ×¹¦ÄÜÏàÍ¬µÄITÏµÍ³£¬»¥ÏàÖ®¼ä¿ÉÒÔ½øÐÐ½¡¿µ×´Ì¬¼àÊÓºÍ¹¦ÄÜÇÐ»»£¬µ±Ò»´¦ÏµÍ³ÒòÒâÍâ(Èç»ðÔÖ¡¢µØÕðµÈ)Í£Ö¹¹¤×÷Ê±£¬Õû¸öÓ¦ÓÃÏµÍ³¿ÉÒÔÇÐ»»µ½ÁíÒ»´¦£¬Ê¹µÃ¸ÃÏµÍ³¹¦ÄÜ¿ÉÒÔ¼ÌÐøÕý³£¹¤×÷
+
+#### Ö÷´ÓÅäÖÃ
+
+info replication£¬²é¿´µ±Ç°»úÆ÷Ö÷»ú´Ó»úÖÐµÄ¹ØÁªÐÅÏ¢£¬Ö÷»úmaster£¬´Ó»úslaver
+
+slaveof 127.0.0.1 6379 £¨Ö÷»ú¶Ë¿ÚºÅ+ipµØÖ·£©	ÓëÖ÷»ú¹ØÁª³ÉÎª´Ó»ú£¬ÄÜ¹»¶ÁÈ¡Ö÷»úÖÐµÄÊý¾Ý£¬Ö÷»úµÄËùÓÐÊý¾Ý¶¼»á±»´Ó»ú»ñµÃ
+
+Ö»ÓÐÖ÷»úÄÜÖ´ÐÐÐ´²Ù×÷£¬´Ó»ú²»ÄÜÐ´£¬Ö»ÄÜ¶ÁÖ÷»úµÄÊý¾Ý
+
+µ±Ö÷»úå´»ú¹Ø»úºó£¬´Ó»úºÍÖ÷»úÖ®¼äµÄ¹ØÏµ²»»á·¢Éú¸Ä±ä£¬´Ó»úÔ­µØ´ýÃüµÈ´ýÖ÷»úµÄ»Ö¸´£¬ÆäÖÐµÄ´Ó»ú²»»áÉÏÎ»³ÆÎªÖ÷»ú£¬role½ÇÉ«ÊÇslave£¬Á¬½Ó×´Ì¬»á´Óup±äÎªdown£¬ÈÔÈ»ÄÜ»ñÈ¡µ½Ö÷»úÐ´ÈëµÄÊý¾Ý
+
+µ±´Ó»úå´»ú¹Ø»úºó£¬´Ó»úºÍÖ÷»úÖ®¼äµÄ¹ØÏµ»á·¢ËÍ¸Ä±ä£¬ÕâÊ±ºò´Ó»úµÄÖ÷´Ó¹ØÏµ»á±äÎªÖ÷»ú£¬ÐèÒªÖØÐÂºÍÖ÷»úÁ¬½Ó²ÅÄÜ³ÉÎª´Ó»ú£¬ÕâÊ±ºò¾ÍÄÜºÍÆÕÍ¨µÄredisÊý¾Ý¿âÒ»Ñù£¬¿ÉÒÔ¶ÁºÍÐ´£¬¶ø´Ó»úÊý¾Ý¿âÖ»ÄÜ¶Á
+
+
+
+#### ¸´ÖÆÔ­Àí
+
+SlaveÆô¶¯³É¹¦Á¬½Óµ½masterºó»á·¢ËÍÒ»¸ösyncÃüÁî£¬Master½Óµ½ÃüÁîÆô¶¯ºóÌ¨µÄ´æÅÌ½ø³Ì£¬Í¬Ê±ÊÕ¼¯ËùÓÐ½ÓÊÕµ½µÄÓÃÓÚÐÞ¸ÄÊý¾Ý¼¯ÃüÁî£¬
+
+ÔÚºóÌ¨½ø³ÌÖ´ÐÐÍê±ÏÖ®ºó£¬master½«´«ËÍÕû¸öÊý¾ÝÎÄ¼þµ½slave,ÒÔÍê³ÉÒ»´ÎÍêÈ«Í¬²½
+
+- È«Á¿¸´ÖÆ:¶øslave·þ ÎñÔÚ½ÓÊÕµ½Êý¾Ý¿âÎÄ¼þÊý¾Ýºó£¬½«Æä´æÅÌ²¢¼ÓÔØµ½ÄÚ´æÖÐ¡£
+
+- ÔöÁ¿¸´ÖÆ:Master¼ÌÐø½«ÐÂµÄËùÓÐÊÕ¼¯µ½µÄÐÞ¸ÄÃüÁîÒÀ´Î´«¸øslave,Íê³ÉÍ¬²½
+
+µ«ÊÇÖ»ÒªÊÇÖØÐÂÁ¬½Ómaster,Ò»´Î´ÎÍêÈ«Í¬²½(**È«Á¿¸´ÖÆ**)½«±»×Ô¶¯Ö´ÐÐ
+
+
+
+#### ÉÚ±øÄ£Ê½
+
+ Redis Ö÷´Ó¸´ÖÆÓÐÒ»¸öºÜ´óµÄÈ±µã¾ÍÊÇÃ»ÓÐ°ì·¨¶Ô master ½øÐÐ¶¯Ì¬Ñ¡¾Ù£¨µ± master ¹Òµôºó£¬»áÍ¨¹ýÒ»¶¨µÄ»úÖÆ£¬´Ó slave ÖÐÑ¡¾Ù³öÒ»¸öÐÂµÄ master£©
+
+Sentinel(ÉÚ±ø) ½ø³ÌÊÇÓÃÓÚ**¼à¿Ø Redis ¼¯ÈºÖÐ Master Ö÷·þÎñÆ÷¹¤×÷µÄ×´Ì¬**£¬µ±masterÖ÷»ú¹Òµôºó£¬»áÔÚ´Ó»úÖÐÍ¨¹ý
+
+Ä³ÖÖ²ßÂÔÑ¡¶¨Ò»¸öÐÂµÄÖ÷»ú£¬ÐÂµÄÖ÷»úºÍÆäËûµÄ´Ó»úÐÎ³ÉÁªÏµ¹ØÁª£¬×Ô³ÉÒ»ÅÉÌåÏµ£¬µ±Ô­À´µÄÖ÷»ú»Ö¸´ÁË£¬Ëû»á³ÉÎª´Ó»ú¶ø²»ÔÙÊÇÖ÷»úÁË£¬ÒòÎªÐÂµÄÀÏ´óÒÑ¾­ÉÏÎ»ÁËÒÑ¾­¿ªÊ¼¹ÜÀíÆäËûµÄÐ¡µÜÁË
+
+
+
+##### ×¢Òâµã
+
+Åä´Ó²»ÅäÖ÷
+
+´Ó¿âÅäÖÃ£ºslaveofÖ÷¿âIPµØÖ·¶Ë¿Ú
+
+
 
 
 

@@ -448,7 +448,7 @@ let data = [
     //// console.log(data[0].english.charCodeAt(0));
     // data.sort((a, b) => b.english.charCodeAt(0) - a.english.charCodeAt(0)); //z~a 排序
    |-----------------------------------------------------------------------------------|
-   | data.sort((a, b) => a.english.charCodeAt(0) - b.english.charCodeAt(0));//a~z排序  |
+   | data.sort((a, b) => a.english.charCodeAt(0) - b.english.charCodeAt(0)); //a~z排序  |
    |-----------------------------------------------------------------------------------|
     console.log(data);
 ```
@@ -520,7 +520,6 @@ try {
     upload_result.put("msg", "上传成功");
     //将存储头像的项目路径返回给页面
     upload_result.put("uploadPath", uploadPath +  newPhotoName);
-    
 ```
 
 ```JavaScript

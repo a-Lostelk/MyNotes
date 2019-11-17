@@ -35,7 +35,11 @@ typora-root-url: images
 
 一个引用变量会指向那个类的实例，该类引用变量调用的方法是哪个类中的方法，在编程期间不确定，要在运行期间才能决定
 
-Java实现多态的两种方式：**基础**（多个子类继承同一个父类）和 **接口**（实现接口并覆盖接口中的方法）
+Java实现多态的两种方式：**继承**（多个子类继承同一个父类）和 **接口**（实现接口并覆盖接口中的方法）
+
+- Java的方法重载，就是在类中可以创建多个方法，它们具有相同的名字，但可具有不同的参数列表、返回值类型。调用方法时通过传递的参数类型来决定具体使用哪个方法，这就是多态性
+
+- Java的方法重写，是父类与子类之间的多态性，子类可继承父类中的方法，但有时子类并不想原封不动地继承父类的方法，而是想作一定的修改，这就需要采用方法的重写。重写的参数列表和返回类型均不可修改
 
 
 
@@ -273,7 +277,7 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 
 ### List
 
-有序可重复的的容器，每个元素都有对应的顺序索引，数组存储数据的局限性，通常使用`list`替代数组，相当于是一个动态的自增长的数组
+**有序可重复**的的容器，每个元素都有对应的顺序索引，数组存储数据的局限性，通常使用`list`替代数组，相当于是一个动态的自增长的数组
 
 常用的实现类是`ArrayList`（数组），`LinkedList`（链表）和`Vector`（线程安全的数组）
 
@@ -346,9 +350,29 @@ private void ensureCapacityInternal(int minCapacity) {
 
 ```
 
-
-
 *在开发中，尽量使用带参的构造器：	`ArrayList arrayList = new ArrayList(int capacity)`;*
+
+#####  ArrayList的遍历方式
+
+Collection及其子类都可以使用三种方式进行遍历：for循环、forEach循环、迭代器
+
+```Java
+//顺序遍历
+for (int i = 0; i < lists.size(); i++) {
+  System.out.print(lists.get(i));
+}
+//forEach循环
+for (Integer list : lists) {
+System.out.print(list);
+}
+//迭代器遍历
+Iterator<Integer> iterator = linkedList.iterator();
+while (iterator.hasNext()) {
+    iterator.next();
+}
+```
+
+
 
 
 
@@ -538,6 +562,15 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
  * 链表:占用空间不连续。寻址困难， 查询速度慢。 但是,增加和删除效率非常高。
  * HashMap结合两种数据结构的优点
 
+```java
+/*
+* DEFAULT_LOAD_FACTOR 加载
+*/
+public HashMap() {
+    this.loadFactor = DEFAULT_LOAD_FACTOR; // all other fields defaulted
+}
+```
+
 ***entry[]*** 数组是HashMap的核心，entry对象中存储了key value键值对，next指向下一个节点，hash值，每一个entry对象都是一个**单向链表**（或者叫节点对象）
 
 ![](/QQ拼音截图20190814221752.png)
@@ -593,7 +626,23 @@ HashMap的位桶数组**,初始大小为16**。实际使用时,显然大小是�
 
 根据**LoadFactor**加载因子，加载因子越接近于1，说明HashMap中的数据存储的越多链表越长，越接近于0，存储的数据越少，临界因子的大小会影响到执行效率，0.75f是最好的临界值
 
+```java
+public HashMap(int initialCapacity, float loadFactor) {
+    if (initialCapacity < 0)
+        throw new IllegalArgumentException("Illegal initial capacity: " +
+                                           initialCapacity);
+    if (initialCapacity > MAXIMUM_CAPACITY)
+        initialCapacity = MAXIMUM_CAPACITY;
+    if (loadFactor <= 0 || Float.isNaN(loadFactor))
+        throw new IllegalArgumentException("Illegal load factor: " +
+                                           loadFactor);
+    this.loadFactor = loadFactor;
+    this.threshold = tableSizeFor(initialCapacity);
+}
+```
 
+- 第一个参数：**初始容量**，指明初始的桶的个数；相当于桶数组的大小。
+- 第二个参数**：装载因子**，是一个0-1之间的系数，根据它来确定需要扩容的阈值，默认值是0.75。
 
 
 
@@ -767,7 +816,7 @@ Runnable runnable = () -> System.out.println("hello world Lambda");
 
 ##### 使用方法
 
-->lambda操作符	
+->lambda操作符
 
 ->左边的是接口中抽象方法的形参列表
 
@@ -1386,9 +1435,29 @@ public static  Bank getInstance() {
 
 
 
+#### 线程池
+
+new Thread频繁创建比较消耗性能，线程之间也缺乏统一的管理
+
+线程缺乏统一的调度和管理，可能会存在竞争的关系
+
+##### Java提供的四种线程池
+
+重用已经存在的线程，减少Thread对象的创建、销毁等的性能开销
+
+可以控制线程数量，提高资源的使用率
+
+提供定时执行、定期执行、单线程、并发数控制等功能。
+
+Java通过`Executors`提供四种线程池，分别为：
+
+`newCachedThreadPool`创建一个**可缓存线程池**，如果线程池长度超过处理需要，可**灵活回收空闲线程**，若无可回收，则新建线程。
 
 
-#### 异常处理
+
+
+
+### 异常处理
 
 **Error和RuntimeException**这一类的异常运行时javac编译的时候不检测，不需要主动添加处理异常的手段当然我们愿意的话也可以添加除了.上述以外其他的异常都需要做检测要求我们必须添加处理异常的手段编译不过去
 
@@ -1890,7 +1959,7 @@ public static void main(String[] args) {
 上图所知，`ApplicationContext`的最上层父级接口是`BeanFactory`，由此可知`ApplicationContext`就可以看做事一个Bean工厂
 
 - `ListableBeanFactory`的获取多个Bean，继承`BeanFactory`单个Bean的基础上拓展可以变成获取多个
-- `HierarchicalBeanFactory`将多个BeanFactory分层设置为父子关系
+- `HierarchicalBeanFactory`将多个`BeanFactory`分层设置为父子关系
 - `AutoWiredCapableBeanFactory`自动装配Bean，`ApplicationContext`接口并没有继承该接口，但是最后有一个方法`getAutowireCapableBeanFactory（）`方法调用了该接口
 - `DefaultListableBeanFactory`的父类是左右两个，大致来说，这是最强大的Bean工厂的子类，具备了自动装载个ApplicationContext的功能
 
@@ -2127,8 +2196,150 @@ Spring作为时下最流行的Java框架，大多数框架都可以和或者都�
     <artifactId>mapper</artifactId>
     <version>4.1.4</version>
 </dependency>
-
 ```
 
 Mybatis和Spring整合，需要扫描Dao层的Mapper类，只需要改变一下配置文件中的`org`为`tk.`使用通用Mapper文件的扫描方式
+
+
+
+
+
+### HttpServletRequest和HttpServletResponse详解
+
+Web服务器收到一个http请求，会针对每个请求创建一个`HttpServletRequest`和`HttpServletResponse`对象，向客户端发送数据找`HttpServletResponse`,从客户端取数据找`HttpServletRequest.`
+
+#### HttpServletRequest
+
+继承自`ServletRequest`客户端浏览器发出的请求被封装成为一个`HttpServletRequest`对象。所有的信息包括**请求的地址，请求的参数，提交的数据，上传的文件客户端的ip甚至客户端操作系统等信息**都包含在其内。
+
+一个 HTTP 请求包含以下三部分：
+
+**a.**请求地址(URL)
+
+**b.请求头**(Request headers)
+
+**c.实体数据**(Entity body)
+
+```properties
+POST /examples/default.jsp HTTP/1.1	
+Accept: text/plain; text/html
+Accept-Language: en-gb
+Connection: Keep-Alive
+Host: localhost
+User-Agent: Mozilla/4.0 (compatible; MSIE 4.01; Windows 98)
+Content-Length: 33
+Content-Type: application/x-www-form-urlencoded
+Accept-Encoding: gzip, deflate
+lastName=Franks&firstName=Michael
+```
+
+ HTTP 支持的方法包括，GET、POST、HEAD、OPTIONS、PUT、DELETE 和 TRACE。互联网应用中最常用的是 GET 和 POST
+
+##### 常用方法
+
+**1.获得客户机信息**
+
+getRequestURL	方法返回客户端发出请求时的完整URL。
+
+getRequestURI	 方法返回请求行中的资源名部分。
+
+getQueryString 	方法返回请求行中的参数部分。
+
+getRemoteAddr	方法返回发出请求的客户机的IP地址
+
+getRemoteHost	方法返回发出请求的客户机的完整主机名
+
+getRemotePort	 方法返回客户机所使用的网络端口号
+
+getLocalAddr	    方法返回WEB服务器的IP地址。
+
+getLocalName	  方法返回WEB服务器的主机名
+
+getMethod			得到客户机请求方式	
+
+getServerPath	获取请求的文件的路径
+
+ **2.获得客户机请求头**
+
+getHeader(string name)方法 
+getHeaders(String name)方法 
+getHeaderNames方法 
+
+**3. 获得客户机请求参数(客户端提交的数据)**
+getParameter(name)方法 									获取请求中的参数，该参数是由name指定的
+getParameterValues（String name）方法 		获取指定名称参数的所有值数组。它适用于一个参数名对应多个值的情
+
+​																				  况。如**页面表单中的复选框，多选列表提交的值**。
+
+getParameterNames方法 									返回一个包含请求消息中的所有参数名的**Enumeration**对象。通过遍历
+
+​																				  这个**Enumeration**对象，就可以获取请求消息中所有的参数名。
+
+getCharacterEncoding()										返回请求的字符编码方式
+
+getAttributeNames()											 返回当前请求的所有属性的名字集合赋值:setAttribute()
+
+getAttribute(String name) 								   返回name指定的属性值
+
+getsession()															返回和客户端相关的session，如果没有给客户端分配session，则返回
+
+​																				 null
+
+getParameterMap():											 返回一个保存了请求消息中的所有参数名和值的Map对象。Map对象的
+
+​																				key是字符串类型的参数名，value是这个参数所对应的Object类型的值数
+
+​																				组
+
+RequestDispatcher.forward 							方法的请求转发过程结束后，浏览器地址栏保持初始的**URL地址不变**。方
+
+​																			  法在服务器端内部将请求转发给另外一个资源，**浏览器只知道发出了请求**
+
+​																			  **并得到了响应结果，并不知道在服务器程序内部发生了转发行为**。
+
+request.setCharacterEncoding("utf-8");		 设置请求的编码格式为UTF-8
+
+getReader() 														获取请求体的数据流
+
+getInputStream() 											  获取请求的输入流中的数据
+
+
+
+#### HttpServletResponse
+
+继承了`ServletResponse`接口，主要功能是设置[HTTP状态码](http://baike.baidu.com/view/1790469.htm)和管理Cookie。`HttpServletResponse`对象代表服务器的响应。这个对象中封装了**向客户端发送数据、发送响应头，发送响应状态码**的方法
+
+HttpServletResponse对象可以向客户端发送三种类型的数据:
+
+**a**.**响应头(**Response headers**)
+
+**b.状态码**(**Protocol—Status code—Description**)**
+
+**c.实体数据**(**Entity body **)
+
+```properties
+HTTP/1.1 200 OK
+Server: Microsoft-IIS/4.0
+Date: Mon, 5 Jan 2004 13:13:33 GMT
+Content-Type: text/html
+Last-Modified: Mon, 5 Jan 2004 13:13:12 GMT
+Content-Length: 112
+<html><head><title>HTTP Response Example</title></head>....</html>
+```
+
+##### 常用方法
+
+addHeader(String name,String value)  		将指定的名字和值加入到响应的头信息中
+
+encodeURL(String url)  									编码指定的URL
+
+sendError(int sc)  											 使用指定状态码发送一个错误到客户端
+
+setDateHeader(String name,long date )	  将给出的名字和日期设置响应的头部
+
+setHeader(String name,String value) 		  将给出的名字和值设置响应的头部
+
+setStatus(int sc) 											   给当前响应设置状态码
+
+HttpServletResponse.sendRedirect 			 方法对浏览器的请求直接作出响应，响应的结果就是告诉浏览器去重新发出对另外一个URL的访问请求；方法调用者与被调用者使用各自的request对象和response对象，它们属于两个独立的访问请求和响应过程。
 
