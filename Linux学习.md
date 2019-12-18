@@ -654,7 +654,6 @@ ps指令，查看系统中执行的进程
 PID进程识别号	TTY终端机号，	TIME进程所消耗的CPU时间	CMD正在执行的命令或进程名   
 
 ![](/搜狗截图20190801114935.png)
-=======
 
 
 
@@ -834,8 +833,6 @@ yum install xxx指定软件，例如：yum install firefox 安装火狐浏览器
 
 
 
-
-
 ### 搭建Java EE开发环境
 
 ![](/QQ截图20190811210546.png)
@@ -868,7 +865,7 @@ vi /etc/sysconfig/iptables 编辑放行8080端口供外网访问，编辑完成�
 
 执行tar -zxvf解压，直接进入到eclipse目录，./eclipse就能启动eclipse了
 
-eclipse运行文件时会提示端口已被占用， 需要在bin目录下停止Tomcat服务器，由eclipse启动服务器开启Tomcat服务器并使用其端口，这时候，外网就可以访问Linux运行的java程序
+eclipse运行文件时会提示端口已被占用， 需要在bin目录下停止Tomcat服务器，由eclipse启动服务器开启Tomcat服务器并使用其端口，这时候，外网访问Linux的IP地址就可以访问Linux运行的java程序（192.168.1.111当前Linux的本机地址）
 
 ![](/QQ截图20190812095316.png)
 

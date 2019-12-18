@@ -116,14 +116,14 @@ public String getDetails(
 - 从request域中写入session
 
 ```java
-  if (user != null) {
-            //登录成功写入cookies和session
-            request.getSession().setAttribute("user", user);
-            //页面跳转，redirect跳转的是路径
-            return "redirect:/";
-        } else {
-            return "redirect:/";
-        }
+if (user != null) {
+    //登录成功写入cookies和session
+    request.getSession().setAttribute("user", user);
+    //页面跳转，redirect跳转的是路径
+    return "redirect:/";
+} else {
+    return "redirect:/";
+}
 ```
 
 
@@ -141,25 +141,25 @@ public String getDetails(
 - 首次登录成功后会在后台执行一次数据库写入操作保存用户的基本信息
 
 ```java
-  if (githubUser != null) {
-            //将获取到的GitHub用户信息写入到数据库
-            User user = new User();
-            String token = UUID.randomUUID().toString();
-            user.setToken(token);
-            user.setName(githubUser.getName());
-            user.setGmtCreate(System.currentTimeMillis());
-            user.setGmtModified(user.getGmtModified());
-            userMapper.insert(user);	//保存用户信息数据
-            //使用随机生成的Token作为cookies数据
-            Cookie cookie = new Cookie("token", token);
-            cookie.setMaxAge(60 * 60 * 24 * 7);
-            response.addCookie(cookie);
-            /*request.getSession().setAttribute("user", githubUser);*/
-            //页面跳转，redirect跳转的是路径
-            return "redirect:/";
-        } else {
-            return "redirect:/";
-        }
+if (githubUser != null) {
+    //将获取到的GitHub用户信息写入到数据库
+    User user = new User();
+    String token = UUID.randomUUID().toString();
+    user.setToken(token);
+    user.setName(githubUser.getName());
+    user.setGmtCreate(System.currentTimeMillis());
+    user.setGmtModified(user.getGmtModified());
+    userMapper.insert(user);	//保存用户信息数据
+    //使用随机生成的Token作为cookies数据
+    Cookie cookie = new Cookie("token", token);
+    cookie.setMaxAge(60 * 60 * 24 * 7);
+    response.addCookie(cookie);
+    /*request.getSession().setAttribute("user", githubUser);*/
+    //页面跳转，redirect跳转的是路径
+    return "redirect:/";
+} else {
+    return "redirect:/";
+}
 
 ```
 

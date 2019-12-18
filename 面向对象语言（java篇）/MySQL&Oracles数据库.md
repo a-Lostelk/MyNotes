@@ -179,6 +179,8 @@ MEMORY是MySQL中一类特殊的存储引擎。它使用存储在内存中的内
 
 
 
+
+
 ## 									Oracle数据库修炼之路
 
 ### 什么是数据库
@@ -247,7 +249,7 @@ Oracle存储和管理信息，必须和内存实例相结合，才能对外进�
 
 需要设置相应的多个数据库账户，默认数据库账户都已被锁定，需要将指定账户由锁定解锁
 
-Oracle运行成功需要将这两个服务启动
+Oracle运行成功需要将这两个服务启动，第一个是TNS监听服务，确保能被客户端连接，第二个是oracle的运行主服务
 
 ![](/QQ截图20191103123521.png)
 
@@ -289,6 +291,323 @@ Oracle默认有emp、dept等表
 
 
 
+#### oracle中的nextval
+
+sequence是序列号生成器，可以为表中的行自动生成序列号，一般用于生成主键值，在插入insert语句中引用，在插入的时候获取下一个序列号nextVal值，然后将该值作为下一行数据的主键
+
+```sql
+ create sequence INR_REQUIRMENT_SQUENCE  
+  INCREMENT BY 1 -- 每次加几个
+  START WITH 1 -- 从1开始计数
+  NOMAXVALUE -- 不设置最大值
+  NOCYCLE -- 一直累加，不循环
+  CACHE	--一直累加不循环
+  
+  
+  SELECT INR_REQUIRMENT_SQUENCE.CURRVAL FROM dual  --获取当前的sequence的值
+```
+
+nextval可以获取到下一个序列值，
+
+
+
+#### Sql中的where 1= 1的意义
+
+**1=1 永真， 1<>1 永假。** 
+
+1<>1 的用处： 
+用于只取结构不取数据的场合 
+
+`create table table_temp tablespace tbs_temp as select * from table_ori where 1<>1 `
+
+建成一个与table_ori 结构相同的表table_temp，但是不要table_ori 里的数据。
+
+1=1的用处 ,用于动态SQL
+
+SELECT paperid,papertitle from table where 1=1 and paperid like %||${paperid}||% ;
+
+查询数据的同时也能进行模糊查询
+
+
+
+
+
 #### Oracle语法
 
 `select sysdate from dual;`			返回当前的系统时间
+
+
+
+### oracle中的instr()函数
+
+字符查找函数
+
+instr( string1, string2 )    // instr(源字符串, 目标字符串)
+
+instr( string1, string2 [, start_position [, nth_appearance ] ] )   
+
+// instr(源字符串, 目标字符串, 起始位置, 匹配序号)
+
+
+
+`select * from emp where instr(JOB,'C')>0;`和`select * from emp where job like '%C%';`是一样的效果
+
+
+
+### dual表
+
+- oracle中提供的最小的一张表，无论进行什么样的操作，最终都只会返回一条数据	
+-  Dual表是oracle与数据字典一起自动创建的一个表，这个表只有1列：DUMMY，数据类型为VERCHAR2(1)，dual表中只有一个数据'X', Oracle有内部逻辑保证dual表中永远只有一条数据。
+- Oracle中的dual表是一个单行单列的虚拟表
+
+
+
+### varchar2和varchar的区别
+
+- `varchar`2把所有字符都占两字节处理(一般情况下)，`varchar`只对汉字和全角等字符占两字节，数字，英文字符等都是一个字节
+- `varchar2`把空串等同于null处理，而`varchar`仍按照空串处理；
+- `varchar`字符要用几个字节存储，要看数据库使用的字符集
+
+
+
+
+
+### Oracle的存储过程
+
+#### 什么是存储过程、作用、优点
+
+存储过程是为了完成特定功能的SQL集合，在创建的时候会在数据库中存储，
+
+
+
+##### 优点：
+
+- 减少网络通信量，存储过程在创建的时候数据库已经对其进行优化和编译，再次使用的时候不需要再在进行编译，面对大批量的SQL数据的时候
+
+
+
+#### 存储过程的传参
+
+存储过程的括号里，可以声明参数
+
+语法是 ：`create procedure p（存储过程名）([in/out/inout] 参数名  参数类型 ..)`
+
+in ：给参数传入值，定义的参数就得到了值
+
+out：模式定义的参数只能在过程体内部赋值，表示该参数可以将某个值传递回调用他的过程（在存储过程内部，该参数初始值为 **null**，无论调用者是否给存储过程参数设置值）
+
+inout：调用者还可以通过 inout 参数**传递值给存储过程**，也可以从**存储过程内部传值给调用者**
+
+
+
+#### oracle中的mod()函数
+
+可以用来判断是否有余数，`mod(i,2)`
+
+
+
+#### PLSQL编程
+
+PLSQL是对Oracle的SQL语言的过程化拓展
+
+是在SQL命令语言中添加了过程处理语句，使SQL具有过程处理能力 
+
+能够减少数据库和服务器之间的网络交互，也可以提高SQL的执行效率
+
+
+
+
+#### PL/SQL的程序结构
+
+PL/SQL可以分为三个部分：声明部分、可执行部分、异常处理部分
+
+**注：**DBMS是Oracle中内置的数据包，在没有定义变量的时候，DECLARE是可以省略的
+
+```plsql
+DECLARE
+	i integer；
+	
+BEGIN
+	-- java: System.out.println()
+	DBMS_output.put_line('hello world');
+END;
+```
+
+在SQL plus中需要开启`set serveroutput on`来打开数据库中的输出功能
+
+
+
+#### 变量
+
+PLSQL编程中常见的变量分两大类
+1.普通数据类型(char,varchar2, date, number, boolean, long)
+2.特殊变量类型(引用型变量、记录型变量)
+
+变量名 变量类型（变量长度）
+
+变量只有在赋值之后才能被使用
+
+有两种赋值方式
+
+1. 直接赋值的方式，关键字:= v-name := '张三'
+2. 语句赋值，使用`select 值 into 变量`
+
+PLSQL中的语句都是需要分号结尾作为标识，
+
+```plsql
+DECLARE
+
+	v_name varchar2(20) := 'zhangsan';
+	v_sal number;
+	v_addr varchar2(20);
+begin
+
+	v_sal := 1580;
+	-- select语句不能单独使用，要和from指定条件
+	select 'nanchang' into v_addr from dual;
+	DBMS_output.put_line('姓名:'|| v_name || ',工资:' || v_sal || '地址' || v_addr);
+	
+END;
+
+```
+
+引用类型
+
+变量的类型和长度由实际存在的表中字段的长度和类型来决定
+
+`表名.列名%TYPE`制定变量的类型和长度
+
+优点：普通变量在定义的时候需要知道表中字段的类型和长度，而引用变量的类型和长度是在确定好表中字段的长度和类型啦确定的
+
+
+
+#### 记录型变量
+
+接受表中的一行变量，相当于是Java中的集合变量（可以存储多个值）
+
+
+
+#### Loop循环
+
+```plsql
+DECLARE
+  --声明循环的变量和数据类型
+  V_NUM NUMBER := 1;
+BEGIN
+  LOOP
+    EXIT WHEN V_NUM > 10;
+    DBMS_OUTPUT.PUT_LINE(V_NUM);
+    V_NUM := V_NUM + 1;
+  END LOOP;
+  -- 循环体的结束
+END;
+
+```
+
+
+
+#### 游标
+
+声明的普通变量是无法存储接受从数据库中查询的多行数据，游标临时存储多行数据，类似于Java中jdbc中返回数据存储的resultSet集合，可以理解为从临时存储从数据库获得的数据	
+
+游标中存储的数据首先会存放在计算机的内存中，在频繁操作的时候，直接访问内存中的游标数据，**游标就像我们查询数据返回的集合类型，比如List ，我就把它当做一个引用类型，它指向了内存区域中的数据结果集**
+
+
+
+##### 游标声明
+
+`cursor 游标名[参数名] is 查询语句`
+
+`CURSOR`：声明->打开->读取->关闭
+
+打开游标：`OPEN CURSOR`
+
+游标的取值:`FETCH`游标名INTO变量列表:
+
+游标的关闭:`CLOSE`游标名
+
+| 属性      | 返回值类型 | 说明                        |
+| --------- | ---------- | --------------------------- |
+| %rowcount | 整型       | 获得fetch语句返回的结果     |
+| %found    | 布尔       | fetch返回的结果有数据则为真 |
+| %notfound | 布尔       | 与%found相反                |
+| %isopen   | 布尔       | 游标是否打开                |
+
+PLSQL中，游标的声明就会有开始和结束，打开游标，读取游标，关闭游标
+
+**无参游标**
+
+```PLSQL
+--查询emp表中所有员工的姓名和工资并打印出来
+DECLARE 
+  --声明游标和相关参数
+  cursor c_emp IS SELECT ENAME,SAL FROM emp;
+  
+  --声明接受游标中数据的变量
+  v_ename emp.ename%TYPE;
+  v_sal emp.sal%TYPE;
+BEGIN
+  --打开游标、关闭游标 
+  OPEN c_emp; 
+  
+  --开启和关闭LOOP循环
+  LOOP
+    
+  --获取游标中的数据、循环开始和退出循环
+  FETCH c_emp INTO v_ename, v_sal;
+  
+  --判断游标中是否还有值存在
+  EXIT WHEN c_emp%NOTFOUND;
+  dbms_output.put_line(v_ename ||'的工资是'||v_sal);
+  END LOOP;
+  CLOSE c_emp;
+END;
+```
+
+**有参游标**
+
+```plsql
+--查询emp表中所有员工的姓名和工资并打印出来(指定部门的ID)
+DECLARE 
+  --声明游标和相关参数
+  cursor c_emp(v_deptno emp.deptno%TYPE) 
+  IS SELECT ENAME,SAL FROM emp where deptno=v_deptno;
+  
+  --声明接受游标中数据的变量
+  v_ename emp.ename%TYPE;
+  v_sal emp.sal%TYPE;
+BEGIN
+  --打开游标、关闭游标 
+  OPEN c_emp(20);
+  
+  --开启和关闭LOOP循环
+  LOOP
+    
+  --获取游标中的数据、循环开始和退出循环
+  FETCH c_emp INTO v_ename, v_sal;
+  
+  --判断游标中是否还有值存在
+  EXIT WHEN c_emp%NOTFOUND;
+  dbms_output.put_line(v_ename ||'的工资是'||v_sal);
+  END LOOP;
+  CLOSE c_emp;
+END;
+```
+
+默认%notfound中是false值，所以判断是需要在fetch取出之后执行判断是否有值
+
+
+
+##### 显示游标和隐式游标
+
+DML操作和单行SELECT语句会使用**隐式游标**
+
+------
+
+上述的PLSQL的存储过程是可以进行表的操作但是无法被重复调用
+
+
+
+#### 真真正正的数据库存储过程
+
+在开发程序中，为了一个特定的业务功能，会向数据库进行多次连接关闭(连接和关闭是很耗费资源)，需要对数据库进行多次I/O读写，性能比较低。如果把这些业务放到PLSQL中，在应用程序中只需要调用PLSQL就可以做到连接关闭次数据库就可以实现我们的业务,可以大大提高效率

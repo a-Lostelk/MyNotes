@@ -182,7 +182,7 @@ public class Person {
 
 *@ConfigurationProperties*读取指定的配置文件会将配置文件中设置的属性值,放入到这个类中(默认是从全局配置文件中获取值)
 
-*@Value**的作用和*ConfigurationProperties*作用相同,但是需要一个一个指定属性值,value 是Spring底层的注解
+@Value的作用和*ConfigurationProperties作用相同,但是需要一个一个指定属性值,value 是Spring底层的注解
 
 *@Validated*标识当前的类需要进行校验
 
@@ -273,9 +273,7 @@ spring:
 
 
 
-
-
-##### 父项目**
+##### 父项目
 
 
 		<parent>
@@ -926,21 +924,38 @@ public class ThymeleafProperties {
    4 . 内置的工具对象
 
    would be obtained using #{…} syntax.
-   #uris : methods for escaping parts of URLs/URIs 
    
-   #conversions : methods for executing the configured conversion service (if any).
-#dates : methods for java.util.Date objects: formatting, component extraction, etc.
-   #calendars : analogous to #dates , but for java.util.Calendar objects.
-   #numbers : methods for formatting numeric objects.
-   #strings : methods for String objects: contains, startsWith, prepending/appending, etc.
-   #objects : methods for objects in general.
-   #bools : methods for boolean evaluation.
-   #arrays : methods for arrays.
-   #lists : methods for lists.
-   #sets : methods for sets.
-   #maps : methods for maps.
-   #aggregates : methods for creating aggregates on arrays or collections.
-   #ids : methods for dealing with id attributes that might be repeated (for example, as a result of an iteration). 
+   3. uris : methods for escaping parts of URLs/URIs 
+      conversions : methods for executing the configured conversion service (if any).
+   
+   dates : methods for java.util.Date objects: formatting, component extraction, etc.
+   
+   calendars : analogous to #dates , but for java.util.Calendar objects.
+   
+   numbers : methods for formatting numeric objects.
+   
+   strings : methods for String objects: contains, startsWith, prepending/appending, etc.
+   
+   objects : methods for objects in general.
+   
+   bools : methods for boolean evaluation.
+   
+   arrays : methods for arrays.
+   
+   lists : methods for lists.
+   
+   sets : methods for sets.
+   
+   maps : methods for maps.
+   
+   aggregates : methods for creating aggregates on arrays or collections.
+   
+   ids : methods for dealing with id attributes that might be repeated (for example, as a result of an iteration). 
+   
+   ```
+   
+   
+   ```
 
 
     ***{...}选择表达式和${}的不同**
@@ -978,17 +993,20 @@ public class ThymeleafProperties {
    **thymeleaf内置对象：**
 
    **#ctx** : the context object.		//上下文对象
-   #**vars**: the context variables.	//代表变量
-   #**locale** : the context locale.		//区域信息
 
-   *文本环境下的变量*
+vars: the context variables.	//代表变量
 
-   #**request** : (only in Web Contexts) the HttpServletRequest object.
-   #**response** : (only in Web Contexts) the HttpServletResponse object.
-   #**session** : (only in Web Contexts) the HttpSession object.
-   #**servletContext** : (only in Web Contexts) the ServletContext object. 
+locale : the context locale.		//区域信息
 
-   
+   文本环境下的变量
+
+request : (only in Web Contexts) the HttpServletRequest object.
+
+response : (only in Web Contexts) the HttpServletResponse object.
+
+session : (only in Web Contexts) the HttpSession object.
+
+servletContext : (only in Web Contexts) the ServletContext object. 
 
      **Arrays.asList**
 
@@ -1644,8 +1662,6 @@ Docker 将应用程序与该程序的依赖，打包在一个文件里面。运�
 
 Linux虚拟机和主机是在同一个网段下
 
-![](/搜狗截图20190715175437.png)
-
 
 
 **docker必须运行在内核为3.1.0以上Linux系统上**，在Linux安装docker命令
@@ -1708,7 +1724,7 @@ yum clean, yum clean all (= yum clean packages; yum clean oldheaders) :清除缓
 
 
 
-##### Spirngboot 数据访问
+##### Springboot 数据访问
 
 关系型数据（SQL）和非关系型数据库（NoSql）。默认是使用Spring Date为数据库访问技术
 

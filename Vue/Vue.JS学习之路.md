@@ -8,7 +8,69 @@ typora-root-url: images
 
 **Vue.js**是一套构建用户界面的框架，**只关注视图层**，和其他的第三方库或框架也能较好的兼容结合
 
+Vue是一个渐进式的框架，可以将Vue作为应用的一部分嵌入其中，其中有很多复用的组件
+
 主要负责的是MVC中的View视图这一层
+
+
+
+![](/QQ截图20191127210632.png)
+
+
+
+Vue是属于声明式编程范式（代码和数据分离），JQuery是命令式编程方式
+
+Vue将数据和页面分离，只要数据和页面绑定了关系，数据改变页面也会随之改变，而不需要改变页面
+
+
+
+### const、let和var的区别
+
+`let` 的用法类似于 `var`，但是 `let` 只在所在的代码块内有效，所以我们一般使用 `let` 替代 `var`。而 `const` 用来声明常量。
+
+![](/QQ截图20191129205118.png)
+
+var声明的变量是在全局window对象下，会发生变量作用于提升的情况，let和const的作用域是无法提升的
+
+```JavaScript
+console.log(a);//正常运行，控制台输出 undefined
+var a = 1;
+
+console.log(b);//报错，Uncaught ReferenceError: b is not defined
+let b = 1;
+
+console.log(c);//报错，Uncaught ReferenceError: c is not defined
+const c = 1;
+```
+
+leth和const声明的变量会暂时性死区，也就是在声明之后再使用这些变量赋值或者
+
+```JavaScript
+var tmp = 123;
+
+if (true) {
+	tmp = 'abc';//报错，Uncaught ReferenceError: tmp is not defined
+	let tmp;
+}
+```
+
+`const` 声明的值在一开始就要被初始化，且声明之后的值不能发生改变
+
+```JavaScript
+const PI = 3.1415;
+PI = 3;// 报错，Uncaught TypeError: Assignment to constant variable.
+```
+
+const和let声明的值会不允许重复声明，
+
+```JavaScript
+function func(){   
+    let a = 10;  
+    const PI = 3.1415;   
+    var a = 1;// 报错，Uncaught SyntaxError: Identifier 'a' has already been declared   
+    var PI = 3;// 报错，Uncaught SyntaxError: Identifier 'PI' has already been declared }
+
+```
 
 
 
@@ -27,8 +89,6 @@ typora-root-url: images
 ```html
 <script src="./lib/vue-2.4.0.js"
 ```
-
-
 
 ```html
 <!--Vue实例控制的实例-->
@@ -53,7 +113,7 @@ typora-root-url: images
 </script>
 ```
 
-
+el是要绑定的页面元素，data是存储一些数据，可能是来自服务器网络
 
 在一些网络延迟或某种情况数据没有加载出来，会出现插值表达式显现{{  }}直到数据读取到view视图
 
@@ -87,7 +147,7 @@ methods:{
 
 
 
-#### 跑马灯效果实现
+#### 跑马灯效果实现	
 
 Vue实例会自动监听data中数据的改变并自动部署到页面上，只需要关注数据的绑定，不需要进行数据的页面渲染工作
 
@@ -212,5 +272,36 @@ JavaScript中的方法，可以在指定的周期内调用函数方法或计算�
 <p v-for="user in objectList">用户ID：{{user.id}} ----- 用户名：{{user.name}}</p>
 <p>循环迭代数组</p>
 <p v-for="count in 10">第{{count}}次循环</p>
+```
+
+#### 自制计数器
+
+可以给click函数中在绑定一个函数，methods是方法，v-on:click可以被@click
+
+```JavaScript
+<div id="app">
+    <h2>当前的数是{{counter}}</h2>
+    <!--<button v-on:click="counter++">+</button>
+    <button v-on:click="counter--">-</button>-->
+    <button v-on:click="add">+</button>
+    <button v-on:click="sub">-</button>
+</div>
+    <script src="../js/vue.min.js"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                counter:0
+            },
+            methods:{
+                add:function(){
+                    this.counter ++;
+                },
+                sub:function(){
+                    this.counter --;
+                }
+            }
+        });
+    </script>
 ```
 
