@@ -608,6 +608,120 @@ DML操作和单行SELECT语句会使用**隐式游标**
 
 
 
-#### 真真正正的数据库存储过程
+##### 真真正正的数据库存储过程
+
+PLSQL是将一个个业务处理过程存储起来进行复用，这就是存储过程
 
 在开发程序中，为了一个特定的业务功能，会向数据库进行多次连接关闭(连接和关闭是很耗费资源)，需要对数据库进行多次I/O读写，性能比较低。如果把这些业务放到PLSQL中，在应用程序中只需要调用PLSQL就可以做到连接关闭次数据库就可以实现我们的业务,可以大大提高效率
+
+语法：
+
+`create or replace procedure 存储过程名字 as/is  begin end 存储过程名字 `
+
+存储过程中只有输入和输出`in 和 out`
+
+存储过程中只是存储一些SQL的业务多次使用，并不能独立运行，需要外部SQL或者程序调用
+
+无参存储过程
+
+```plsql
+create or replace procedure p_hello as
+--声明变量
+begin
+  
+  dbms_output.put_line('hello world');
+end p_hello;
+```
+
+有参输入存储过程
+
+```PLSQL
+create or replace procedure p_querynameandsal(I_EMPNO IN emp.empno%type) as
+  --声明变量
+  V_EMPNAME EMP.ENAME%TYPE;
+  V_SAL EMP.SAL%TYPE;
+BEGIN
+  SELECT ENAME,SAL INTO V_EMPNAME,V_SAL FROM EMP WHERE EMPNO = I_EMPNO;
+  dbms_output.put_line(V_EMPNAME||'__'||V_SAL);
+end;
+```
+
+有参输出存储过程
+
+```plsql
+CREATE OR REPLACE PROCEDURE P_QUERYSAL(i_empno in emp.empno%TYPE,
+                                       o_sal   OUT EMP.SAL%TYPE) AS
+BEGIN
+  SELECT SAL INTO o_sal FROM EMP WHERE EMPNO = i_empno;
+END;
+
+
+--调用有参存储过程的函数，可以被外部程序，比如Java程序调用，这时候改存储过程就相当于是一个类中的方法
+DECLARE 
+  --声明接受输出存储过程参数的值
+  v_sal EMP.SAL%TYPE;
+BEGIN
+  P_QUERYSAL(7839,v_sal);
+  dbms_output.put_line(v_sal);
+END;
+```
+
+
+
+##### 使用Java程序调用存储过程
+
+在JDK中，`CallableStatement`接口创建一个调用数据库存储过程的对象
+
+```java
+public static void main(String[] args) throws SQLException,Exception {
+
+    //加载驱动
+    Class.forName("oracle.jdbc.driver.OracleDriver");
+    //获取连接对象
+    String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+    String username = "scott";
+    String password = "tiger";
+    Connection connection = DriverManager.getConnection(url,username,password);
+
+    //获得语句对象
+    String sql = "{call P_QUERYSAL(?,?)}";
+    CallableStatement statement = connection.prepareCall(sql);
+
+    //设置输入和输出参数
+    statement.setInt(1, 7839);
+    //注册输出函数
+    statement.registerOutParameter(2, OracleTypes.DOUBLE);
+
+    statement.execute();
+
+    double d = statement.getDouble(2);
+
+    System.out.println(d);
+
+    connection.close();
+    statement.close();
+}
+```
+
+
+
+##### REF游标
+
+动态关联结果集的临时对象，在运行的时候动态决定是否执行查询
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

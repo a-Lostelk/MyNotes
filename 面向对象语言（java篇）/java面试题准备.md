@@ -1,5 +1,5 @@
 ---
-typora-root-url: images
+typora-root-url: springboot\images
 ---
 
 # 								java面试准备
@@ -103,7 +103,7 @@ String对象缓存`HashCode`，Java中String对象的哈希码被频繁地使用
 
 ##### **String为什么不可变**
 
-虽然`String、StringBuffer和StringBuilder`都是final类，它们生成的对象都是不可变的（StringBuffer和StringBuilder可以追加内容），而且它们内部也都是靠char数组实现的，String类中定义的char数组是final的，而StringBuffer和StringBuilder都是继承自`AbstractStringBuilder`类，它们的内部实现都是靠这个父类完成的，可以用**append**追加
+虽然`String、StringBuffer和StringBuilder`都是final类，它们生成的对象都是不可变的（StringBuffer和StringBuilder可以追加内容），而且它们内部也都是靠char数组实现的，String类中定义的char数组是final的，而StringBuffer和StringBuilder都是继承自`AbstractStringBuilder`类，它们的内部实现都是靠这个父类完成的，可以用**`append`**追加
 
 都是底层使用`char[]`数组存储
 
@@ -167,30 +167,30 @@ System.out.println(date.getTime());//1566296624156
 
 ```java
 Collection<String> collection = new ArrayList<String>();
-    System.err.println(collection.size());
-    System.out.println(collection.isEmpty());
-    collection.add("sunny");
-    collection.add("sunny1");
-    System.out.println(collection);
-    System.out.println(collection.size());
+System.err.println(collection.size());
+System.out.println(collection.isEmpty());
+collection.add("sunny");
+collection.add("sunny1");
+System.out.println(collection);
+System.out.println(collection.size());
 
-    Map map;
+Map map;
 
-    //是否包含某个元素
-    boolean contains = collection.contains("sunny");
-    System.out.println(contains);
+//是否包含某个元素
+boolean contains = collection.contains("sunny");
+System.out.println(contains);
 
-    //移除只是将该值的存储地址改变，并不是将对象删除
-    collection.remove("sunny1");
-    System.out.println(collection);
+//移除只是将该值的存储地址改变，并不是将对象删除
+collection.remove("sunny1");
+System.out.println(collection);
 
-    //转换为数组对象
-    Object[] array = collection.toArray();
-    System.out.println(array);
+//转换为数组对象
+Object[] array = collection.toArray();
+System.out.println(array);
 
-    //移除集合中所有的元素
-    collection.clear();
-    System.out.println(collection.size());
+//移除集合中所有的元素
+collection.clear();
+System.out.println(collection.size());
 ```
 
 集合的常用方法
@@ -242,7 +242,7 @@ while (iterator.hasNext()) {
 
 
 
-***迭代器是用啦遍历collection及其后台类子类，不包括map，因为map接口不是继承collection接口的***
+***迭代器是用遍历collection及其后台类子类，不包括map，因为map接口不是继承collection接口的***
 
 
 
@@ -484,7 +484,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 *****
 
-![](/QQ截图20190823180303.png)
+![](QQ截图20190823180303.png)
 
 *****
 
@@ -502,7 +502,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 **正式图**
 
-![](/QQ截图20190823215054.png)
+![](QQ截图20190823215054.png)
 
 
 
@@ -514,7 +514,7 @@ set接口的主要实现类，存储无序，不可重复的数据，可以存�
 
 ##### 原理图
 
-![](/QQ截图20190823234406.png)
+![](QQ截图20190823234406.png)
 
 ***对于频繁遍历的数据操作，使用LinkedHashSet***
 
@@ -573,7 +573,7 @@ public HashMap() {
 
 ***entry[]*** 数组是HashMap的核心，entry对象中存储了key value键值对，next指向下一个节点，hash值，每一个entry对象都是一个**单向链表**（或者叫节点对象）
 
-![](/QQ拼音截图20190814221752.png)
+![](QQ拼音截图20190814221752.png)
 
 ##### key和value的存储特点：
 
@@ -591,7 +591,7 @@ key和value键值对组成一个entry对象
 
 自上而下是数组结构，每个数组节点可以是一个**单向链表**，相比单纯的链表和数组，HashMap存储的更多数值，同时具备数组链表各自的有点
 
-![](/QQ拼音截图20190814225446.png)
+![](QQ拼音截图20190814225446.png)
 
 ***HashMap的底层:  数组+链表(jdk7及之前)***
 							 ***数组+链表+红黑树(jdk8)***
@@ -600,7 +600,7 @@ key和value键值对组成一个entry对象
 
 Object对象的`hashCode()`方法，通过`hashcode()`方法得到hash码，得到在entry数组中的存放位置，HashMap的hash()方法计算出数组的长度，计算出对于的hash值（区间在[0,数组长度-1]）之间，转换的hash值尽量均匀分布在这个区间之内，通过**散列算法**等分散分配put进去的值，***理论上越分散越有利于HashMap的性能***
 
-![](/QQ拼音截图20190814231536.png)
+![](QQ拼音截图20190814231536.png)
 
 **总结**：由上可知，当添加一个元素时，首先计算key的hash值，**确定插入数组的位置**，如果某一hash值存在的数组节点中已经有元素了，哈希值相同的继续比较**equals**，返回false表示两个对象是不同的，返回true则是修改功能覆盖原来的数据，数据添加到同一hash值的后面（**单向链表**），jdk8之后，链表长度大于8时，链表转换为**红黑树**，提高效率，jdk8中的底层数组是Node[]，而非entry[]数组，
 
@@ -615,8 +615,8 @@ Object对象的`hashCode()`方法，通过`hashcode()`方法得到hash码，得�
 3. 返回equals()为true的节点对象的value对象
 
    ***Java中规定,两个内容相同(equals(为true)的对象必须具有相等的hashCode和quals()***
-   
-   
+
+   ​
 
 ##### HashMap扩容
 
@@ -653,8 +653,8 @@ jdk8相较于jdk7在底层实现方面的不同:
 2. jdk 8底层的数组是: Node[], 而非Entry[]
 3. 首次调用`put()`方法时，底层创建长度为16的数组
 4. jdk7底层结构只有:数组+链表。jdk8中底层结构:**数组+链表+红黑树**。
-  当数组的某一个索引位置上的元素以链表形式存在的数据个数> 8且当前数组的长度> 64时，
-  些索引位器的所有数据改为用红黑树存储；
+    当数组的某一个索引位置上的元素以链表形式存在的数据个数> 8且当前数组的长度> 64时，
+    些索引位器的所有数据改为用红黑树存储；
 
 
 
@@ -773,7 +773,7 @@ HashMap中的存储数据是键值对存在的，只要取到其中的一个属�
 
 #### Hashtable
 
-线程安全的，不能存储null的键值对
+线程安全的，不能存储null的键值对，是线程安全的，修改会锁住整个HashTable
 
 ##### Properties
 
@@ -789,9 +789,19 @@ HashMap中的存储数据是键值对存在的，只要取到其中的一个属�
 
 `HashMap`不是线程安全的，多线程环境下，操作HashMap可能会出现线程安全问题
 
-`ConcurrentHashMap`本质上是一个Segment数组，而一个Segment实例又包含若干个桶，每个桶中都包含一条由若干个 HashEntry 对象链接起来的链表。总的来说
+`ConcurrentHashMap`本质上是一个Segment数组，而一个Segment实例又包含若干个桶，每个桶中都包含一条由若干个 HashEntry 对象链接起来的链表。**总的来说，是才有分段的数组+链表实现，线程安全的**
 
-![](/ConcurrentHashMap.jpg)
+`ConcurrentHashMap`是`HashTable`的替代者，有更好的拓展性
+
+![](ConcurrentHashMap.jpg)
+
+`ConcurrentHashMap`是Java5中推出的支持高并发高吞吐量的集合类，`Segment`数组扮演锁的机制，是一个可重入锁，采用的锁分段将数据分成一段一段的，每一段数据都有一把锁，在访问其中一段数据时该数据段被锁，其他的数据段也能被其他的线程访问
+
+`ConcurrentHashMap`是采用分段锁，一次锁住一个桶，`HashTable`是将整个Hash表锁住
+
+`ConcurrentHashMap`默认是分为16个桶，Map的操作都是指锁住需要的桶，相当于`ConcurrentHashMap`可以有16个线程执行
+
+
 
 ### Lambda表达式
 
@@ -834,7 +844,7 @@ Runnable runnable = new Runnable() {
 };
 Runnable runnable = () -> System.out.println("hello world Lambda");
 
-//有参无返回值
+//有参无返回值	
 Consumer<String> consumer = new Consumer<String>() {
         @Override
         public void accept(String s) {
@@ -895,7 +905,7 @@ Class类也可以描述基本数据类型，因为基本数据类型也是一个
 
 
 
-#### 反射中的五大将军
+#### 反射中的五大属性
 
 Class：用来描述类本身
 
@@ -968,7 +978,7 @@ showInside.invoke(p1, "这是一首简单的小情歌");
 
 
 
-#### 关java. Lang. CLass类的理解
+#### 关java. Lang. Class类的理解
 
 ##### 1.类的加载过程:
 
@@ -1115,7 +1125,7 @@ object = newInstance(执行构造方法时的所有参数
 
 **什么是线程安全？**
 
-线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的共享变量，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。
+线程安全是编程中的术语，指某个函数、函数库在并发环境中被调用时，能够正确地处理多个线程之间的**共享变量**，使程序功能正确完成。即在多线程场景下，不发生有序性、原子性以及可见性问题。
 
 **如何保证线程安全？**
 
@@ -1141,9 +1151,7 @@ Java中主要通过加锁来实现线程安全。通常使用`synchronized`和`L
 
 （4） **循环等待条件**:若干进程之间形成一种头尾相接的循环等待资源关系。
 
-***这四个条件是死锁的必要条件***，只要系统发生死锁，这些条件必然成立，而只要上述条件之
-
-一不满足，就不会发生死锁。
+***这四个条件是死锁的必要条件***，只要系统发生死锁，这些条件必然成立，而只要上述条件之一不满足，就不会发生死锁。
 
 
 
@@ -1358,7 +1366,7 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 
 
 
-![](/QQ截图20190905080108.png)
+![](QQ截图20190905080108.png)
 
 ##### 线程的同步
 
@@ -1505,7 +1513,7 @@ Exception的两个子类的区别
 
 createNewFile:创建一个新的文件
 
-mkdirs：创建包含文件夹的文件夹
+mkdirs：创建包含文件的文件夹
 
 mkdir：创建单个文件夹
 
@@ -1681,7 +1689,7 @@ writer(code);	writer(char[]);	writer(String);	flush();	close();
 
 **BufferedRead**中有一个独特的方法.**readLine()**读取一行记录
 
-```
+```java
 try {
     File file = new File("D://test//知乎静文.txt");
     FileInputStream fileInputStream = new FileInputStream(file);
@@ -1805,8 +1813,6 @@ IP和端口号
 
 网络通讯协议
 
-##### 
-
 #### 计算机之间的通信
 
 **通信双方**
@@ -1915,7 +1921,7 @@ public static void sort(int[] arr) {
 
 1. 用户向服务器发送请求，被`DispatcherServlet`分发器捕获到
 2. `DispatcherServlet`处理请求URL，调用相应的`HandlerMapping`映射器获得相应的映射信息并将`Handler`返回
-3. `DispatcherServlet`调用相应的处理器适配器`HandlerAdapter`，找到对应的`Controller`后端控制器‘
+3. `DispatcherServlet`调用相应的处理器适配器`HandlerAdapter`，找到对应的`Controller`后端控制器
 4. 根据请求的数据和配置，Spring会做一些事情：`HttpMessageConveter`、数据转换、数据格式化、数据验证
 5. 数据处理完毕Controller执行结果，向`DispatcherServlet`返回一个`ModelAndView`对象
 6. `ModelAndView`对象传递给指定的`ViewResolver`视图解析器
@@ -2056,7 +2062,7 @@ MySQL从磁盘读取IO次数需要性能开销和时间，需要良好的数据�
 1. 需要一种**数据存储结构**：当从磁盘中检索数据的时候能，够减少磁盘的io次数，最好能够降低到一个稳定的常量值
 2. 需要一种**检索算法**：当从磁盘中读取磁盘块的数据之后，这些块中可能包含多条记录，这些记录被加载到内存中，那么需要一种算法能够快速从内存多条记录中快速检索出目标数据
 
-##### 有以下几种算法	
+  ##### 有以下几种算法
 
 - 循环遍历查找
 
@@ -2076,9 +2082,7 @@ MySQL从磁盘读取IO次数需要性能开销和时间，需要良好的数据�
 
   这样三次就确定了数据的位置，循环遍历的话则需要9次
 
-  
 
-- 
 
 
 
@@ -2269,11 +2273,9 @@ getHeaderNames方法
 getParameter(name)方法 									获取请求中的参数，该参数是由name指定的
 getParameterValues（String name）方法 		获取指定名称参数的所有值数组。它适用于一个参数名对应多个值的情
 
-​																				  况。如**页面表单中的复选框，多选列表提交的值**。
+​																			 况。如**页面表单中的复选框，多选列表提交的值**。
 
-getParameterNames方法 									返回一个包含请求消息中的所有参数名的**Enumeration**对象。通过遍历
-
-​																				  这个**Enumeration**对象，就可以获取请求消息中所有的参数名。
+getParameterNames方法 									返回一个包含请求消息中的所有参数名的**Enumeration																			**对象。通过遍历这个**Enumeration**对象，就可以获取请求消息中所有的参数名。
 
 getCharacterEncoding()										返回请求的字符编码方式
 

@@ -29,7 +29,7 @@ Redis±¾ÖÊÉÏÊÇÒ»ÖÖNOSQL¹¤¾ß,ÊÇÒ»ÖÖ»ùÓÚÄÚ´æµÄÊý¾Ý¿â,Ìá¹©Ò»¶¨µÄ³Ö¾Ã»¯¹¦ÄÜ.Ö§³ÖÃ¿Ãë¼
 	3)µÚÒ»´Î¶ÁÈ¡ÅÐ¶ÏÊÇ·ñ¶ÁÈ¡³É¹¦(¶ÁÈ¡Ê§°Ü»áÔÚÊý¾Ý¿âÖÐ¶ÁÈ¡²¢Ð´Èë»º´æÖÐRedisÖÐ),µÚ¶þ´Î¶ÁÈ¡¸ÃÊý¾ÝµÄÊ±ºò,¾Í²»ÓÃÁË¶ÁÈ¡Êý¾Ý¿âµÄ
 	Á÷³ÌÁË,¶ÁÈ¡Êý¾Ý¿â´ÅÅÌµÄËÙ¶ÈÊÇºÜµÍµÄ,ÕâÒªËÙ¶È¾Í»á´ó´ó¼Ó¿ì
 	4)RedisµÄ´ó²¿·ÖÐÐÎªÊÇ¶Á²Ù×÷,Ê¹ÓÃRedisÓ¦¶Ô¶Á²Ù×÷,½µµÍ¶ÔÊý¾Ý¿âµÄÒÀÀµ,ËÙ¶È¾Í»á´ó´óÌá¸ß
-
+	
 	redis-cli.exe -h 127.0.0.1 -p 6379	ÕâÊÂredisÄ¬ÈÏµÄ¶Ë¿ÚºÍIPºÅ
 
 ### java³ÌÐòÊ¹ÓÃRedis
@@ -147,7 +147,7 @@ KV¼üÖµ£ºÐÂÀË: `BerkeleyDB+ redis`	ÃÀÍÅ: `redis+tair`	°¢Àï¡¢°Ù¶È: `memcache+ redi
 
 ³Ö¾ÃÐÔÊÇÖ¸Ò»µ©ÊÂÎñÌá½»ºó£¬ËüËù×öµÄÐÞ¸Ä½«»á**ÓÀ¾ÃµÄ±£´æÔÚÊý¾Ý¿âÉÏ**£¬¼´Ê¹³öÏÖå´»úÒ²²»»á¶ªÊ§¡£
 
-#### CAP
+CAP
 
 1. ##### Consistency£¨Ç¿Ò»ÖÂÐÔ£©
 
@@ -170,7 +170,7 @@ AP - Âú×ã¿ÉÓÃÐÔ£¬·ÖÇøÈÝÈÌÐÔµÄÏµÍ³£¬Í¨³£¿ÉÄÜ¶ÔÒ»ÖÂÐÔÒªÇóµÍÒ»Ð©¡£ £¨**´ó¶àÊýÍøÕ¾¼Ü
 
 ¶ÔÓÚ¹ØÏµÐÍÊý¾Ý¿â£¬²åÈëÒ»ÌõÊý¾ÝÁ¢¿Ì²éÑ¯£¬ÊÇ¿ÉÒÔÁ¢¿Ì¶Á³öÕâÌõÊý¾Ý£¬µ«¶ÔÓÚÒ»Ð©webÓ¦ÓÃ£¬²»ÐèÒªÁ¢ÂíµÃµ½»ØÓ¦£¬¾Í±ÈÈçËµ£¬½øÐÐ×ªÕËÊ±£¬×ªÕËÍê¶ÔÃæ²»»áÁ¢Âí¶¼ÊÕµ½µ«×îÖÕ»¹ÊÇ»áÊÕµ½Ç®
 
-#### BASE
+### BASE
 
 »ù±¾¿ÉÓÃ( Basically Available)
 Èí×´Ì¬(Soft state)|
@@ -184,7 +184,7 @@ BASE¾ÍÊÇÎªÁË½â¾ö¹ØÏµÊý¾Ý¿âÇ¿Ò»ÖÂÐÔÒýÆðµÄÎÊÌâ¶øÒýÆðµÄ¿ÉÓÃÐÔ½µµÍ¶øÌá³öµÄ½â¾ö·½°¸¡£
 
 #### ·Ö²¼Ê½¼¯Èº¼ò½é
 
-·Ö²¼Ê½ÏµÍ³( distributed system)
+**·Ö²¼Ê½ÏµÍ³( distributed system)**
 ÓÉ¶àÌ¨¼ÆËã»úºÍÍ¨ÐÅµÄÈí¼þ×é¼þÍ¨¹ý¼ÆËã»úÍøÂçÁ¬½Ó(±¾µØÍøÂç»ò¹ãÓòÍø)×é³É¡£·Ö²¼Ê½ÏµÍ³ÊÇ½¨Á¢ÔÚÍøÂçÖ®ÉÏµÄÈí¼þÏµÍ³¡£ÕýÊÇÒòÎªÈí¼þµÄÌØÐÔ£¬ËùÒÔ·Ö²¼Ê½ÏµÍ³¾ßÓÐ¸ß¶ÈµÄÄÚ¾ÛÐÔºÍÍ¸Ã÷ÐÔ¡£Òò´Ë£¬ÍøÂçºÍ·Ö²¼Ê½ÏµÍ³Ö®¼äµÄÇø±ð¸ü¶àµÄÔÚÓÚ¸ß²ãÈí¼þ(ÌØ±ðÊÇ²Ù×÷ÏµÍ³)£¬¶ø²»ÊÇÓ²¼þ·Ö²¼Ê½ÏµÍ³¿ÉÒÔÓ¦ÓÃÔÚÔÚ²»Í¬µÄÆ½Ì¨ÉÏÈç: Pc¡¢ ¹¤×÷Õ¾¡¢¾ÖÓòÍøºÍ¹ãÓòÍøÉÏµÈ¡£
 
 ##### 1·Ö²¼Ê½:
@@ -311,13 +311,13 @@ redisÖÐµÄ¼¯ºÏ²»ÊÇÒ»¸öÏßÐÔ½á¹¹,¶øÊÇ¹þÏ£±í½á¹¹,»áÔÚÄÚ²¿¸ù¾Ýhash·Ö×ÓÀ´²éÕÒºÍ´æ´¢Êý¾
 ##### key
 
 keys *					  ²é¿´µ±Ç°¿âµÄËùÓÐkey
-exists keyµÄÃû×Ö		 ÅÐ¶ÏÄ³¸ökeyÊÇ·ñ´æÔÚ
-move key db			   µ±Ç°¿â¾ÍÃ»ÓÐÁË£¬±»ÒÆ³ýÁË
+exists keyµÄÃû×Ö		 	ÅÐ¶ÏÄ³¸ökeyÊÇ·ñ´æÔÚ
+move key db			   	µ±Ç°¿â¾ÍÃ»ÓÐÁË£¬±»ÒÆ³ýÁË
 expirekeyÃëÖÓ:			Îª¸ø¶¨µÄkeyÉèÖÃ¹ýÆÚÊ±¼ä
-ttl key						  ²é¿´»¹ÓÐ¶àÉÙÃë¹ýÆÚ£¬**-1±íÊ¾ÓÀ²»¹ýÆÚ£¬-2±íÊ¾ÒÑ¹ýÆÚ**
-type key					  ²é¿´ÄãµÄkeyÊÇÊ²Ã´ÀàÐÍ
+ttl key					²é¿´»¹ÓÐ¶àÉÙÃë¹ýÆÚ£¬**-1±íÊ¾ÓÀ²»¹ýÆÚ£¬-2±íÊ¾ÒÑ¹ýÆÚ**
+type key					²é¿´ÄãµÄkeyÊÇÊ²Ã´ÀàÐÍ
 
-DEL key£º 				 É¾³ýkey£¬Ò»°ã³¡¾°²»Ê¹ÓÃ
+DEL key£º 				É¾³ýkey£¬Ò»°ã³¡¾°²»Ê¹ÓÃ
 
 ##### String
 
@@ -435,31 +435,31 @@ noeviction£ºÓÀ²»¹ýÆÚ²ßÂÔ£¬Ò»°ãÔÚÊµ¼Ê¿ª·¢ÖÐ²»»áÑ¡ÔñËü
 
 Redis.confÅäÖÃÏîËµÃ÷ÈçÏÂ:
 1. RedisÄ¬ÈÏ²»ÊÇÒÔÊØ»¤½ø³ÌµÄ·½Ê½ÔËÐÐ£¬¿ÉÒÔÍ¨¹ý¸ÃÅäÖÃÏîÐÞ¸Ä£¬Ê¹ÓÃyesÆôÓÃÊØ»¤½ø³Ì
-	daemonize no
+  daemonize no
 
 2. µ±RedisÒÔÊØ»¤½ø³Ì·½Ê½ÔËÐÐÊ±£¬RedisÄ¬ÈÏ»á°ÑpidÐ´Èë/var/run/redis.pidÎÄ¼þ£¬ ¿ÉÒÔÍ¨¹ýpidfileÖ¸¶¨
    pidfile /var/run/redis. pid
 
 3. Ö¸¶¨Redis¼àÌý¶Ë¿Ú£¬Ä¬ÈÏ¶Ë¿ÚÎª6379£¬×÷ÕßÔÚ×Ô¼ºµÄÒ»Æª²©ÎÄÖÐ½âÊÍÁËÎªÊ²Ã´Ñ¡ÓÃ6379×÷ÎªÄ¬ÈÏ¶Ë¿Ú£¬ÒòÎª6379ÔÚÊÖ»ú°´¼üEMERZ¶ÔÓ¦µÄºÅÂë£¬¶øMERZÈ¡×ÔÒâ´óÀû¸èÅ®Alessia MerzµÄÃû×Ö
-  port 6379
+    port 6379
 
 4. °ó¶¨µÄÖ÷»úµØÖ·
-  bind 127.0.0.1
+    bind 127.0.0.1
 
 5. µ±¿Í»§¶ËÏÐÖÃ¶à³¤Ê±¼äºó¹Ø±ÕÁ¬½Ó£¬Èç¹ûÖ¸¶¨Îª0£¬±íÊ¾¹Ø±Õ¸Ã¹¦ÄÜ
-  timeout 300
+    timeout 300
 
 6. Ö¸¶¨ÈÕÖ¾¼ÇÂ¼¼¶±ð£¬Redis×Ü ¹²Ö§³ÖËÄ¸ö¼¶±ð: `debug¡¢ verbose¡¢notice¡¢ warning`, **Ä¬ÈÏÎª**`verbose
-  loglevel verbose`
+    loglevel verbose`
 
 7. ÈÕÖ¾¼ÇÂ¼·½Ê½£¬Ä¬ÈÏÎª±ê×¼Êä³ö£¬Èç¹ûÅäÖÃRedisÎªÊØ»¤½ø³Ì·½Ê½ÔËÐÐ£¬¶øÕâÀïÓÖÅäÖÃÎªÈÕÖ¾¼ÇÂ¼·½Ê½Îª±ê×¼Êä³ö£¬ÔòÈÕÖ¾½«»á·¢ËÍ¸ø/dev/null
-  logfile stdout
+    logfile stdout
 
 8. Ö¸¶¨ÔÚ¶à³¤Ê±¼äÄÚ£¬ÓÐ¶àÉÙ´Î¸üÐÂ²Ù×÷£¬¾Í½«Êý¾ÝÍ¬²½µ½Êý¾ÝÎÄ¼þ£¬¿ÉÒÔ¶à¸öÌõ¼þÅäºÏ
-  save <seconds> <changes>
-  RedisÄ¬ÈÏÅäÖÃÎÄ¼þÖÐÌá¹©ÁËÈý¸öÌõ¼þ:
-  save 900 1
-  save 300 10
+    save <seconds> <changes>
+    RedisÄ¬ÈÏÅäÖÃÎÄ¼þÖÐÌá¹©ÁËÈý¸öÌõ¼þ:
+    save 900 1
+    save 300 10
 
 9. ÉèÖÃÊý¾Ý¿âµÄÊýÁ¿£¬Ä¬ÈÏµ±Ç°Êý¾Ý¿âÎª0£¬`select dbid`Ñ¡ÔñÊ¹ÓÃµÄÊý¾Ý¿â
 
@@ -476,56 +476,56 @@ Redis.confÅäÖÃÏîËµÃ÷ÈçÏÂ:
    dir ./
 
 13. ÉèÖÃµ±±¾»úÎªslav·þÎñÊ±£¬ÉèÖÃmaster·þÎñµÄIPµØÖ·¼°¶Ë¿Ú£¬ÔÚRedisÆô¶¯Ê±£¬ Ëü»á×Ô¶¯´Ómaster½øÐÐÊý¾ÝÍ¬²½
-   slaveof <masterip> <masterport>
+      slaveof <masterip> <masterport>
 
 14. µ±master·þÎñÉèÖÃÁËÃÜÂë±£»¤Ê±£¬slav·þÎñÁ¬½ÓmasterµÄÃÜÂë
-   masterauth <master-password>
+      masterauth <master-password>
 
 15. ÉèÖÃRedisÁ¬½ÓÃÜÂë£¬Èç¹ûÅäÖÃÁËÁ¬½ÓÃÜÂë£¬¿Í»§¶ËÔÚÁ¬½ÓRedisÊ±ÐèÒªÍ¨¹ý`AUTH <password>`ÃüÁîÌá¹©ÃÜÂë£¬Ä¬ÈÏ¹Ø±Õ
-   requirepass foobared
+      requirepass foobared
 
 16. ÉèÖÃÍ¬Ò»Ê±¼ä**×î´ó¿Í»§¶ËÁ¬½ÓÊý**£¬Ä¬ÈÏÎÞÏÞÖÆ£¬Redis¿É ÒÔÍ¬Ê±´ò¿ªµÄ¿Í»§¶ËÁ¬½ÓÊýÎªRedis½ø³Ì¿ÉÒÔ´ò¿ªµÄ×î´óÎÄ¼þÃèÊö·ûÊý£¬Èç¹ûÉèÖÃmaxclients 0,±íÊ¾²»×÷ÏÞÖÆ¡£µ±¿Í»§¶ËÁ¬½ÓÊýµ½´ïÏÞÖÆÊ±£¬Redis»á¹Ø±ÕÐÂµÄÁ¬½Ó²¢Ïò¿Í»§¶Ë·µ»Ømax number of clients reached´íÎóÐÅÏ¢
-   maxclients 128
+      maxclients 128
 
 17. Ö¸¶¨Redis**×î´óÄÚ´æÏÞÖÆ**£¬RedisÔÚ Æô¶¯Ê±»á°ÑÊý¾Ý¼ÓÔØµ½ÄÚ´æÖÐ£¬´ïµ½×î´óÄÚ´æºó£¬Redis»áÏÈ³¢ ÊÔÇå³ýÒÑµ½ÆÚ»ò¼´½«µ½ÆÚµÄKey,µ±´Ë·½·¨´¦Àíºó£¬ÈÔÈ»µ½´ï×î´óÄÚ´æÉèÖÃ£¬½«ÎÞ·¨ÔÙ½øÐÐÐ´Èë²Ù×÷£¬µ«ÈÔÈ»¿ÉÒÔ½øÐÐ¶ÁÈ¡²Ù×÷¡£RedisÐÂµÄvm»úÖÆ£¬ »á°ÑKey´æ·ÅÄÚ´æ£¬Value»á´æ·ÅÔÚswapÇø
-   maxmemory <bytes>
+      maxmemory <bytes>
 
 18. Ö¸¶¨ÊÇ·ñÔÚ**Ã¿´Î¸üÐÂ²Ù×÷ºó½øÐÐÈÕÖ¾¼ÇÂ¼**£¬RedisÔÚÄ¬ÈÏÇé¿öÏÂÊÇ**Òì²½**µÄ°ÑÊý¾ÝÐ´Èë´ÅÅÌ£¬***Èç¹û²»¿ªÆô£¬¿ÉÄÜ»áÔÚ¶ÏµçÊ±µ¼ÖÂÒ»¶ÎÊ±¼äÄÚµÄÊý¾Ý¶ªÊ§***¡£ ÒòÎªredis±¾Éí
-   Í¬²½Êý¾ÝÎÄ¼þÊÇ°´ÉÏÃæsaveÌõ¼þÀ´Í¬²½µÄ£¬ËùÒÔÓÐµÄÊý¾Ý»áÔÚÒ»¶ÎÊ±¼äÄÚÖ»´æÔÚÓÚÄÚ´æÖÐ¡£ Ä¬ÈÏÎªno
+      Í¬²½Êý¾ÝÎÄ¼þÊÇ°´ÉÏÃæsaveÌõ¼þÀ´Í¬²½µÄ£¬ËùÒÔÓÐµÄÊý¾Ý»áÔÚÒ»¶ÎÊ±¼äÄÚÖ»´æÔÚÓÚÄÚ´æÖÐ¡£ Ä¬ÈÏÎªno
 
    appendonly yes
 
 19. Ö¸¶¨¸üÐÂÈÕÖ¾ÎÄ¼þÃû£¬Ä¬ÈÏÎª**appendonly.aof**
-   appendfilename appendonly.aof
+      appendfilename appendonly.aof
 
 20. Ö¸¶¨¸üÐÂÈÕÖ¾Ìõ¼þ£¬¹²ÓÐ3¸ö¿ÉÑ¡Öµ:
-   **no:** ±íÊ¾µÈ²Ù×÷ÏµÍ³½øÐÐÊý¾Ý»º´æÍ¬²½µ½´ÅÅÌ(¿ì)
-   **always**: ±íÊ¾Ã¿´Î¸üÐÂ²Ù×÷ºóÊÖ¶¯µ÷ÓÃfsync()½«Êý¾ÝÐ´µ½´ÅÅÌ(Âý£¬°²È«)
-   **everysec**: ±íÊ¾Ã¿ÃëÍ¬²½Ò»´Î(ÕÛÖÔ£¬Ä¬ÈÏÖµ)
+      **no:** ±íÊ¾µÈ²Ù×÷ÏµÍ³½øÐÐÊý¾Ý»º´æÍ¬²½µ½´ÅÅÌ(¿ì)
+      **always**: ±íÊ¾Ã¿´Î¸üÐÂ²Ù×÷ºóÊÖ¶¯µ÷ÓÃfsync()½«Êý¾ÝÐ´µ½´ÅÅÌ(Âý£¬°²È«)
+      **everysec**: ±íÊ¾Ã¿ÃëÍ¬²½Ò»´Î(ÕÛÖÔ£¬Ä¬ÈÏÖµ)
 
 21. Ö¸¶¨ÊÇ·ñÆôÓÃÐéÄâÄÚ´æ»úÖÆ£¬Ä¬ÈÏÖµÎªno,¼òµ¥µÄ½éÉÜÒ»ÏÂ£¬VM»úÖÆ½«Êý¾Ý·ÖÒ³´æ·Å£¬ÓÉRedis½«·ÃÎÊÁ¿½ÏÉÙµÄÒ³¼´ÀäÊý¾Ýswapµ½´ÅÅÌÉÏ£¬·ÃÎÊ¶àµÄÒ³ÃæÓÉ´ÅÅÌ×Ô¶¯»»³öµ½ÄÚ´æÖÐ(ÔÚºóÃæµÄÎÄÕÂÎÒ»á×ÐÏ¸·ÖÎöRedisµÄVM»úÖÆ)
-   vm-enabled no
+      vm-enabled no
 
 22. ÐéÄâÄÚ´æÎÄ¼þÂ·¾¶£¬Ä¬ÈÏÖµÎª/tmp/redis.swap,²»¿É¶à¸öRedisÊµÀý¹²Ïí
-   vm-swap-file /tmp/redis. swap
+      vm-swap-file /tmp/redis. swap
 
 23. ½«ËùÓÐ´óÓÚvm-max-memoryµÄÊý¾Ý´æÈëÐéÄâÄÚ´æ,ÎÞÂÛvm-max-memoryÉèÖÃ¶àÐ¡,ËùÓÐË÷ÒýÊý¾Ý¶¼ÊÇÄÚ´æ´æ´¢µÄ(RedisµÄË÷ÒýÊý¾Ý¾ÍÊÇkeys),Ò²¾ÍÊÇËµ,µ±
-   vm-max-memoryÉèÖÃÎª0µÄÊ±ºò,ÆäÊµÊÇËùÓÐvalue¶¼´æÔÚÓÚ´ÅÅÌ¡£Ä¬ÈÏÖµÎª0
-   vm-max-memory 0
+      vm-max-memoryÉèÖÃÎª0µÄÊ±ºò,ÆäÊµÊÇËùÓÐvalue¶¼´æÔÚÓÚ´ÅÅÌ¡£Ä¬ÈÏÖµÎª0
+      vm-max-memory 0
 
 24. Redis swapÎÄ¼þ·Ö³ÉÁËºÜ¶àµÄpage,Ò»¸ö¶ÔÏó¿ÉÒÔ±£´æÔÚ¶à¸öpageÉÏÃæ£¬µ«Ò»-¸öpage ÉÏ²»ÄÜ±»¶à¸ö¶ÔÏó¹²Ïí£¬vm-page-sizeÊÇ Òª¸ù¾Ý´æ´¢µÄÊý¾Ý´óÐ¡À´Éè¶¨µÄ£¬
-×÷Õß½¨ÒéÈç¹û´æ´¢ºÜ¶àÐ¡¶ÔÏó£¬page´óÐ¡×îºÃÉèÖÃÎª32»òÕß64bytes;Èç¹û´æ´¢ºÜ´ó´ó¶ÔÏó£¬Ôò¿ÉÒÔÊ¹ÓÃ¸ü´óµÄpage,Èç¹û²»È·¶¨£¬¾ÍÊ¹ÓÃÄ¬ÈÏÖµ
-vm-page-size 32
+    ×÷Õß½¨ÒéÈç¹û´æ´¢ºÜ¶àÐ¡¶ÔÏó£¬page´óÐ¡×îºÃÉèÖÃÎª32»òÕß64bytes;Èç¹û´æ´¢ºÜ´ó´ó¶ÔÏó£¬Ôò¿ÉÒÔÊ¹ÓÃ¸ü´óµÄpage,Èç¹û²»È·¶¨£¬¾ÍÊ¹ÓÃÄ¬ÈÏÖµ
+    vm-page-size 32
 25. ÉèÖÃswapÎÄ¼þÖÐµÄpageÊýÁ¿£¬ÓÉÓÚÒ³±í(Ò»ÖÖ±íÊ¾Ò³Ãæ¿ÕÏÐ»òÊ¹ÓÃµÄbitmap)ÊÇÔÚ·ÅÔÚÄÚ´æÖÐµÄ£¬£¬ÔÚ´ÅÅÌÉÏÃ¿8¸öpages½«ÏûºÄ1byteµÄÄÚ´æ¡£
-   vm-pages 134217728
+      vm-pages 134217728
 26. ÉèÖÃ·ÃÎÊswapÎÄ¼þµÄÏß³ÌÊý,×îºÃ²»Òª³¬¹ý»úÆ÷µÄºËÊýÈç¹ûÉèÖÃÎª0,ÄÇÃ´ËùÓÐ¶ÔswapÎÄ¼þµÄ²Ù×÷¶¼ÊÇ´®ÐÐµÄ£¬¿ÉÄÜ»áÔì³É±È½Ï³¤Ê±¼äµÄÑÓ³Ù¡£Ä¬ÈÏÖµÎª4
-   vm-max-threads 4
+      vm-max-threads 4
 
 
 
 ### RedisºÍ³Ö¾Ã»¯
 
-##### RDB£¨Redis Database£©
+#### RDB£¨Redis Database£©
 
 <u>**ÔÚÖ¸¶¨µÄÊ±¼ä¼ä¸ôÄÚ½«ÉÁ´æÖÐµÄÊý¾Ý¼¯¿ìÕÕÐ´Èë´ÅÅÌ£¬Ëü»Ö¸´Ê±½«¿ìÕÕÎÄ¼þÖ±½Ó¶ÁÔÚÄÚ´æÖÐ**</u>
 
@@ -553,7 +553,7 @@ Rdb±£´æµÄÎÄ¼þÊÇ`dump.rdb`ÎÄ¼þ£¬±£´æÔÚÄÚ´æÖÐµÄÊý¾ÝÔÚ¶Ïµç¾Í»áÏûÊ§£¬È»¶øÔÚ¶ÔredisµÄ
 
 
 
-##### AOF£¨Append only File£©
+#### AOF£¨Append only File£©
 
 ÒÔÈÕÖ¾µÄÐÎÊ½À´¼ÇÂ¼Ã¿¸ö`Ð´`²Ù×÷£¬¶Á¼ÇÂ¼²»»á¼ÇÂ¼£¬Ö»Ðè×·¼ÓÎÄ¼þµ«²»¿ÉÒÔ¸ÄÐ´ÎÄ¼þ£¬redisÖØÆôºó»á¸ù¾ÝÈÕÖ¾ÎÄ¼þ½«Ð´Ö¸Áî´ÓÇ°µ½ºóÖØÐÂÖ´ÐÐÒ»±é£¬¾Í¿ÉÒÔÍê³ÉÊý¾ÝµÄ»Ö¸´¹¤×÷
 
@@ -593,7 +593,7 @@ Rdb±£´æµÄÎÄ¼þÊÇ`dump.rdb`ÎÄ¼þ£¬±£´æÔÚÄÚ´æÖÐµÄÊý¾ÝÔÚ¶Ïµç¾Í»áÏûÊ§£¬È»¶øÔÚ¶ÔredisµÄ
 
 - AOFÒª¼ÇÂ¼µÄÈÕÖ¾ÎÄ¼þÔ¶´óÓÚRDB£¬»Ö¸´ËÙ¶ÈÒ²¾ÍÂýÓÚRDB £¬AOFµÄ»Ö¸´²ßÂÔÊÇÖðÌõ»Ö¸´£¬Ð§ÂÊ±È½ÏµÍ 
 
-##### ×Ü½á
+#### ×Ü½á
 
 ![](/QQ½ØÍ¼20191028130047.png)
 

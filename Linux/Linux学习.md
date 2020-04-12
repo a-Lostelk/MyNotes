@@ -1,5 +1,5 @@
 ---
-typora-root-url: Linux
+typora-root-url: img
 ---
 
 # Linux学习
@@ -149,9 +149,9 @@ Linux的文件系统是采用层级的树状目录结构，根目录最上层的
 
 ***/proc***虚拟目录，系统内存的映射，我们可以通过这个直接访问系统信息
 
-***/sbin***S是Super User的意思，超级管理员权限者的系统管理程序
+***/sbin*** S是Super User的意思，超级管理员权限者的系统管理程序
 
-***/srv***service，一些服务启动知乎需要提取的数据
+***/srv*** service，一些服务启动知乎需要提取的数据
 
 ***/tmp***用来存放一些临时文件
 
@@ -935,6 +935,8 @@ quit退出后就需要输入密码了
 Shell是一个命令行解释器，为用户提供了一个向Linux内核发送请求一遍运行程序的界面系统级程序	，可以用Shell启动，挂起，停止甚至编写一些程序
 
 #### shell的分类
+
+
 
 Shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容。Bourne家族主要包括sh、ksh、 Bash、 psh、 zsh; C家族主
 要包括: csh、tcsh，B Shell和C Shell的语法结构是完全不相同的

@@ -44,7 +44,6 @@ Apache Shiro是一一个 强大且易用的Java安全框架，执行身份验证
   }
   ```
 
-  
 
 - SpringBoot工程的静态资源在resources下的templates文件夹下，这是固定写法，引擎默认加载的就是这个位置下的静态资源，如果业务也可以自己在properties文件中修改
 
@@ -52,12 +51,11 @@ Apache Shiro是一一个 强大且易用的Java安全框架，执行身份验证
 
   <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
-  
 
   #### Shiro的内置过滤器
 
-  **anon**:**无需认证(登录)**可以访问
-**authc**:必须**认证**才可以访问
+  **anon**:**无需认证(登录)**可以访问 
+  **authc**:必须**认证**才可以访问
   **user**:如果使用**rememberMe**的功能可以直接访问
   **perms**:该资源必须得到**资源权限**才可以访问
   **role**:该资源必须得到**角色权限**才可以访问
@@ -89,7 +87,7 @@ Apache Shiro是一一个 强大且易用的Java安全框架，执行身份验证
 <body>
   <div>
     姓名：<h1 th:text="${name}"></h1>
-      年龄：<h1 th:text="${age}"></h1>
+    年龄：<h1 th:text="${age}"></h1>
 </div>
   </body>
 </html>
@@ -103,58 +101,96 @@ Apache Shiro是一一个 强大且易用的Java安全框架，执行身份验证
 
   ##### Shiro的核心API
 
-  Subject：用户主体
+  Subject：用户主体，**理解为用户,可能是程序，都要去访问系统的资源，系统需要对subject进行身份认证**
 
   SecurityManager：安全管理器
 
   Realm：Shiro连接数据的中间桥梁
 
+
+
+##### 缓存管理器
+
+```java
+@Bean
+public EhCacheManager getEhCacheManager() {
+    net.sf.ehcache.CacheManager cacheManager = net.sf.ehcache.CacheManager.getCacheManager("jyr");
+    EhCacheManager em = new EhCacheManager();
+    if (cacheManager == null) {
+        // 加载shiro和ehcache配合文件
+        em.setCacheManagerConfigFile("classpath:ehcache/ehcache-shiro.xml");
+        return em;
+    } else {
+        em.setCacheManager(cacheManager);
+        return em;
+    }
+}
+```
+
+
+
+##### Session会话管理器
+
+
+
+##### 安全管理器
+
+
+
+##### 过滤器
+
+
+
+##### 注解通知器
+
+
+
 ##### 导入相关依赖	
 
 ```xml
-  <!--shiro相关依赖-->
-  <dependency>
-      <groupId>org.apache.shiro</groupId>
-      <artifactId>shiro-spring</artifactId>
-      <version>1.4.0</version>
-  </dependency>
+<!--shiro相关依赖-->
+<dependency>
+  <groupId>org.apache.shiro</groupId>
+  <artifactId>shiro-spring</artifactId>
+  <version>1.4.0</version>
+</dependency>
 ```
 
   Shiro的配置类
 
   ```java
-  @Configuration
-  public class ShiroConfiguration {
-      /**
-       * 创建ShiroFilterFactoryBean
-       */
-      public ShiroFilterFactoryBean getShiroFilterFactoryBean(
-              @Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
-          ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-          
-          //设置安全管理器
-          shiroFilterFactoryBean.setSecurityManager(securityManager);
-          return shiroFilterFactoryBean;
-      }
-      /**
-       * 创建web认证安全管理器
-       */
-      @Bean(name = "securityManager")
-      public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("UserRealm") UserRealm userRealm){
-          DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-          //关联realm
-          securityManager.setRealm(userRealm);
-          return securityManager;
-      }
-      /**
-       * 获取自定义的权限认证器
-       * @return
-       */
-      @Bean(name = "UserRealm")
-      public UserRealm getRealm(){
-          return new UserRealm();
-      }
+@Configuration
+public class ShiroConfiguration {
+ /**
+  * 创建ShiroFilterFactoryBean
+  */
+  public ShiroFilterFactoryBean getShiroFilterFactoryBean(
+    @Qualifier("securityManager") DefaultWebSecurityManager securityManager) {
+    ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+
+    //设置安全管理器
+    shiroFilterFactoryBean.setSecurityManager(securityManager);
+    return shiroFilterFactoryBean;
   }
+ /**
+  * 创建web认证安全管理器
+  */
+  @Bean(name = "securityManager")
+  public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("UserRealm") UserRealm userRealm){
+    DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
+    //关联realm
+    securityManager.setRealm(userRealm);
+    return securityManager;
+  }
+ /**
+  * 获取自定义的权限认证器
+  * @return
+  */
+  @Bean(name = "UserRealm")
+  public UserRealm getRealm(){
+    return new UserRealm();
+  }
+}
   ```
 
 自定义的Realm类
@@ -219,7 +255,6 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
    </dependency>
    ```
 
-   
 
 2. 在application.properties文件中配置数据库连接池、数据源和与之对应的实体层
 
@@ -229,15 +264,14 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
    spring.datasource.url=jdbc:mysql://localhost:3306/springboot
    spring.datasource.username=root
    spring.datasource.password=123456
-   
+
    #数据连接池
    spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
-   
+
    #mybatis扫描的包
    mybatis.type-aliases-package=com.sunny.springbootshiro.domain
    ```
 
-   
 
 3. 在SpringBoot项目启动类中添加`@MapperScan`，一次配置，无需再每个接口添加@Mapper或者@Repository注解将Mapper接口添加到SpringBoot容器中
 
@@ -265,7 +299,7 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
        //授权过滤器(未授权会跳转到一个错误页面)
        filterMap.put("/userAdd", "perms[user:add]");
        filterMap.put("/*", "authc");
-   
+
        //默认跳转的登录页面是login.jsp，在SSM工程中，所有的路径跳转和资源请求都要经过controller，修改登录页面
        shiroFilterFactoryBean.setLoginUrl("/toLogin");
        //设置未授权页面
@@ -280,16 +314,16 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
 3. 完成Shiro的资源授权，在对资源进行拦截会对perms授权添加一个授权字符串
 
    subject：目前表示被Shiro拦截认证的对象，也就是当前登录对象
+
    
-   
-   
+
    ```java
    /**
     * 执行授权
     * @param principalCollection
     * @return
     */
-@Override
+   @Override
    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
        System.out.println("-------正在授权--------");
        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
@@ -300,7 +334,7 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
        info.addStringPermission(byId.getPerms());
        return info;
    }
-   
+
    /**
     * 执行认证
     *
@@ -321,7 +355,7 @@ protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authent
        return new SimpleAuthenticationInfo(user, user.getPassword(), "");
    }
    ```
-   
+
    
 
 #### Shiro和Thymeleaf拓展

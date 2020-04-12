@@ -95,7 +95,6 @@ public String getDetails(
 
 5. 测试调用API根据access_token能否获取到GitHub上用户的基本信息（必须在已知用户的access_token令牌的前提下）
 
-   
 
 
 
@@ -329,14 +328,7 @@ public String index(HttpServletRequest request,
 - DTO是数据封装类，用于数据传输，不同于实体层对应的数据库字段，有根据需求添加的属性
 
 ```java
-/**
- * Created by IntelliJ IDEA.
- *
- * @author: fang
- * @Date: 2019/7/27
- *
- * 展示前台数据包含分页数和当前页数等数据
- */
+
 @Data
 public class PaginationDTO {
     private List<QuestionDTO> questionDTO;
