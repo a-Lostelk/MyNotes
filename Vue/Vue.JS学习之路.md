@@ -97,7 +97,7 @@ function func(){
 引入Vue
 
 ```html
-<script src="./lib/vue-2.4.0.js"
+<script src="./lib/vue-2.4.0.js"></script>
 ```
 
 ```html
@@ -485,6 +485,38 @@ NAME: <input type="text" class="form-control" v-model="name" @keyup.enter="add">
 
 `keyup`可以对电脑键盘监听，`enter`表示监听enter键，在监听到用户的键盘敲下回车键的时候回执行add（）方法，一些常用的电脑操作键都有配对的按键码
 
+```html
+<!-- 只有在 `key` 是 `Enter` 时调用 `vm.submit()` -->
+<input v-on:keyup.enter="submit">
+```
+
+
+
+为了在必要的情况下支持旧浏览器，Vue 提供了绝大多数常用的按键码的别名：
+
+- `.enter`
+- `.tab`
+- `.delete` (捕获“删除”和“退格”键)
+- `.esc`
+- `.space`
+- `.up`
+- `.down`
+- `.left`
+- `.right`
+
+
+
+### 系统修饰键
+
+可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。
+
+- `.ctrl`
+- `.alt`
+- `.shift`
+- `.meta`
+
+> 注意：在 Mac 系统键盘上，meta 对应 command 键 (⌘)。在 Windows 系统键盘 meta 对应 Windows 徽标键 (⊞)。在 Sun 操作系统键盘上，meta 对应实心宝石键 (◆)。在其他特定键盘上，尤其在 MIT 和 Lisp 机器的键盘、以及其后继产品，比如 Knight 键盘、space-cadet 键盘，meta 被标记为“META”。在 Symbolics 键盘上，meta 被标记为“META”或者“Meta”。
+
 
 
 ### 自定义指令
@@ -857,6 +889,8 @@ template: '#temp'
 })
 ```
 
+组件是可以复用的实例，
+
 
 
 #### 定义私有组件
@@ -871,7 +905,7 @@ components: {
 }
 ```
 
-组件中的`data`必须是一个function对象
+组件中的`data`必须是一个function对象，component定义的组件`data`必须是一个函数，不能像普通Vue实例中，data中返回一个对象
 
 
 
@@ -1047,3 +1081,17 @@ cnpm是npm的一个国内镜像，里面所有的模块都是根据国外的npm�
 ![](/QQ截图20200306230039.png)
 
 提示以上WARNING警告的时候，说明并没有下载完成的依赖
+
+
+
+### 计算属性
+
+插值表达式{{}}中往往放的是一些简单明了的变量，当出现相对复杂的逻辑，应当抽取出来使用**计算属性**
+
+```JavaScript
+computed: {
+    reversedMessage: function () {
+        return this.message.split('').reverse().join('');
+    }
+}
+```

@@ -324,7 +324,7 @@ Set: (HashSet、LinkedHashSet 为例): equals()、 hashCode()
 ArrayList arrayList = new ArrayList();	//默认长度是10，可以动态的添加数组
 ```
 
-ArrayList中的元素添加满了后继续添加的话，会在最小容量minCapacity size+1，如果minCapacity - 默认大小  > 0，则说明需要更大的大小去扩容新的元素，默认情况是扩容到原来内存的**1.5倍**，会创建一个新的Object数组并将原来的旧数组中的值复制到新的数组中并抛弃到就的数组，扩容是占据一定的性能和时间的
+ArrayList中的元素添加满了后继续添加的话，会在最小容量minCapacity size+1，如果minCapacity - 默认大小  > 0，则说明需要更大的大小去扩容新的元素，默认情况是扩容到原来内存的**1.5倍**，会创建一个新的Object数组并将原来的旧数组中的值复制到新的数组中并抛弃到旧的数组，扩容是占据一定的性能和时间的
 
 JDK7中在ArrayList创建的时候`Object[]`数组的默认大小是10
 
@@ -616,7 +616,7 @@ Object对象的`hashCode()`方法，通过`hashcode()`方法得到hash码，得�
 
    ***Java中规定,两个内容相同(equals(为true)的对象必须具有相等的hashCode和quals()***
 
-   ​
+   
 
 ##### HashMap扩容
 
@@ -890,8 +890,6 @@ Comparator<Integer> comparator1 = (o1, o2) -> o1.compareTo(o2);
 反射机制用来描述所有的类，所有的类都具有相同的特征，共同特征是每一个类都有属性，方法，构造方法，权限修饰符等
 
 加载完类之后，在**堆内存的方法区**中就产生了一个**Class**类型的对象(一个类只有一个Class对象)，这个对象就包含了完整的类的结构信息。我们可以通过这个对象看到类的结构。这个对象就像一面镜子，透过这个镜子看到类的结构，所以，我们形象的称之为:**反射**。
-
-![](/../../%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E8%AF%AD%E8%A8%80%EF%BC%88java%E7%AF%87%EF%BC%89/images/QQ%E6%88%AA%E5%9B%BE20190827230328.png)
 
 反射机制使原本是静态语言的Java有了类似动态语言的特性，使编程更加的灵活，可以在**运行期间决定是用的哪个类的对象、**
 
@@ -1380,7 +1378,7 @@ Thread类本身也实现了`Runnable`接口，两种方式都需要重写Run（�
 
 
 
-###### 方法一：同步代码块
+###### 方法一： 同步代码块
 
 操作共享数据的代码块
 
@@ -1437,7 +1435,7 @@ public static  Bank getInstance() {
 破坏产生死锁的四个条件就可以
 
 - 互斥条件
-- 请求和保持条件
+- 请求和 保持条件
 - 不剥夺条件
 - 循环等待条件
 
@@ -2345,3 +2343,205 @@ setStatus(int sc) 											   给当前响应设置状态码
 
 HttpServletResponse.sendRedirect 			 方法对浏览器的请求直接作出响应，响应的结果就是告诉浏览器去重新发出对另外一个URL的访问请求；方法调用者与被调用者使用各自的request对象和response对象，它们属于两个独立的访问请求和响应过程。
 
+
+
+### EhCache 
+
+EhCache 是一个`纯Java`的进程内`缓存框架`，具有`内存`和`磁盘`存储，缓存加载器,缓存扩展,缓存异常处理程序,一个gzip缓存servlet过滤器,支持REST和SOAP api等特点。
+
+#### 特性
+
+- 快速、简单
+- 多种`缓存策略` 
+- 缓存数据有两级：`内存和磁盘`，因此无需担心`容量问题` 
+- 缓存数据会在虚拟机`重启`的过程中`写入磁盘` 
+
+- 可以通过`RMI`、可插入API等方式进行`分布式缓存` 
+
+- 具有缓存和缓存管理器的侦听接口
+
+- 支持`多`缓存管理器`实例`，以及一个实例的`多个缓存区域` 
+
+- 提供`Hibernate`的缓存实现
+
+#### 集成
+
+Ehcache对分布式缓存的支持性不太好，因此需要经常是搭配Redis一起使用，可以和Mybatis和shiro集成
+
+#### 持久化
+
+遇到重启的时候，持久化到磁盘的存储可以`复原数据`，根据需要将缓存刷到磁盘。将缓存条目`刷到磁盘`的操作可以通过`cache.fiush`方法执行,这大大方便了ehcache的使用
+
+#### 和redis的比较
+
+ehcache直接在jvm虚拟机中缓存，`速度快`，效率高；但是缓存`共享麻烦`，集群分布式应用不方便。
+
+redis是通过socket访问到缓存服务，效率比ecache低，比数据库要快很多，
+ 处理集群和分布式缓存方便，有成熟的方案。如果是`单个应用`或者对`缓存访问要求很高`的应用，用ehcache。如果是大型系统，存在缓存共享、分布式部署、`缓存内容很大`的，建议用redis。
+
+
+
+#### Maven依赖
+
+```xml
+<dependency>
+    <groupId>net.sf.ehcache</groupId>
+    <artifactId>ehcache</artifactId>
+    <version>2.10.2</version>
+</dependency>
+```
+
+#### 配置文件
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache name="jyr">
+    <!-- 磁盘缓存位置 -->
+    <diskStore path="java.io.tmpdir"/>
+    <!-- 默认缓存 -->
+    <defaultCache
+            maxEntriesLocalHeap="1000"
+            eternal="false"
+            timeToIdleSeconds="3600"
+            timeToLiveSeconds="3600"
+            overflowToDisk="false">
+    </defaultCache>
+</ehcache>
+   
+```
+
+
+
+### Socket网络编程
+
+二进制+ip+端口通讯的一种方式
+
+几乎所有的编程语言都有Socket网络编程，之间也是可以互通的，我们所说的网络编程一班是指的是**TCP**协议
+
+**tcp**---面向连接，三次握手成功才能通讯，字节流进行传输，效率低于udp但是可靠
+**udp**----无连接，不管你在不在，都给你发请求，不会建立连接，不可靠，限制64K
+
+Http协议就是基于TCP协议
+
+
+
+#### TCP三次握手
+
+简单理解
+
+![](/QQ截图20200413133240.png)
+
+UDP是面向无连接的，不管有没有接受端，都会发出去，数据的大小有64k的限制，是不安全的
+
+TCP是面向连接的，必须客户端和服务器建立起连接，有三次握手和四次分手的协议，是相对比较安全的数据传输协议，在涉及到传输的数据安全的时候，应使用TCP，TCP的传输大小没有限制，效率相对UDP较慢	
+
+
+
+#### Demo
+
+UDPServer 端
+
+关键字ServerSocket，byte[]缓冲区，涉及到文件流的传输InputStream，OutputStream
+
+```java
+public class SocketServer {
+    public static void main(String[] args) throws IOException {
+        System.err.println("TCP服务启动了");
+        // 服务端ServerSocket
+        ServerSocket socket = new ServerSocket(8080);
+        try {
+            // 消息阻塞
+            Socket accept = socket.accept();
+            // 从输入流中读取内容
+            InputStream stream = accept.getInputStream();
+            byte[] bytes = new byte[1024];
+            int length = stream.read(bytes);
+            String result = new String(bytes, 0, length);
+            System.err.println("服务端接收到客户端的消息了：->" + result);
+
+            // 响应给客户端的消息
+            OutputStream outputStream = accept.getOutputStream();
+            PrintWriter printWriter = new PrintWriter(outputStream);
+            printWriter.print("服务器已经接受到信息了");
+            printWriter.flush();
+
+            // 关闭输出流
+            accept.shutdownOutput();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            socket.close();
+        }
+    }
+}
+
+```
+
+**UDPClient**
+
+客户端对应的是Socket
+
+```java
+public class Client {
+    public static void main(String[] args) throws IOException {
+        // 服务端对应的是Socket
+        Socket socket = new Socket("127.0.0.1", 8080);
+        try {
+            // 客户端要想服务器发送请求，需要输出流
+            OutputStream outputStream = socket.getOutputStream();
+            String msg = "哈哈哈哈哈";
+            outputStream.write(msg.getBytes());
+            System.err.println("客户端发送消息完毕");
+
+            // 读取服务器的反馈
+            InputStream inputStream = socket.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String result = reader.readLine();
+            System.out.println("服务器的响应结果是：-->" + result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            socket.close();
+        }
+    }
+}
+```
+
+
+
+### NIO和BIO
+
+Java中的IO都是依赖操作系统内核进行的，我们程序中的IO读写其实调用的是操作系统内核中的read&write两大系统调用。
+
+BIO中需要多线程才能进行并发操作，在并发环境下，这意味着一个请求要对应一个线程，对服务端是极大的性能损耗，开启一个闲置的线程等待客户端发送请求，如果客户端
+
+```java
+public class BIOMysqlServer {
+    static byte[] bs = new byte[1024];
+    public static void main(String[] args) {
+        try {
+            ServerSocket serverSocket = new ServerSocket(8080);
+            while (true) {
+                System.out.println("Ready to conn");
+                // 阻塞，程序放弃CPU，不会继续执行下去，accept阻塞了，线程会一直等待
+                // accept()会阻塞，read()也会阻塞
+                // BIO会将当前服务端Socket阻塞，只有对应的一个客户端能连接，其他的请求都不能访问——不支持高并发
+                // 改造：将当前执行的程序放入到线程中，在阻塞的时候只阻塞当前线程，其他的请求可以正常访问————并发需要多线程支持
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("conn successful");
+
+                clientSocket.getInputStream().read(bs);
+                System.out.println("this is data from client: ->" + new String(bs));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+ 
+
+#### NIO
+
+Redis是单线程的，单线程处理高并发，可以说Redis是基于NIO的，
