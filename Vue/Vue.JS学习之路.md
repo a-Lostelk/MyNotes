@@ -994,6 +994,16 @@ Vue.use(VueRouter)
 
 应用场景：当登录默认展示某个页面的时候，可以使用`{path: '/login', redirect: login}`
 
+### vue router和 route的区别
+
+router是Vue实例中一个全局的路由对象，为VueRouter的实例面含有很多属性和子对象，例如history对象。。。经常用的跳转链接就可以用this.$router.push，和router-link跳转一样。。。
+
+route相当于当前正在跳转的路由对象。。可以从里面获取name,path,params,query等
+
+**router**全局负责url跳转的老大，**route**正在跳转的小弟
+
+
+
 #### Vue中的query传参
 
 `query`组件用来监听URL的传参，qu	ery对象里是传输的参数名和参数值
@@ -1095,3 +1105,333 @@ computed: {
     }
 }
 ```
+
+
+
+### Vue工程
+
+![](QQ截图20200815215259.png)
+
+Vue的工程结构
+
+components组件，vue提倡组件化开发
+
+router路由
+
+store 相关的JS文件  
+
+
+
+#### 配置
+
+![](/QQ截图20200816201203.png)
+
+使用npm的方式运行
+
+
+
+template下面只能有有个html元素作为其他元素的载体，如下，之后的所有内容都是在外层div中
+
+![](QQ截图20200816202528.png)
+
+
+
+#### Vue读取本地文件
+
+[参考文章]([https://blog.csdn.net/qq_40557812/article/details/84775111?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-84775111.nonecase&utm_term=vue%20%E5%8A%A0%E8%BD%BD%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87](https://blog.csdn.net/qq_40557812/article/details/84775111?utm_medium=distribute.pc_aggpage_search_result.none-task-blog-2~all~sobaiduend~default-1-84775111.nonecase&utm_term=vue 加载本地图片))
+
+第一种：在传统的html开发中，可以使用src加绝对路径的方式读取本地文件，在vue中读不到
+
+第二种：必须使用Vue 的:src的方式，并导入到当前Vue模块中，在data()中定义
+
+
+
+![](QQ截图20200816221858.png)
+
+
+
+#### 实现登录
+
+vue：
+
+```vue
+<template>
+    <div>
+        <el-container>
+            <el-header>
+                <img class="logo-bg" :src="imgLogo" alt="">
+            </el-header>
+            <el-main>
+                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="用户名" prop="username">
+                        <el-input v-model="ruleForm.username"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" prop="password">
+                        <el-input type="password" v-model="ruleForm.password"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
+                        <el-button @click="resetForm('ruleForm')">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-main>
+        </el-container>
+    </div>
+</template>
+
+<script>
+    import logo from '../../assets/images/login.png'
+
+    export default {
+        name: "login",
+        data() {
+            return {
+                imgLogo: logo,
+                n: false,
+                m: false,
+
+                //表单验证
+                ruleForm: {
+                    username: 'markerhub',
+                    password: '111111'
+                },
+                // 验证规则
+                rules: {
+                    username: [
+                        {required: true, message: '请输入用户名', trigger: 'blur'},
+
+                    ],
+                    password: [
+                        {required: true, message: '请输入密码', trigger: 'blur'},
+                        {min: 6, max: 16, message: '请输入6至16位的密码', trigger: 'blur'}
+                    ],
+                },
+            }
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$axios.post('http://localhost:8081/login',this.ruleForm).then(res => {
+                            console.log(res.headers);
+                            console.log(res);
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    ....
+```
+
+
+
+在后端路由中，页面发起一个请求到服务器，服务器响应并返回给用户数据
+
+Vue路由可以理解为永远都是操作App.vue，App.vue中的路由在发生改变，展示的是App.vue中不同的路由
+
+```vue
+<template>
+  <div id="app">
+    <router-view/>
+  </div>
+</template>
+```
+
+
+
+### Cookie、LocalStorage 与 SessionStorage
+
+`Cookie `是小甜饼的意思。顾名思义，cookie 确实非常小，它的大小限制为`4KB`左右。它的主要用途有保存登录信息，比如你登录某个网站市场可以看到“记住密码”，这通常就是通过在 Cookie 中存入一段辨别用户身份的数据来实现的
+
+`localStorage`是 HTML5 标准中新加入的技术，它并不是什么划时代的新东西。早在 IE 6 时代，就有一个叫 userData 的东西用于本地存储，而当时考虑到浏览器兼容性，更通用的方案是使用 Flash。而如今，localStorage 被大多数浏览器所支持，如果你的网站需要支持 IE6+，那以 userData 作为你的 polyfill 的方案是种不错的选择。
+
+`sessionStorage` 与 localStorage 的接口类似，但保存数据的生命周期与 localStorage 不同。做过后端开发的同学应该知道 Session 这个词的意思，直译过来是“会话”。而 sessionStorage 是一个前端的概念，它只是可以将一部分数据在当前会话中保存下来，刷新页面数据依旧存在。但当页面关闭后，sessionStorage 中的数据就会被清空。
+
+## 三者的异同
+
+| 特性           | Cookie                                                       | localStorage                                                | sessionStorage                               |
+| :------------- | :----------------------------------------------------------- | :---------------------------------------------------------- | :------------------------------------------- |
+| 数据的生命期   | 一般由服务器生成，可设置失效时间。如果在浏览器端生成Cookie，默认是关闭浏览器后失效 | 除非被清除，否则永久保存                                    | 仅在当前会话下有效，关闭页面或浏览器后被清除 |
+| 存放数据大小   | 4K左右                                                       | 一般为5MB                                                   |                                              |
+| 与服务器端通信 | 每次都会携带在HTTP头中，如果使用cookie保存过多数据会带来性能问题 | 仅在客户端（即浏览器）中保存，不参与和服务器的通信          |                                              |
+| 易用性         | 需要程序员自己封装，源生的Cookie接口不友好                   | 源生接口可以接受，亦可再次封装来对Object和Array有更好的支持 |                                              |
+
+sessionStorage 和localStorage中一般存储的都是字符串，不能存储对象，使用JSON.stringify()序列化对象
+
+
+
+### 全局axios拦截器
+
+axios 是一个基于Promise 用于浏览器和 nodejs 的 HTTP 客户端，它本身具有以下特征：
+
+```js
+import axios from 'axios'
+import Element from 'element-ui'
+import router from './router'
+import store from './store'
+
+// 
+axios.defaults.baseURL = "http://localhost:8081"
+
+// 前置拦截
+axios.interceptors.request.use(config => {
+    return config
+})
+
+axios.interceptors.response.use(response => {
+        let res = response.data;
+
+        console.log("=================")
+        console.log(res)
+        console.log("=================")
+
+        if (res.code === '200') {
+            return response
+        } else {
+
+            Element.Message.error(res.msg, {duration: 3 * 1000})
+
+            return Promise.reject(res.msg)
+        }
+    },
+    // 异常拦截
+    error => {
+        console.log(error)
+        if(error.response.data) {
+            error.message = error.response.data.msg
+        }
+
+        if(error.response.status === 401) {
+            store.commit("REMOVE_INFO")
+            router.push("/login")
+        }
+
+        Element.Message.error(error.message, {duration: 3 * 1000})
+        return Promise.reject(error)
+    }
+)
+```
+
+
+
+### Vue日期格式化
+
+vue中插入，js文件用的是export,  vue文件引入的时候需要加{}
+
+```js
+import {formatDate} from "../../components/common/data"
+```
+
+在Template中使用 | 
+
+```js
+<el-timeline-item :timestamp="blog.created | formatDate" placement="top" v-for="blog in blogs">
+    <el-card>
+        <h4>
+    // name: 对应的是router路由中component组件名
+            <router-link :to="{name: 'blogDetail', params: {blogId: blog.id}}">
+                {{blog.title}}
+            </router-link>
+        </h4>
+        <p>{{ blog.description }}</p>
+    </el-card>
+</el-timeline-item>
+```
+
+
+
+
+
+#### Vue UI 可视化工具
+
+新建项目后页面（创建步骤省略）
+
+![](QQ截图20200815223004.png)
+
+
+
+### Vue cli
+
+简称Vue脚手架
+
+Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统，提供：
+
+- 通过 `@vue/cli` 实现的交互式的项目脚手架。
+
+- 通过 `@vue/cli` + `@vue/cli-service-global` 实现的零配置原型开发。
+
+- 一个运行时依赖 (
+
+  ```
+  @vue/cli-service
+  ```
+
+  )，该依赖：
+
+  - 可升级；
+  - 基于 webpack 构建，并带有合理的默认配置；
+  - 可以通过项目内的配置文件进行配置；
+  - 可以通过插件进行扩展。
+
+- 一个丰富的官方插件集合，集成了前端生态中最好的工具。
+
+- 一套完全图形化的创建和管理 Vue.js 项目的用户界面。
+
+  
+
+  #### 安装
+
+可以使用下列任一命令安装这个新的包：
+
+```bash
+npm install -g @vue/cli
+# OR
+yarn global add @vue/cli
+```
+
+安装之后，你就可以在命令行中访问 `vue` 命令。你可以通过简单运行 `vue`，看看是否展示出了一份所有可用命令的帮助信息，来验证它是否安装成功。
+
+你还可以用这个命令来检查其版本是否正确：
+
+```bash
+vue --version
+```
+
+Vue UI 是基于Vuecli
+
+安装富文本编辑器
+
+![](QQ截图20200822231425.png)
+
+
+
+### Element ui
+
+<https://element.eleme.cn/#/zh-CN/guide/design>官方地址
+
+基于vue的类似BootStrap的组件库，样式新颖，功能强大
+
+
+
+### pagination分页
+
+#### Events事件
+
+| 事件名称       | 说明                               | 回调参数 |
+| :------------- | :--------------------------------- | :------- |
+| size-change    | pageSize 改变时会触发              | 每页条数 |
+| current-change | currentPage 改变时会触发           | 当前页   |
+| prev-click     | 用户点击上一页按钮改变当前页后触发 | 当前页   |
+| next-click     | 用户点击下一页按钮改变当前页后触发 | 当前页   |
+

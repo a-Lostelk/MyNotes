@@ -1,5 +1,5 @@
 ---
-typora-root-url: springboot\images
+typora-root-url: images
 ---
 
 # 								java面试准备
@@ -2545,3 +2545,29 @@ public class BIOMysqlServer {
 #### NIO
 
 Redis是单线程的，单线程处理高并发，可以说Redis是基于NIO的，
+
+
+
+#### Java的Future机制
+
+创建线程的方式，继承Thread，实现Runable
+
+这两种方式都有一个缺陷就是：**在执行完任务之后无法获取执行结果。**
+
+**5个方法**：
+
+![](QQ截图20200727194542.png)
+
+`get()`方法用户返回计算结果，如果计算还没有完成，则在get的时候会进行阻塞，直到获取到结果为止。
+
+`get(long timeout, TimeUnit unit)`方法的耐心是有限的，如果在指定时间内没有完成计算，则会抛出`TimeoutException`.
+
+```java
+.get(2, TimeUnit.SECONDS)
+```
+
+`isDone()`方法用于判断当前Future是否执行完成。
+
+`cancel`取消当前线程的执行。参数表示是否在线程执行的过程中阻断。
+
+`isCancelled()`判断当前task是否被取消。
