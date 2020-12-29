@@ -33,3 +33,66 @@ Zookeeper是源代码开放的分布式协调服务，是一个高性能的分�
 提供名称的服务。如一般使用较多的有两种id, -种是数据库自增长id, -种是UJID,两种id都有局限，自增长id仅适合在单表单库中使用，uuid适合在分布式系统中使用但由于id没有规律难以理解。而ZK提供了-定的接口可以用来获取一个顺序增长的,可以在集群环境下使用的id.
 
 自增id在分库分表的情况下 ，数据库1的自增id为1，数据库2的id是也是1，依次增长，会存在id重复的情况，但不会出现一次的情况，如果访问某个id的数据，可能会得到多个数据结果
+
+
+
+### 初次使用
+
+![](QQ截图20200928225233.png)
+
+复制zoo_sample.cfg为zoo.cfg文件
+
+![](QQ截图20200928225545.png)
+
+
+
+
+
+### 文件系统和监听机制
+
+![](20200103001656180.png)
+
+每个子目录项如NameService都称为znode（目录节点），和文件系统一样，我们能够自由的添加，删除znode，在一个znode下添加 删除子znode，唯一的不同在于znode是可以储存数据的
+
+#### 四种类型的znode
+
+PERSISTENT-持久化目录节点 客户端与zookeeper断开连接后，该节点依旧存在
+PERSISTENT_SEQUENTIAL-持久化顺序编号目录节点 客户端与zookeeper断开连接后，该节点依旧存在，只是Zookeeper给该节点名称进行顺序编号
+EPHEMERAL-临时目录节点 客户端与zookeeper断开连接后，该节点被删除，Zookeeper重启后会失效
+EPHEMERAL_SEQUENTIAL-临时顺序编号目录节点 客户端与zookeeper断开连接后，该节点被删除，只是Zookeeper给该节点名称进行顺序编号
+
+#### 监听机制
+
+客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、被删除、子目录节点增加删除）时，zookeeper会通知客户端。
+
+
+
+### 创建节点
+
+create命令创建一个节点
+
+```
+create [-s] [-e] path data acl
+// -s顺序节点 -e无序节点 acl权限控制
+// 示例 create -s -e /sanguo luoguanzhong 	
+```
+
+get查看节点值
+
+
+
+### 配置文件
+
+Zookeeper中的配置文件zoo.cfg中参数含义解读如下:
+1. tickTime =20DC:通信心跳数，Zookeeper服务器与客户端心跳时间，单位毫秒
+Zookeeper使用的基本时间，服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个tickTime时间就会发送一个心跳，时间单位为毫秒。
+它用于心跳机制，并且设置最小的session超时时间为两倍心跳时间。(session的最小超时时间是2*tickTime)
+2. initLimit =10:LF初始通信时限
+  集群中的Follower跟随者服务器与Leader领导者服务器之间初始连接时能容忍的最多心跳数(tickTime的数量)，用它来限定集群中的Zookeeper服务器连接到Leader的时限。
+3. syncLimit =5:LF同步通信时限
+  集群中Leader与Follower之间的最大响应时间单位，假如响应超过syncLimit* tickTime，Leader认为Follwer死掉，从服务器列表中删除Follwer。
+4. dataDir:数据文件目录+数据持久化路径
+  主要用于保存Zookeeper中的教据。
+5. clientPort =2181:客户端连接端口
+  监听客户端连接的端口。
+

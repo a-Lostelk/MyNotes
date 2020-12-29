@@ -93,6 +93,12 @@ MySQL中默认的隔离级别是:Repeatable read(可重复读)，oracle默认的
 - **limit读取适当的记录**
 
   **`SELECT * FROM t WHERE 1 LIMIT 10;`**
+  
+- 不能有null值的字段
+
+  `select * from t where name is null`
+
+- 
 
 
 

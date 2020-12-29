@@ -2,7 +2,7 @@
 typora-root-url: images
 ---
 
-# 								java面试准备
+# 								java进击之路
 
 ### 动态语言和静态语言
 
@@ -114,6 +114,8 @@ System.out.println(stringBuffer2.length());
 ```
 
 **扩容问题**：*如果原有的底层数组装不下了，那么就需要扩容新的数组，默认情况下是扩容原来的2倍 +  2，同时将原有数组中的数据复制到新的数组中*
+
+扩容条件：当Map中阈值大于8同时数组的长度大于64的时候才会进行转红黑树，无满足其中的条件，数组会进行扩容不会转为红黑树
 
 在开发过程中使用带有参数的`StringBuffer`（int capacity）
 
@@ -800,6 +802,24 @@ HashMap中的存储数据是键值对存在的，只要取到其中的一个属�
 `ConcurrentHashMap`是采用分段锁，一次锁住一个桶，`HashTable`是将整个Hash表锁住
 
 `ConcurrentHashMap`默认是分为16个桶，Map的操作都是指锁住需要的桶，相当于`ConcurrentHashMap`可以有16个线程执行
+
+
+
+#### **线程安全(Thread-safe)的集合对象：**
+
+- Vector 线程安全：
+- HashTable 线程安全：
+- StringBuffer 线程安全：
+
+#### **非线程安全的集合对象：**
+
+- ArrayList ：
+- LinkedList：
+- HashMap：
+- HashSet：
+- TreeMap：
+- TreeSet：
+- StringBulider：
 
 
 
@@ -1491,6 +1511,12 @@ Exception的两个子类的区别
 
 
 
+#### throw和throws
+
+throw是在方法内部捕获，throws是声明在方法上
+
+
+
 ### I/O输入输出流
 
 数据流动的方向 **读数据(输入Input)**、**写数据(输出output)** 文件流、字符流、数据流、对象流、网络流
@@ -1967,7 +1993,11 @@ public static void main(String[] args) {
 - `AutoWiredCapableBeanFactory`自动装配Bean，`ApplicationContext`接口并没有继承该接口，但是最后有一个方法`getAutowireCapableBeanFactory（）`方法调用了该接口
 - `DefaultListableBeanFactory`的父类是左右两个，大致来说，这是最强大的Bean工厂的子类，具备了自动装载个ApplicationContext的功能
 
+ApplicationContext的三个实现
 
+1. `ClassPathXmlApplication`：把上下文文件当成类路径资源。
+2. `FileSystemXmlApplication`：从文件系统中的 XML 文件载入上下文定义信息。
+3. `XmlWebApplicationContext`：从Web系统中的XML文件载入上下文定义信息。
 
 #### IOC启动过程分析
 
@@ -2032,6 +2062,270 @@ public void refresh() throws BeansException, IllegalStateException {
          //注册一些IOC容器需要的相关组件,监听器、广播器等
          ......
 ```
+
+
+
+#### 将一个类声明为Spring的 bean 的注解
+
+我们一般使用 `@Autowired` 注解自动装配 bean，要想把类标识成可用于 `@Autowired` 注解自动装配的 bean 的类,采用以下注解可实现：
+
+- `@Component` ：通用的注解，可标注任意类为 `Spring` 组件。如果一个Bean不知道属于哪个层，可以使用`@Component` 注解标注。
+- `@Repository` : 对应持久层即 Dao 层，主要用于数据库相关操作。
+- `@Service` : 对应服务层，主要涉及一些复杂的逻辑，需要用到 Dao层。
+- `@Controller` : 对应 Spring MVC 控制层，主要用于接受用户请求并调用 Service 层返回数据给前端页面。
+
+
+
+#### Spring 事务中的隔离级别有哪几种?
+
+- **TransactionDefinition.ISOLATION_DEFAULT:** 使用后端数据库**默认的隔离级别**，Mysql 默认采用的 REPEATABLE_READ隔离级别 Oracle 默认采用的 READ_COMMITTED隔离级别.
+- **TransactionDefinition.ISOLATION_READ_UNCOMMITTED:** 最低的隔离级别（读未提交），允许读取尚未提交的数据变更，**可能会导致脏读、幻读或不可重复读**
+- **TransactionDefinition.ISOLATION_READ_COMMITTED:** 允许读取并发事务已经提交的数据（读已提交），**可以阻止脏读，但是幻读或不可重复读仍有可能发生**
+- **TransactionDefinition.ISOLATION_REPEATABLE_READ:** 对同一字段的多次读取结果都是一致的（可重复读），除非数据是被本身事务自己所修改，**可以阻止脏读和不可重复读，但幻读仍有可能发生。**
+- **TransactionDefinition.ISOLATION_SERIALIZABLE:** 最高的隔离级别（可序列化），完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，**该级别可以防止脏读、不可重复读以及幻读**。但是这将严重影响程序的性能。通常情况下也不会用到该级别。
+
+
+
+#### Spring事务
+
+##### 1. 编程式事务管理
+
+写在代码中硬编码的，可以作用到代码块，是侵入式的
+
+##### 2.声明式事务管理
+
+声明在配置文件中，对代码无侵入性，只能作用到方法级别，是建立在切面上的，声明式事务又分为基于XML和注解式
+
+
+
+#### Spring读取配置文件方式
+
+1.  `@Value("${property}")`的方式读取	（不推荐）
+
+2. `@ConfigurationProperties`读取Bean名字
+
+   ```yml
+   library:
+     location: 湖北武汉加油中国加油
+     books:
+       - name: 天才基本法
+         description: 二十二岁的林朝夕在父亲确诊阿尔茨海默病这天，得知自己暗恋多年的校园男神裴之即将出国深造的消息——对方考取的学校，恰是父亲当年为她放弃的那所。
+       - name: 时间的秩序
+         description: 为什么我们记得过去，而非未来？时间“流逝”意味着什么？是我们存在于时间之内，还是时间存在于我们之中？卡洛·罗韦利用诗意的文字，邀请我们思考这一亘古难题——时间的本质。
+       - name: 了不起的我
+         description: 如何养成一个新习惯？如何让心智变得更成熟？如何拥有高质量的关系？ 如何走出人生的艰难时刻？
+   ```
+
+   ```java
+   @Component
+   @ConfigurationProperties(prefix = "library")	// yml中配置的Bean的名字
+   @Setter
+   @Getter
+   @ToString
+   class LibraryProperties {
+       private String location;
+       private List<Book> books;
+       static class Book {
+           String name;
+           String description;
+       }
+   }
+   ```
+
+   这时候就可以是当做Spring的Bean交由IOC容器管理
+
+3. `@PropertySource`读取的指定的配置文件，@PropertySource("classpath:website.properties")
+
+
+
+#### SpringBoot读取配置文件顺序
+
+![](67.jpg)
+
+
+
+#### SpringBoot异常处理
+
+加上`@ControllerAdvice`或`@RestControllerAdvice`注解这个类就成为了全局异常处理类
+
+```java
+@ControllerAdvice(assignableTypes = {ExceptionController.class})
+@ResponseBody
+public class GlobalExceptionHandler {
+
+    ErrorResponse illegalArgumentResponse = new ErrorResponse(new IllegalArgumentException("参数错误!"));
+    ErrorResponse resourseNotFoundResponse = new ErrorResponse(new ResourceNotFoundException("Sorry, the resourse not found!"));
+
+    @ExceptionHandler(value = Exception.class)// 拦截所有异常, 这里只是为了演示，一般情况下一个方法特定处理一种异常
+    public ResponseEntity<ErrorResponse> exceptionHandler(Exception e) {
+
+        if (e instanceof IllegalArgumentException) {
+            return ResponseEntity.status(400).body(illegalArgumentResponse);
+        } else if (e instanceof ResourceNotFoundException) {
+            return ResponseEntity.status(404).body(resourseNotFoundResponse);
+        }
+        return null;
+    }
+}
+```
+
+RestFul风格的
+
+```java
+/**
+ * 处理Shiro相关异常
+ *
+ * @param e
+ * @return
+ */
+@ResponseStatus(HttpStatus.UNAUTHORIZED)
+@ExceptionHandler(value = ShiroException.class)
+public String handle(ShiroException e) {
+    log.error("授权认证异常---------{}");
+    return ResultUtil.error("401", e.getMessage());
+}
+```
+
+
+
+#### SpringBoot拦截器和过滤器
+
+拦截器和过滤器在项目都是面向AOP切面编程 的体现
+
+- 过滤器（Filter）：当你有一堆东西的时候，你只希望选择符合你要求的某一些东西。定义这些要求的工具，就是过滤器。
+- 拦截器（Interceptor）：在一个流程正在进行的时候，你希望干预它的进展，甚至终止它进行，这是拦截器做的事情。
+
+拦截器：需要实现 `javax.Servlet.Filter` 接口，然后重写里面的 3 个方法
+
+拦截的主要业务逻辑是写在doFilter中
+
+```java
+public interface Filter {
+  
+   //初始化过滤器后执行的操作
+    default void init(FilterConfig filterConfig) throws ServletException {
+    }
+   // 对请求进行过滤
+    void doFilter(ServletRequest var1, ServletResponse var2, FilterChain var3) throws IOException, ServletException;
+   // 销毁过滤器后执行的操作，主要用户对某些资源的回收
+    default void destroy() {
+    }
+}
+```
+
+过滤器：实现 **org.springframework.web.servlet.HandlerInterceptor**接口或继承
+
+比较常用的：**HandlerInterceptorAdapter**
+
+```java
+public abstract class HandlerInterceptorAdapter implements AsyncHandlerInterceptor {
+    public HandlerInterceptorAdapter() {
+    }
+
+    // 处理前回调方法，如登录校验，打印日志，handler一般为相应的处理器或拦截器，true继续流程，false会终端执行
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        return true;
+    }
+
+    // 后处理回到方法，但在渲染视图之前
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
+    }
+
+    // 请求处理完毕后执行，视图渲染完毕后回调，性能监控计算执行时间，
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
+    }
+
+    public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    }
+}
+```
+
+在SpringBoot工程中默认是会拦截所有资源的，Spring工程需要配置视图解析器，`WebMvcConfigurer `是SpringBoot工程中的过滤器，可以用于放行静态资源和对指定资源进行过滤
+
+
+
+#### SpringBoot常用注解
+
+- @SpringBootApplication启动器类
+- `@EnableAutoConfiguration`：启用 SpringBoot 的自动配置机制
+- `@ComponentScan`： 扫描被`@Component` (`@Service`,`@Controller`)注解的 bean，注解默认会扫描该类所在的包下所有的类。
+- `@Configuration`：允许在 Spring 上下文中注册额外的 bean 或导入其他配置类
+- `@Component`：放在类上，把普通类实例化到spring容器中。
+- `@ConfigurationProperties`读取配置文件
+- `@Value`读取配置文件中的参数的值
+
+
+
+#### Spring涉及的几种设计模式
+
+- 工厂模式： IOC容器可以理解是一个Bean工厂，不必知道工厂是如何创建对象，工厂代工生产，只需要对齐进行相关配置即可  
+- 单例模式：线程池，连接池，日志对象等，只需要一个实例对象，完成都是相同的事情
+- 代理模式：AOP是基于动态代理
+- 适配器模式：把一个接口变成客户需要的另一个接口
+
+
+
+### Mybatis
+
+#### #{}和${}
+
+#{}是变量占位符，字符串替换， ${}是参数占位符，Mybatis 会将 sql 中的`#{}`替换为?号，在 sql 执行前会使用 PreparedStatement 的参数设置方法，按序给 sql 的?号占位符设置参数值
+
+#### xml常用标签
+
+ select|insert|updae|delete 
+
+`<resultMap>`、`<parameterMap>`、`<sql>`、`<include>`、`<selectKey>`
+
+`trim|where|set|foreach|if|choose|when|otherwise|bind`等
+
+
+
+Mybatis的Sql封装对象方式
+
+第一种是使用`<resultMap>`标签，逐一定义列名和对象属性名之间的映射关系
+
+第二种是使用 sql 列的别名功能，将列别名书写为对象属性名，比如 T_NAME AS NAME，对象属性名一般是 name，小写，但是列名不区分大小写
+
+#### Mybatis一对一
+
+第一种方式：嵌套结果集，resultMap中的association包含另一个实体对象
+
+```xml
+   <!--
+           方式一：嵌套结果：使用嵌套结果映射来处理重复的联合结果的子集
+                   封装联表查询的数据(去除重复的数据)
+           select * from classes c, teacher t where c.tid=t.tid and c.tid=#{tid}
+       -->
+      <select id=  "getClasses"` `resultMap=  "getClassesMap"` `parameterType=  "int"  >
+          select * from classes c ,teacher t
+              where c.tid=t.tid and c.tid=#{tid}
+      </select>
+      <resultMap type=  "one.to.one.Classes"` `id=  "getClassesMap"  >
+          <id column=  "cid"` `property=  "cid"  />
+          <result column=  "cname"` `property=  "cname"  />
+          <association property=  "teacher"` `javaType=  "one.to.one.Teacher"  >
+              <id column=  "tid"` `property=  "tid"  ></id>
+              <result column=  "tname"` `property=  "tname"  />
+          </association>
+      </resultMap>
+```
+
+第二种方式：在resultMap的collection中用select标签执行一个查询
+
+```xml
+<resultMap type=  "one.to.one.Classes"` `id=  "getClassesMap2"  >
+          <id column=  "cid"` `property=  "cid"  />
+          <result column=  "cname"` `property=  "cname"  />
+          <collection property=  "teacher"` `column=  "tid"` `select=  "getTeacherCollection"  >
+          </collection>
+      </resultMap>
+      <select id=  "getTeacherCollection"` `resultType=  "one.to.one.Teacher"  >
+          select tid tid,tname tname from teacher where tid=#{tid}
+      </select>
+```
+
+
 
 
 
@@ -2153,6 +2447,53 @@ mysql> CREATE PROCEDURE simpleproc (OUT param1 INT)
 -> // 
 Query OK, 0 rows affected (0.00 sec) 
 ```
+
+
+
+#### 事务
+
+#### ADID
+
+1. **原子性（Atomicity）：** 事务是最小的执行单位，不允许分割。事务的原子性确保动作要么全部完成，要么完全不起作用；
+2. **一致性（Consistency）：** 执行事务后，数据库从一个正确的状态变化到另一个正确的状态；
+3. **隔离性（Isolation）：** 并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；
+4. **持久性（Durability）：** 一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。
+
+#### 并发事务的问题
+
+1. **脏读**：事务A修改了共享数据但未提交到数据库，事务B读取共享数据未提交的数据，但实际上事务B读取的数据结果和数据库中的结果不一致，这个数据就是“脏数据”
+
+2. **丢失已修改**：事务A修改共享数据，事务B同时也对共享数据修改，这时候事务A的结果不存在，最终结果是事务B的结果，
+
+   A = 10+1； B = 10-1，最终结果是9 A的事务无效
+
+3. **不可重复读**：事务A多次读取同一个数据，同时事务B对该数据进行了修改，导致A读取的多个结果会不一致 （**重点是修改**）
+
+4. **幻读**：事务A读取指定行数的数据，事务B在该行数间插入了新的数据，事务A读取的数据查询出原本不存在的数据，似乎凭空幻觉出现的一样（重点是新增）
+
+#### 数据库隔离级别
+
+针对并发事务的问题，数据库有对应的隔离级别
+
+ **SQL 标准定义了四个隔离级别：**
+
+- **READ-UNCOMMITTED(读取未提交)：** 最低的隔离级别，允许读取尚未提交的数据变更，**可能会导致脏读、幻读或不可重复读**。
+- **READ-COMMITTED(读取已提交)：** 允许读取并发事务已经提交的数据，**可以阻止脏读，但是幻读或不可重复读仍有可能发生**。
+- **REPEATABLE-READ(可重复读)：** 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，**可以阻止脏读和不可重复读，但幻读仍有可能发生**。
+- **SERIALIZABLE(可串行化)：** 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，**该级别可以防止脏读、不可重复读以及幻读**。
+
+------
+
+| 隔离级别         | 脏读 | 不可重复读 | 幻影读 |
+| ---------------- | ---- | ---------- | ------ |
+| READ-UNCOMMITTED | √    | √          | √      |
+| READ-COMMITTED   | ×    | √          | √      |
+| REPEATABLE-READ  | ×    | ×          | √      |
+| SERIALIZABLE     | ×    | ×          | ×      |
+
+
+
+
 
 #### PROCEDURE 
 
@@ -2571,3 +2912,13 @@ Redis是单线程的，单线程处理高并发，可以说Redis是基于NIO的�
 `cancel`取消当前线程的执行。参数表示是否在线程执行的过程中阻断。
 
 `isCancelled()`判断当前task是否被取消。
+
+
+
+### 文件上传案例
+
+![](QQ截图20200913121121.png)
+
+
+
+- 
